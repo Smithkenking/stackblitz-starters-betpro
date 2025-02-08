@@ -1,0 +1,786 @@
+<main class="account-pages full-wrap">
+  <div class="row m-0">
+      <!-- Center Content -->
+      <div class="col-center">
+
+          <!-- Account Statement -->
+          <div class="card z-depth-0 mt-0">
+              <div class="card-content">
+<div class="user-deposit">
+  <ng-container *ngIf="!isShowPaymentPage">
+    <form [formGroup]="depositForm" (ngSubmit)="makePaymentRequest()">
+
+      <div class="deposit-value" *ngIf="depositForm.get('amount') as amountCtrl">
+        <div class="deposit-input">
+          <p>Enter Deposit Amount</p>
+          <div class="d-flex">
+            <input placeholder={{placeholderText}} (focus)="placeholderText = ''" (blur)="placeholderText = '500'"
+              type="number" class="validate" formControlName="amount" maxlength="8" (keypress)="numberOnly($event)">
+            <div class="btn-amount">Amount</div>
+          </div>
+          <div class="center-align" *ngIf="amountCtrl.errors && (amountCtrl.dirty || amountCtrl.touched)">
+            <span class="helper-text error  left-align center-align" data-error="wrong" data-success="right"
+              *ngIf="amountCtrl.errors.required">Please enter valid amount</span>
+          </div>
+        </div>
+        <div class="bid-rate back">
+          <a href="javascript:void(0)" (click)="depositSetValue(500)">
+            <span class="bid-amount">500</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+          <a href="javascript:void(0)" (click)="depositSetValue(1000)">
+            <span class="bid-amount">1000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+          <a href="javascript:void(0)" (click)="depositSetValue(2000)">
+            <!-- <span class="offer-badge">hot</span> -->
+            <span class="bid-amount">2000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+          <a href="javascript:void(0)" (click)="depositSetValue(3000)">
+            <span class="bid-amount">3000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+          <a href="javascript:void(0)" (click)="depositSetValue(10000)">
+            <!-- <span class="offer-badge">hot</span> -->
+            <span class="bid-amount">10000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+          <a href="javascript:void(0)" (click)="depositSetValue(15000)">
+            <span class="bid-amount">15000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+          <a href="javascript:void(0)" (click)="depositSetValue(20000)">
+            <!-- <span class="offer-badge">hot</span> -->
+            <span class="bid-amount">20000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+          <a href="javascript:void(0)" (click)="depositSetValue(50000)">
+            <span class="bid-amount">50000</span>
+            <!-- <p class="offer">+50% Bonus</p> -->
+          </a>
+
+        </div>
+        <div class="submit-btn center-align">
+          <a class="btn" href="javascript:void(0)" (click)="makePaymentRequest()">
+            <span class="animate-btn">
+              Continue
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </form>
+  </ng-container>
+  <ng-container *ngIf="isShowPaymentPage">
+    <ng-container *ngIf="!isDemoLogin else demologin">
+      <form *ngIf="isRechargeDeposit && isManualDeposit">
+        <div class="row deposit-box">
+          <label class="mr-1">
+            <input  name="group1" type="radio"  (change)="onPaymentMethodChange('Recharge')" [checked]="depositModel.option === 'Recharge'"/>
+            <span>Recharge</span>
+          </label>
+          
+          <label>
+            <input  name="group1"  type="radio" (change)="onPaymentMethodChange('Manual')"  [checked]="depositModel.option === 'Manual'" />
+            <span>Manual</span>
+          </label>
+          <div class="deposit-relect" *ngIf="depositModel.option == 'Recharge'">
+            Recharge will be reflect in your account with in 30 - 45 minutes.
+          </div>
+          <div class="deposit-relect" *ngIf="isManualDeposit && depositModel.option == 'Manual'">
+            Manual deposit is simple and fast to reflect on your account.
+          </div>
+          <div class="bottom-border">
+            <svg xmlns="http://www.w3.org/2000/svg" width="740" height="1" viewBox="0 0 740 1" fill="none"
+              *ngIf="!isCheckedDarkTheme">
+              <line y1="0.5" x2="740" y2="0.5" stroke="url(#paint0_radial_43_842)" />
+              <defs>
+                <radialGradient id="paint0_radial_43_842" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(345.501 -3.99881) rotate(58.742) scale(166.697 123356)">
+                  <stop stop-color="#E4E1E1" />
+                  <stop offset="1" stop-color="#F5F4F4" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="740" height="1" viewBox="0 0 740 1" fill="none"
+              *ngIf="isCheckedDarkTheme">
+              <line y1="0.5" x2="740" y2="0.5" stroke="url(#paint0_radial_52_716)" />
+              <defs>
+                <radialGradient id="paint0_radial_52_716" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(345.501 -3.99881) rotate(58.742) scale(166.697 123356)">
+                  <stop stop-color="#033099" />
+                  <stop offset="1" stop-color="#021E61" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+      </form>
+      <div class="deposit-modal">
+        <ng-container *ngIf="depositModel.option == 'Recharge'">
+          <ng-template [ngTemplateOutlet]="campaignActionListTemp"></ng-template>
+          <form [formGroup]="rechargeDepositForm">
+            <div class="row m-0" *ngIf="rechargeDepositForm.get('amount') as amountCtrl">
+              <div class="amount-bg">
+                <div class="input-field document-details">
+                  <input placeholder={{placeholderText}} (focus)="placeholderText = ''" (blur)="placeholderText = '500'"
+                    type="number" class="validate" formControlName="amount" maxlength="8"
+                    (keypress)="numberOnly($event)" (keyup)="AmountCheck($event)">
+                  <label class="active">Enter Amount<span class="text-danger">*</span>: </label>
+                </div>
+                <div class="center-align" *ngIf="amountCtrl.errors && (amountCtrl.dirty || amountCtrl.touched)">
+                  <span class="helper-text error  left-align center-align" data-error="wrong" data-success="right"
+                    *ngIf="amountCtrl.errors.required">Please enter valid amount</span>
+                </div>
+                <div *ngIf="isdepositminmax" class="center-align">
+                  <span class="helper-text error center-align left-align" data-error="wrong" data-success="right">
+                    Deposit amount must be between {{Amountminmax.dmin}} and {{Amountminmax.dmax}}.</span>
+                </div>
+                <div class="center-align add-amount">
+                  you can add upto <strong>{{Amountminmax.dmax}},</strong> minimum
+                  <strong>{{Amountminmax.dmin}}</strong> required
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="submit-btn center-align">
+            <a class="btn" href="javascript:void(0)" (click)="depositRequest()"
+              [class.btnsubmit]="depositModel.option == 'Recharge'" [ngClass]="loading?'login-disable':''">
+              <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm"
+                style="font-size: 14px;margin-right: 2px;"></i>
+              <span class="animate-btn">
+                Submit
+              </span>
+            </a>
+          </div>
+        </ng-container>
+
+      </div>
+      <ng-container *ngIf="depositModel.option == 'Manual'">
+        <ng-template [ngTemplateOutlet]="campaignActionListTemp"></ng-template>
+        <div class="payment-method">
+          <form [formGroup]="manualDepositForm">
+            <div class="bank-transfer">
+              <div class="select-transfer">
+                <a href="javascript:void(0)" *ngIf="isWhatsappDeposit" class="whatsapp-icon"
+                  [class.active]="selectedPaymentMethod == -1" (click)="selectedPaymentMethod = -1">
+                  <div class="payment-img">
+                    <img src="assets/images/support-wa.png" class="responsive-img" alt="" loading="lazy">
+                  </div>
+                  <h6>Deposit on</h6>
+                  <h2>WhatsApp</h2>
+                </a>
+                <a href="javascript:void(0)" [class.active]="selectedPaymentMethod === i"
+                  (click)="onPaymentMethodClick(i,item.appPaymentMode)"
+                  *ngFor="let item of manualPaymentDetails; let i = index;">
+                  <div class="payment-img">
+                    <img [src]="item.appIcon" class="img-responsive" alt="" loading="lazy">
+                  </div>
+                  <h2>{{item.appPaymentMode}}</h2>
+                </a>
+              </div>
+              <div class="payment-options"
+                *ngIf="selectedPaymentMethod !== -1 && paymentDetailsOption && paymentDetailsOption.length > 1">
+                <button class="btn" *ngFor="let item of paymentDetailsOption; let j = index; let odd=odd;"
+                  [ngClass]="odd ? 'opt-1' : 'opt-2'" (click)="onPaymentOPtionClick(j,item.appManualPaymentAccountID,item.appIsUPIRequestQRCode)"
+                  [class.active]="selectedPaymentOption === j">
+                  Option {{j+1}}
+                </button>
+              </div>
+              <div class="select-deposit-mode">
+
+                <div class="wp-deposit-details" *ngIf="isWhatsappDeposit  && selectedPaymentMethod == -1">
+
+                  <ul class="wp-list">
+                    <li> Get Your Id On Live Chat / Telegram / Whatsapp Just From Rs 100.</li>
+                    <li> Instant 24/7 Deposit &amp; Withdrawal Guaranteed!!</li>
+                    <!-- <li> If you want to deposit through crypto please ask for the wallet address on whatsapp or telegram</li> -->
+                    <li>All Pay Option Available Like Paytm, Gpay, Upi, Imps &amp; Hawala.</li>
+                    <li> No Tension Of Pending Transaction &amp; Inactive Account.</li>
+                    <li> Ask updated bank details on given Options.</li>
+                    <li> All Clients are Requested To Shift On Below Given Options For
+                      Smooth Service.</li>
+                    <li>
+
+                      You can deposit through crypto on below wallets only. PLEASE DO NOT TRANSFER ON ANY OTHER WALLET.
+                      After transferring crypto please send screenshot and hash on our whatsapp or telegram.
+                      <br>Available wallets:
+                      <br>USDT TRC-20: TEVNkt1gDgxkUP4JpVBY3zWXLqPF1XbSRK
+                      <br>Bitcoin: 1Bi26VyocaVxNqkZ3H5og7dCYY2pREvfpe
+                    </li>
+                  </ul>
+                  <div class="deposit-media">
+                    <a href="javascript:void(0);" (click)="depositwithTele()" *ngIf="DepositWithTelegram">
+                      <img class="w-100" [src]="commonService.imgRelativePath('assets/images/tele-deposit.png')"
+                        alt="Telegram" loading="lazy">
+                    </a>
+                    <a href="javascript:void(0);" (click)="depositwithWhatsapp()" *ngIf="DepositWithWhatsapp">
+                      <img class="w-100" [src]="commonService.imgRelativePath('assets/images/wp-deposit.png')"
+                        alt="WhatsApp" loading="lazy">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="pay-details" *ngIf="selectedPaymentMethod !== -1">
+                <div class="title">
+                  Make your payment on the details below
+                </div>
+                <div class="phone-pay-details">
+                  <div class="phonepay-content"
+                    *ngFor="let item of selectedPaymentAccountDetail;trackBy:trackByFun;let p = index;let last = last;">
+                    <div class="label">
+                      {{item.appKey}}
+                    </div>
+                    <div class="gpay-id" [attr.id]="'payment' + p">
+                      {{item.appValue}}
+                    </div>
+                    <div class="icons" (click)="onCopyToClipboardClick(p)" title="Click to Copy">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
+                        <path
+                          d="M11.25 11C11.25 11.1989 11.171 11.3897 11.0303 11.5303C10.8897 11.671 10.6989 11.75 10.5 11.75H4.49999C4.30108 11.75 4.11032 11.671 3.96967 11.5303C3.82901 11.3897 3.75 11.1989 3.75 11C3.75 10.8011 3.82901 10.6103 3.96967 10.4697C4.11032 10.329 4.30108 10.25 4.49999 10.25H10.5C10.6989 10.25 10.8897 10.329 11.0303 10.4697C11.171 10.6103 11.25 10.8011 11.25 11ZM8.24999 13.25H4.49999C4.30108 13.25 4.11032 13.329 3.96967 13.4697C3.82901 13.6103 3.75 13.8011 3.75 14C3.75 14.1989 3.82901 14.3897 3.96967 14.5303C4.11032 14.671 4.30108 14.75 4.49999 14.75H8.24999C8.4489 14.75 8.63967 14.671 8.78032 14.5303C8.92097 14.3897 8.99999 14.1989 8.99999 14C8.99999 13.8011 8.92097 13.6103 8.78032 13.4697C8.63967 13.329 8.4489 13.25 8.24999 13.25ZM15 8.36376V14.75C14.9988 15.7442 14.6033 16.6973 13.9003 17.4003C13.1973 18.1033 12.2442 18.4988 11.25 18.5H3.75C2.7558 18.4988 1.80267 18.1033 1.09966 17.4003C0.396661 16.6973 0.00119089 15.7442 0 14.75V4.25001C0.00119089 3.25582 0.396661 2.30268 1.09966 1.59968C1.80267 0.896678 2.7558 0.501208 3.75 0.500017H7.13624C7.82595 0.498242 8.50918 0.633208 9.14641 0.897111C9.78364 1.16101 10.3622 1.54862 10.8487 2.03752L13.4617 4.65201C13.9509 5.13819 14.3388 5.71661 14.6028 6.35374C14.8668 6.99088 15.0018 7.67408 15 8.36376ZM9.78824 3.09801C9.5522 2.86939 9.28719 2.67271 8.99999 2.51302V5.75001C8.99999 5.94892 9.07901 6.13969 9.21966 6.28034C9.36031 6.42099 9.55108 6.50001 9.74999 6.50001H12.987C12.8272 6.2129 12.6303 5.94812 12.4012 5.71251L9.78824 3.09801ZM13.5 8.36376C13.5 8.24001 13.476 8.12151 13.4647 8.00001H9.74999C9.15325 8.00001 8.58096 7.76296 8.159 7.341C7.73704 6.91904 7.49999 6.34675 7.49999 5.75001V2.03527C7.37849 2.02402 7.25924 2.00002 7.13624 2.00002H3.75C3.15326 2.00002 2.58096 2.23707 2.15901 2.65903C1.73705 3.08098 1.5 3.65328 1.5 4.25001V14.75C1.5 15.3467 1.73705 15.919 2.15901 16.341C2.58096 16.7629 3.15326 17 3.75 17H11.25C11.8467 17 12.419 16.7629 12.841 16.341C13.2629 15.919 13.5 15.3467 13.5 14.75V8.36376Z"
+                          fill="#454545" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- pay-details div over -->
+              <div class="utr-amount-details" *ngIf="selectedPaymentMethod !== -1">
+                <div class="left-content">
+                  <div class="amount-bg" *ngIf="manualDepositForm.get('Amount') as amountCtrl">
+                    <div class="amount">
+                      <div class="input-field">
+                        <input placeholder="Enter Amount" type="number" class="validate" formControlName="Amount"
+                          maxlength="8" (keypress)="numberOnly($event)" (keyup)="AmountCheck($event)">
+                        <!-- <label for="enter-number" class="active">Amount</label> -->
+                        <!-- <div class="icons">
+                          <svg width="30px" height="30px" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                            xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns1="http://sozi.baierouge.fr"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" id="svg3611"
+                            sodipodi:docname="Indian_Rupee_symbol.svg" viewBox="0 0 169.76 250.39" version="1.1"
+                            inkscape:version="0.47 r22583">
+                            <g id="layer1" inkscape:label="Layer 1" inkscape:groupmode="layer"
+                              transform="translate(0 -801.97)">
+                              <path id="path4158" sodipodi:nodetypes="cccccccccccccccccccc"
+                                d="m99.017 1052.3-90.577-113.33 0.5232-22.46c42.51 2.93 75.559-1.57 83.248-41.78l-90.578-0.52 14.66-24.55 72.253 1.04c-11.009-22.88-41.286-25.7-88.484-24.02l16.231-24.03 153.41-0.22927-15.184 23.731h-42.409c7.7512 8.1823 13.424 17.597 13.613 25.591l43.98-0.52226-15.184 23.502-29.32 0.52229c-4.5772 35.058-36.787 55.815-77.489 60.584l91.184 116.44-39.874 0.022v0.0004z">
+                              </path>
+                            </g>
+                          </svg>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="center-align" *ngIf="amountCtrl.errors && (amountCtrl.dirty || amountCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="amountCtrl.errors.required">Please enter valid amount</span>
+                    </div>
+                    <div *ngIf="isdepositminmax" class="center-align">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                        Deposit amount must be between {{selectedPaymentAccountDetail[0].appMinAmount}} and
+                        {{selectedPaymentAccountDetail[0].appMaxAmount}}.</span>
+                    </div>
+                    <div class="center-align add-amount">
+                      you can add upto <strong>{{selectedPaymentAccountDetail[0]?.appMaxAmount}},</strong> minimum
+                      <strong>{{selectedPaymentAccountDetail[0]?.appMinAmount}}</strong> required
+                    </div>
+                  </div>
+                  <div class="amount-bg" *ngIf="manualDepositForm.get('UTRTransactionNo') as utrtCtrl">
+                    <div class="amount">
+                      <div class="input-field">
+                        <input placeholder="Enter UTR id" type="text" class="validate"
+                          formControlName="UTRTransactionNo" (keypress)="allowAlphaNumericSpace($event)">
+                        <!-- <label for="enter-cvc" class="active">Enter UTR transaction ID</label> -->
+                        <!-- <div class="icons">
+                          <svg width="20" height="15" viewBox="0 0 20 15" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M15.8333 0H4.16667C3.062 0.00132321 2.00296 0.440735 1.22185 1.22185C0.440735 2.00296 0.00132321 3.062 0 4.16667L0 10.8333C0.00132321 11.938 0.440735 12.997 1.22185 13.7782C2.00296 14.5593 3.062 14.9987 4.16667 15H15.8333C16.938 14.9987 17.997 14.5593 18.7782 13.7782C19.5593 12.997 19.9987 11.938 20 10.8333V4.16667C19.9987 3.062 19.5593 2.00296 18.7782 1.22185C17.997 0.440735 16.938 0.00132321 15.8333 0ZM4.16667 1.66667H15.8333C16.4964 1.66667 17.1323 1.93006 17.6011 2.3989C18.0699 2.86774 18.3333 3.50363 18.3333 4.16667H1.66667C1.66667 3.50363 1.93006 2.86774 2.3989 2.3989C2.86774 1.93006 3.50363 1.66667 4.16667 1.66667ZM15.8333 13.3333H4.16667C3.50363 13.3333 2.86774 13.0699 2.3989 12.6011C1.93006 12.1323 1.66667 11.4964 1.66667 10.8333V5.83333H18.3333V10.8333C18.3333 11.4964 18.0699 12.1323 17.6011 12.6011C17.1323 13.0699 16.4964 13.3333 15.8333 13.3333Z" />
+                          </svg>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="center-align" *ngIf="utrtCtrl.errors && (utrtCtrl.dirty || utrtCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="utrtCtrl.errors.required">Please enter valid UTR transaction id</span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="right-content pay-details">
+                  <div class="upload_ss">
+                    <div class="file-field upload-id" [class.img-upload]="depositdocumentImg">
+                      <div class="document-image" *ngIf="depositdocumentImg">
+                        <img [src]="depositdocumentImg" alt="" loading="lazy">
+                      </div>
+                      <div class="btn">
+                        <span><a> <i class="fas fa-plus"></i>
+                          </a></span>
+                        <span class="upload-title" *ngIf="!depositdocumentImg">Click here to upload Payment
+                          Screenshot</span>
+                        <input type="file" accept="image/*" (change)="onSelectDepositeDocumentFile($event)" #ufile>
+                      </div>
+                      <!-- <span *ngIf="!depositdocumentImg"><a href="javascript:void(0)" class="">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 32" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M4.7983 3.09184C3.7171 3.09184 2.84062 3.96832 2.84062 5.04952V26.9505C2.84062 27.0745 2.85215 27.1958 2.87419 27.3134L20.606 10.4928C21.0578 10.0642 21.766 10.0642 22.2179 10.4928L28.657 16.601V5.04952C28.657 3.96832 27.7805 3.09184 26.6993 3.09184H4.7983ZM30.9991 19.2844V5.04952C30.9991 2.67482 29.074 0.749756 26.6993 0.749756H4.7983C2.4236 0.749756 0.498535 2.67482 0.498535 5.04952V26.9505C0.498535 29.3252 2.4236 31.2503 4.7983 31.2503H26.6993C29.074 31.2503 30.9991 29.3252 30.9991 26.9505V19.3695C31.0001 19.3411 31.0001 19.3128 30.9991 19.2844ZM28.657 19.8293L21.4119 12.9565L4.60598 28.8989C4.66925 28.9051 4.7334 28.9082 4.7983 28.9082H26.6993C27.7805 28.9082 28.657 28.0317 28.657 26.9505V19.8293ZM14.3014 8.17813C13.6522 8.17813 13.1259 8.70442 13.1259 9.35363C13.1259 10.0028 13.6522 10.5291 14.3014 10.5291C14.9506 10.5291 15.4769 10.0028 15.4769 9.35363C15.4769 8.70442 14.9506 8.17813 14.3014 8.17813ZM10.7838 9.35363C10.7838 7.41092 12.3587 5.83605 14.3014 5.83605C16.2441 5.83605 17.819 7.41092 17.819 9.35363C17.819 11.2963 16.2441 12.8712 14.3014 12.8712C12.3587 12.8712 10.7838 11.2963 10.7838 9.35363Z"
+                              fill="#454545" />
+                          </svg>
+                        </a></span> -->
+                    </div>
+                  </div>
+                  <div *ngIf="isRequiredDepositDocumentCtrl" class="helper-text error  left-align" data-error="wrong"
+                    data-success="right">Screenshot is required</div>
+                  <div class="helper-text error" data-error="wrong" data-success="right" *ngIf="imageError">
+                    {{imageError}}</div>
+                </div>
+                <!--  -->
+                <div class="upload-content">
+                  <!-- <div class="p-0 upload-imgs">
+                    <div class="upload-submit-btn h-100">
+                      <div class="upload_ss-details h-100">
+                        <div class="upload_ss">
+                          <form class="choose-file mb-15">
+                            <div class="file-field upload-id w-100 h-100">
+                              <div class="btn d-flex align-items-center" [class.img-upload]="depositdocumentImg">
+                                <div class="document-image" *ngIf="depositdocumentImg">
+                                  <img [src]="depositdocumentImg" alt="" loading="lazy">
+                                </div>
+                                <div class="title-sec">
+                                  <span class="upload-title" *ngIf="!depositdocumentImg">Upload Payment Screenshot
+                                  </span>
+                                  <input type="file" accept="image/*" (change)="onSelectDepositeDocumentFile($event)"
+                                    #ufile>
+                                </div>
+                                <span *ngIf="!depositdocumentImg"><a href="javascript:void(0)" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 32" fill="none">
+                                      <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.7983 3.09184C3.7171 3.09184 2.84062 3.96832 2.84062 5.04952V26.9505C2.84062 27.0745 2.85215 27.1958 2.87419 27.3134L20.606 10.4928C21.0578 10.0642 21.766 10.0642 22.2179 10.4928L28.657 16.601V5.04952C28.657 3.96832 27.7805 3.09184 26.6993 3.09184H4.7983ZM30.9991 19.2844V5.04952C30.9991 2.67482 29.074 0.749756 26.6993 0.749756H4.7983C2.4236 0.749756 0.498535 2.67482 0.498535 5.04952V26.9505C0.498535 29.3252 2.4236 31.2503 4.7983 31.2503H26.6993C29.074 31.2503 30.9991 29.3252 30.9991 26.9505V19.3695C31.0001 19.3411 31.0001 19.3128 30.9991 19.2844ZM28.657 19.8293L21.4119 12.9565L4.60598 28.8989C4.66925 28.9051 4.7334 28.9082 4.7983 28.9082H26.6993C27.7805 28.9082 28.657 28.0317 28.657 26.9505V19.8293ZM14.3014 8.17813C13.6522 8.17813 13.1259 8.70442 13.1259 9.35363C13.1259 10.0028 13.6522 10.5291 14.3014 10.5291C14.9506 10.5291 15.4769 10.0028 15.4769 9.35363C15.4769 8.70442 14.9506 8.17813 14.3014 8.17813ZM10.7838 9.35363C10.7838 7.41092 12.3587 5.83605 14.3014 5.83605C16.2441 5.83605 17.819 7.41092 17.819 9.35363C17.819 11.2963 16.2441 12.8712 14.3014 12.8712C12.3587 12.8712 10.7838 11.2963 10.7838 9.35363Z"
+                                        fill="#454545" />
+                                    </svg>
+                                  </a></span>
+                              </div>
+                            </div>
+                            <div class="btn upload-btn" (click)="ufile.click()">upload</div>
+                          </form>
+                        </div>
+                        <div *ngIf="isRequiredDepositDocumentCtrl" class="helper-text error  left-align"
+                          data-error="wrong" data-success="right">Screenshot is required</div>
+                        <div class="helper-text error" data-error="wrong" data-success="right" *ngIf="imageError">
+                          {{imageError}}</div>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="scanner"
+                    *ngIf="selectedPaymentAccountDetail && selectedPaymentAccountDetail[0]?.appQRCodeImage">
+                    <div class="qr-codes">
+                      <div class="qr-title mb-5">Scan QR code</div>
+                      <div class="right-col">
+                        <img [src]="selectedPaymentAccountDetail[0].appQRCodeImage" class="responsive-img" alt="" loading="lazy">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="left-content">
+                  <div class="amount-bg" *ngIf="manualDepositForm.get('Amount') as amountCtrl">
+                    <div class="amount">
+                      <div class="input-field user_input">
+                        <input placeholder="Enter Amount" type="number" class="validate" formControlName="Amount"
+                          maxlength="8" (keypress)="numberOnly($event)" (keyup)="AmountCheck($event)">
+                        <label for="enter-number" class="active">Amount</label>
+                        <div class="icons">
+                          <svg width="30px" height="30px" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                            xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns1="http://sozi.baierouge.fr"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" id="svg3611"
+                            sodipodi:docname="Indian_Rupee_symbol.svg" viewBox="0 0 169.76 250.39" version="1.1"
+                            inkscape:version="0.47 r22583">
+                            <g id="layer1" inkscape:label="Layer 1" inkscape:groupmode="layer"
+                              transform="translate(0 -801.97)">
+                              <path id="path4158" sodipodi:nodetypes="cccccccccccccccccccc"
+                                d="m99.017 1052.3-90.577-113.33 0.5232-22.46c42.51 2.93 75.559-1.57 83.248-41.78l-90.578-0.52 14.66-24.55 72.253 1.04c-11.009-22.88-41.286-25.7-88.484-24.02l16.231-24.03 153.41-0.22927-15.184 23.731h-42.409c7.7512 8.1823 13.424 17.597 13.613 25.591l43.98-0.52226-15.184 23.502-29.32 0.52229c-4.5772 35.058-36.787 55.815-77.489 60.584l91.184 116.44-39.874 0.022v0.0004z">
+                              </path>
+                            </g>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="center-align" *ngIf="amountCtrl.errors && (amountCtrl.dirty || amountCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="amountCtrl.errors.required">Please enter valid amount</span>
+                    </div>
+                    <div *ngIf="isdepositminmax" class="center-align">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                        Deposit amount must be between {{selectedPaymentAccountDetail[0].appMinAmount}} and
+                        {{selectedPaymentAccountDetail[0].appMaxAmount}}.</span>
+                    </div>
+                    <div class="center-align add-amount">
+                      you can add upto <strong>{{selectedPaymentAccountDetail[0]?.appMaxAmount}},</strong> minimum
+                      <strong>{{selectedPaymentAccountDetail[0]?.appMinAmount}}</strong> required
+                    </div>
+                  </div>
+                  <div class="amount-bg" *ngIf="manualDepositForm.get('UTRTransactionNo') as utrtCtrl">
+                    <div class="amount">
+                      <div class="input-field user_input">
+                        <input type="text" class="validate" formControlName="UTRTransactionNo"
+                          (keypress)="allowAlphaNumericSpace($event)">
+                        <label for="enter-cvc" class="active">Enter UTR transaction ID</label>
+                        <div class="icons">
+                          <svg width="20" height="15" viewBox="0 0 20 15" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M15.8333 0H4.16667C3.062 0.00132321 2.00296 0.440735 1.22185 1.22185C0.440735 2.00296 0.00132321 3.062 0 4.16667L0 10.8333C0.00132321 11.938 0.440735 12.997 1.22185 13.7782C2.00296 14.5593 3.062 14.9987 4.16667 15H15.8333C16.938 14.9987 17.997 14.5593 18.7782 13.7782C19.5593 12.997 19.9987 11.938 20 10.8333V4.16667C19.9987 3.062 19.5593 2.00296 18.7782 1.22185C17.997 0.440735 16.938 0.00132321 15.8333 0ZM4.16667 1.66667H15.8333C16.4964 1.66667 17.1323 1.93006 17.6011 2.3989C18.0699 2.86774 18.3333 3.50363 18.3333 4.16667H1.66667C1.66667 3.50363 1.93006 2.86774 2.3989 2.3989C2.86774 1.93006 3.50363 1.66667 4.16667 1.66667ZM15.8333 13.3333H4.16667C3.50363 13.3333 2.86774 13.0699 2.3989 12.6011C1.93006 12.1323 1.66667 11.4964 1.66667 10.8333V5.83333H18.3333V10.8333C18.3333 11.4964 18.0699 12.1323 17.6011 12.6011C17.1323 13.0699 16.4964 13.3333 15.8333 13.3333Z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="center-align" *ngIf="utrtCtrl.errors && (utrtCtrl.dirty || utrtCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="utrtCtrl.errors.required">Please enter valid UTR transaction id</span>
+                    </div>
+                  </div>
+
+                </div> -->
+
+              </div>
+              <div class="upload-submit-btn" *ngIf="selectedPaymentMethod !== -1">
+                <div class="submit-btn-details">
+                  <div class="submit-btn center-align ">
+                    <a href="javascript:void(0)" class="btn" (click)="depositRequest()"
+                      [ngClass]="loading?'login-disable':''">
+                      <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm"
+                        style="font-size: 14px;margin-right: 2px;"></i>
+                      <span class="animate-btn"> Submit </span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="user-warning-note" *ngIf="selectedPaymentMethod !== -1">
+                <div class="title">
+                  <i class="fas fa-exclamation-triangle"></i> note:
+                </div>
+                <div class="note-content">
+                  Our bank accounts or payment details keep changing check the payment details before depositing.
+                  If you deposited in other account which is not currently listed on site then we are not
+                  responsible for your loss.
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #demologin>
+      <div class="payment-method">
+        <form>
+        <div class="bank-transfer">
+      <div class="utr-amount-details">
+                            
+        <div class="left-content">
+            <div class="amount-bg">
+            <div class="amount input-field">
+                <input placeholder="Enter Amount" type="number" class="validate">
+            </div>
+            <div class="center-align add-amount">
+                you can add upto <strong>10000,</strong> minimum <strong>10</strong> required
+            </div>
+            </div>
+            <div class="amount-bg">
+            <div class="amount input-field">
+                <input placeholder="Enter UTR id" type="text" class="validate">
+            </div>
+            </div>
+            
+        </div>
+        <div class="right-content pay-details">
+            <div class="upload_ss">
+                
+                    <div class="file-field upload-id">
+                        <div class="btn">
+                            <span><a href="javascript:void(0)" class=""> <i class="fas fa-plus"></i> </a></span>
+                            <span class="upload-title">Click here to upload Payment Screenshot</span>
+                            <input type="file">
+                        </div>
+                    </div>
+                
+                
+            </div>
+        </div>
+
+        </div>
+        <div class="upi-payment">
+          <div class="upi-id">
+              <div class="upi-text">
+              <p>enter your upi id:</p>
+              </div>
+              <div class="input-field document-details">
+              <input type="number" class="validate">
+              </div>
+          </div>
+          </div>
+          <div class="user-warning-note">
+            <div class="title">
+                <i class="fas fa-exclamation-triangle"></i> note:
+            </div>
+            <div class="note-content">
+                Our bank accounts or payment details keep changing check the payment details before
+                depositing.
+                If you deposited in other account witch is not currently listed on site then we are not
+                responsible for your loss.
+            </div>
+            </div>
+            </div>
+            </form>
+            </div>
+            <div class="submit-btn center-align">
+              <a class="btn" href="javascript:void(0)" (click)="demosubmit()">
+                  <span class="animate-btn">
+                  Submit
+                  </span>
+              </a>
+          </div>
+    </ng-template>
+  </ng-container>
+  <div class="payment-footer">
+    <p>Accept, process &amp; disburse digital payments for your business. <br>
+      <span class="text-success">Fast &amp; Secure Payment</span>
+    </p>
+    <img [src]="commonService.contentRelativePath('assets/images/payment-footer-logo.png?v=1.0.5')" alt=""
+      loading="lazy" class="m-auto responsive-img">
+    <img [src]="commonService.contentRelativePath('assets/images/payment-footer-logo-2.png?v=1.0.5')" alt=""
+      loading="lazy" class="m-auto responsive-img">
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<app-footer/>
+</main>
+<!-- </div>
+      </div>
+      <app-rightsidebar></app-rightsidebar>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</main> -->
+
+<ng-template #campaignActionListTemp>
+  <div class="promo-details"
+    *ngIf="selectedPaymentMethod !== -1   &&CampaignActionList && CampaignActionList.length > 0">
+    <div class="center-align">
+      <span class="helper-text error mb-10" data-error="wrong" data-success="right" style="font-size: 12px;">
+        Select your suitable offer from below</span>
+    </div>
+    <div class="slider-scroll">
+      <div class="coupen-scroll">
+        <div class="coupens" [class.active]="redeemindex == i" (click)="Redeem(item, i)"
+          *ngFor="let item of CampaignActionList; let i = index;trackBy:trackByFun">
+          <div class="title2">
+            {{item.cn}}
+          </div>
+
+          <div class="timer">
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
+                <path
+                  d="M9.5625 2.8125C12.0986 2.8125 14.5309 3.81997 16.3242 5.61329C18.1175 7.40661 19.125 9.83887 19.125 12.375C19.125 14.9111 18.1175 17.3434 16.3242 19.1367C14.5309 20.93 12.0986 21.9375 9.5625 21.9375C7.02637 21.9375 4.59411 20.93 2.80079 19.1367C1.00747 17.3434 0 14.9111 0 12.375C0 9.83887 1.00747 7.40661 2.80079 5.61329C4.59411 3.81997 7.02637 2.8125 9.5625 2.8125V2.8125ZM9.5625 4.5C7.47392 4.5 5.47088 5.32969 3.99403 6.80653C2.51719 8.28338 1.6875 10.2864 1.6875 12.375C1.6875 14.4636 2.51719 16.4666 3.99403 17.9435C5.47088 19.4203 7.47392 20.25 9.5625 20.25C11.6511 20.25 13.6541 19.4203 15.131 17.9435C16.6078 16.4666 17.4375 14.4636 17.4375 12.375C17.4375 10.2864 16.6078 8.28338 15.131 6.80653C13.6541 5.32969 11.6511 4.5 9.5625 4.5V4.5ZM9.5625 6.1875C9.76639 6.18751 9.96338 6.26135 10.117 6.39536C10.2707 6.52938 10.3706 6.7145 10.3984 6.9165L10.4062 7.03125V12.0938C10.4062 12.3075 10.325 12.5133 10.179 12.6695C10.0331 12.8257 9.83329 12.9207 9.62001 12.9353C9.40673 12.9499 9.19587 12.8829 9.03004 12.748C8.86421 12.6131 8.75576 12.4203 8.72662 12.2085L8.71875 12.0938V7.03125C8.71875 6.80747 8.80765 6.59286 8.96588 6.43463C9.12411 6.2764 9.33872 6.1875 9.5625 6.1875V6.1875ZM17.6029 2.94075L17.6962 3.00825L18.999 4.09275C19.1621 4.22994 19.2673 4.42378 19.2933 4.63532C19.3194 4.84687 19.2644 5.06044 19.1395 5.23311C19.0145 5.40579 18.8289 5.52478 18.6198 5.56617C18.4107 5.60757 18.1937 5.56829 18.0124 5.45625L17.9201 5.38875L16.6163 4.30425C16.4531 4.16706 16.348 3.97322 16.3219 3.76168C16.2959 3.55013 16.3508 3.33656 16.4758 3.16389C16.6007 2.99121 16.7864 2.87222 16.9955 2.83083C17.2046 2.78943 17.4216 2.8287 17.6029 2.94075V2.94075ZM12.0938 0C12.3075 6.55229e-05 12.5133 0.0812751 12.6695 0.227219C12.8257 0.373163 12.9207 0.572961 12.9353 0.78624C12.9499 0.999519 12.8829 1.21038 12.748 1.37621C12.6131 1.54204 12.4203 1.65049 12.2085 1.67963L12.0938 1.6875H7.03125C6.81747 1.68743 6.61169 1.60622 6.45548 1.46028C6.29928 1.31434 6.20429 1.11454 6.18972 0.90126C6.17515 0.687981 6.24208 0.477122 6.37699 0.311289C6.51189 0.145456 6.70472 0.0370141 6.9165 0.00787497L7.03125 0H12.0938Z"
+                  fill="black" />
+              </svg>
+            </div>
+            <div class="time" *ngIf="(item.ced | countdown | async) !== null else cdelseBlock">
+              <div class="end-in">
+                Ends in
+              </div>
+              <div class="days">
+                {{item.ced | countdown | async}}
+              </div>
+            </div>
+            <ng-template #cdelseBlock>
+              <div class="end-in"></div>
+              <div class="days">
+                Expired
+              </div>
+            </ng-template>
+          </div>
+          <div class="read-more">
+            <i class="fas fa-check-circle"></i>
+            <a href="javascript:void(0)" [routerLink]="['/campaign', item.cid]" target="_blank">
+              Details
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- coupen-scroll div over -->
+    </div>
+    <!-- slider-scroll dive over -->
+  </div>
+</ng-template>
+
+<div id="otp-popup" class="modal modal-fixed-footer" #OtpVerify>
+  <a href="javascript:void(0)" class="modal-close right close-icon" (click)="dpotpclose()"><i class="fa fa-times"
+      aria-hidden="true"></i></a>
+  <div class="modal-content" style="height: 100%;">
+    <div class="modal-body">
+      <span class="title">
+        Update Mobile/Email
+      </span>
+      <div class="otp-page">
+        <div class="otp-details">
+          <div class="otp-verify">
+            <form [formGroup]="UpdateMobileEmailForm" (ngSubmit)="onUpdateMobileEmailClick()">
+              <div class="mt-10 mb-10">
+                <div class="row">
+                  <div class="input-field verify-mobcontrol"
+                    *ngIf="UpdateMobileEmailForm.get('mobileNo') as mobilenumCtrl">
+                    <ngx-intl-tel-input [cssClass]="'verify-mobcontrol-custom-input'" [onlyCountries]="onlyCountries"
+                      [enableAutoCountrySelect]="true" [customPlaceholder]="PhonePacleHolder"
+                      [searchCountryFlag]="false"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO" [maxLength]="10"
+                      [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                      [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="mobileNo"
+                      (keyup)="mobilekeyup($event)">
+                    </ngx-intl-tel-input>
+                    <label for="user_mobile" class="active">Mobile Number</label>
+                    <div *ngIf="mobilenumCtrl.errors && (mobilenumCtrl.dirty || mobilenumCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="numberrequiredvalidation">Mobile number is required</span>
+                    </div>
+                    <div class="helper-text error  left-align" data-error="wrong" data-success="right"
+                      *ngIf="numbervalidation">Enter valid mobile number.</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field " *ngIf="UpdateMobileEmailForm.get('emailID') as emailCtrl">
+                    <input placeholder="Enter email" autocomplete="off" id="user_email" type="text"
+                      formControlName="emailID" (keyup)="trim(UpdateMobileEmailForm.controls.emailID.value)">
+                    <label for="user_email" class="active">Email </label>
+                    <div *ngIf="emailCtrl.errors && (emailCtrl.dirty || emailCtrl.touched)">
+                      <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                        *ngIf="emailCtrl.errors.required">Email is required</span>
+                      <span *ngIf="emailCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                        data-success="right">Email must be a valid email address</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-verify" (click)="onUpdateMobileEmailClick()" [disabled]="loading">
+                <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="font-size: 12px;"></i>
+                <span class="animate-btn">
+                  Update
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="small-deposit-modal" class="modal modal-fixed-footer" #depositSucess>
+  <a href="javascript:void(0)" class="modal-close right close-icon" (click)="dsmodalInstances.close()"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <span class="title">
+        Payment InProcess
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="contents">
+        <div class="verification-img">
+          <img src="assets/images/paymentsucess.png" alt="" loading="lazy">
+        </div>
+        Payment is inprocess, Plese wait or reload page after sometimes.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row submit-btn">
+        <a href="javascript:void(0)" class="green btn" (click)="dsmodalInstances.close()">
+          <span class="animate-btn">Ok</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="small-deposit-modal" class="modal modal-fixed-footer" #emailVerification>
+  <a href="javascript:void(0)" class="modal-close right close-icon" (click)="emailVerificationModalInstances.close()"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <span class="title">
+        Email Verification
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="contents">
+        <div class="verification-img">
+          <img src="assets/images/verifyemail.png" alt="" loading="lazy">
+        </div>
+        Please click on the link that has just been sent to your email address to verify your email and continue the
+        process.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row submit-btn">
+        <a href="javascript:void(0)" class="green btn" (click)="reSendEmailClick()">
+          <span class="animate-btn">Resend Email</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- offer pop Up -->
+<div id="offer-popup" class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #ConfirmModal>
+  <a href="javascript:void(0)" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-body">
+      <span class="title">
+        offer
+      </span>
+      <div class="offer-details">
+        <h6 class="center-align">You haven't select any offer from available, are you sure want to continue?
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="offer-popup-footer">
+      <a href="javascript:void(0)" (click)="confirm()" class="btn d-flex align-items-center mr-20">
+        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.1416 0.734863C4.6416 0.734863 0.141602 5.23486 0.141602 10.7349C0.141602 16.2349 4.6416 20.7349 10.1416 20.7349C15.6416 20.7349 20.1416 16.2349 20.1416 10.7349C20.1416 5.23486 15.6416 0.734863 10.1416 0.734863ZM10.1416 18.7349C5.7316 18.7349 2.1416 15.1449 2.1416 10.7349C2.1416 6.32486 5.7316 2.73486 10.1416 2.73486C14.5516 2.73486 18.1416 6.32486 18.1416 10.7349C18.1416 15.1449 14.5516 18.7349 10.1416 18.7349ZM14.7316 6.31486L8.1416 12.9049L5.5516 10.3249L4.1416 11.7349L8.1416 15.7349L16.1416 7.73486L14.7316 6.31486Z"
+            fill="white" />
+        </svg>
+        Yes</a>
+      <a href="javascript:void(0)" (click)="decline()" class="btn modal-close">
+        Cancel
+      </a>
+    </div>
+  </div>
+</div>
+<!-- offer pop Up -->

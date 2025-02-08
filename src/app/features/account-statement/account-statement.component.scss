@@ -1,0 +1,13 @@
+
+#cbh table tbody tr td{
+    float: inherit !important;
+    padding: 15px 5px !important;
+}
+#cbh table thead tr th{
+    float: inherit !important;
+    padding: 15px 5px !important;
+}
+#cbh table tfoot tr td, 
+#cbh table tfoot tr td .col{
+    float: inherit !important;
+}

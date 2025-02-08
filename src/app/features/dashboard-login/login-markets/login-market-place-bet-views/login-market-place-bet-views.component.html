@@ -1,0 +1,177 @@
+<!-- <a href="javascript:void(0)" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a> -->
+<form class="form-inline">
+  <div class="bs-top-content">
+    <div class="odd-info">
+      <span class="profit">
+        <span>{{bet.betTitle}}</span>
+      </span>
+    </div>
+    <div>
+      <div class="spin input-group">
+        <div class="custom-value">
+          {{lblProfitLoss ? lblProfitLoss : ' ' }}
+        </div>
+        <div class="quantity">
+          <input id="bet-price" type="number" [disabled]="isdisplayRateControl" placeholder="Rate" maxlength="6" disabled [(ngModel)]="bet.rate"
+          [ngModelOptions]="{standalone: true}" >
+          <div class="quantity-nav">
+            <div class="quantity-button quantity-up" [class.disabled]="isdisplayRateControl">
+              <span class="fa fa-caret-up"></span>
+            </div>
+            <div class="quantity-button quantity-down" [class.disabled]="isdisplayRateControl">
+              <span class="fa fa-caret-down"></span>
+            </div>
+          </div>
+        </div>
+        <div class="stake">
+          <input id="bet-size" type="number" class="mb-0" pbAutoFocus [value]="this.bet" placeholder="Custom" value="Custom"
+          autocomplete="off" min="0" pattern="([0-9]|[0-9]|[0-9])" (keypress)="checkIfNumber($event)"
+          [(ngModel)]="stake" (click)="focusFunction()" [ngModelOptions]="{standalone: true}"
+          (keyup)="onStakeChange(this.bet.betDetailId,this.bet.betId, false, true)">
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  <div class="bid-rate betslip-button">
+    <a *ngFor="let chip of chip; let i = index;" href="javascript:void(0)" (click)="setStake(chip,true);">
+      {{chip}}
+    </a>
+  </div>
+  <div class="row">
+    <div class="col s12 p-0">
+      <div class="col s3 m3">
+        <button type="reset" class="btn-bet btn close" (click)="cancelBet()"><b>Close</b></button>
+      </div>
+      <div class="col s3 m2">
+        <button type="reset" class="btn-bet btn clear" (click)="clearStake()"><b>Clear</b></button>
+      </div>
+      <div class="col s3">
+      </div>
+      <div class="col s3 m4 text-right">
+        <button type="reset" class="btn-bet btn submit" (click)="openLoginModel()"><b>submit</b></button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- <ng-template #elseBlock>
+  <div class="row d-flex justify-between align-items-center team">
+    <div class="col s12 m12">
+      <div class="runner-name d-flex align-items-center">
+        <span class="team-bg">
+          <span class="no-icon " [class.back]="bet.isBack" [class.lay]="!bet.isBack">
+            <span class="title">{{bet.betTitle | eventShortname}}</span>
+          </span>
+        </span>
+        <div class="teams-titles ml-10">
+          {{bet.betTitle}}
+          <span>{{currentMarketVol && currentMarketVol.mn ? currentMarketVol.mn :''}}</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="col s5 m6 d-flex justify-right">
+    </div>
+  </div>
+  <div class="betslip">
+    <form>
+      <div class="row bet-count d-block">
+        <div class="col m4 s4 p-0">
+          <div class="boxsize ">
+            <input type="number" class="mb-0" pbAutoFocus [value]="this.bet" placeholder="Custom" value="Custom"
+              autocomplete="off" min="0" pattern="([0-9]|[0-9]|[0-9])" (keypress)="checkIfNumber($event)"
+              [(ngModel)]="stake" (click)="focusFunction()" [ngModelOptions]="{standalone: true}"
+              (keyup)="onStakeChange(this.bet.betDetailId,this.bet.betId, false, true)">
+          </div>
+        </div>
+        <div class="col m5 s4">
+          <div class="bet-input input-group " [class.back]="bet.isBack" [class.lay]="!bet.isBack">
+            <span class="input-group-prepend">-</span>
+            <input class="m-0" type="number" placeholder="Rate" maxlength="6" disabled [(ngModel)]="bet.rate"
+              [ngModelOptions]="{standalone: true}">
+            <span class="input-group-append">+</span>
+          </div>
+        </div>
+        <div class="col m3 s4 p-0">
+          <div class="box-size-potential" [class.back]="bet.isBack" [class.lay]="!bet.isBack">
+            <h6 class="m-0">Potential {{bet.isBack ? 'Win' : 'Loss'}}</h6>
+            <div class="money-size">
+              <span>{{lblProfitLoss ? lblProfitLoss : ' ' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bid-rate  d-flex" [class.back]="bet.isBack" [class.lay]="!bet.isBack">
+        <a *ngFor="let chip of chip; let i = index;" href="javascript:void(0)" (click)="setStake(chip,true);">
+          {{chip}}
+        </a>
+
+      </div>
+
+      <div class="submit-btn" (click)="openLoginModel()">
+        <span class="submit-title">Submit</span>
+      </div>
+
+
+    </form>
+  </div>
+</ng-template>
+<ng-container *ngIf="isShowBetSlipBelowRunner else elseBlock">
+  <div class="bet-input-container">
+    <form action="" class="form-inline">
+
+      <div class="bs-top-content">
+        <div class="odd-info">
+          <span class="profit ml-5">
+            <span class="ml-5"><i class="fa fa-circle"></i>{{bet.isBack ? 'Profit': 'Exposure'}}<span
+                [class.p-value]="bet.isBack" [class.l-value]="!bet.isBack"> {{lblProfitLoss ? lblProfitLoss : ' '
+                }}</span> </span>
+          </span>
+        </div>
+        <div class="spin input-group">
+          <div class="input-group-prepend">
+            <button class="dec btn btn-secondary z-depth-0" type="button" [disabled]="isdisplayRateControl"><i
+                class="fas fa-minus"></i></button>
+          </div>
+          <input class="form-control" type="number" placeholder="Rate" maxlength="6" [disabled]="isdisplayRateControl"
+            class="form-control" [(ngModel)]="bet.rate" [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <button class="inc btn btn-secondary z-depth-0" type="button" [disabled]="isdisplayRateControl"><i
+                class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <div class="custom-btn">
+          <a href="javascript:void(0)">
+            <input type="number" class="validate valid" pbAutoFocus [value]="this.bet" placeholder="Custom"
+              value="Custom" autocomplete="off" min="0" pattern="([0-9]|[0-9]|[0-9])" (keypress)="checkIfNumber($event)"
+              [(ngModel)]="stake" [ngModelOptions]="{standalone: true}">
+          </a>
+          <span class="close-btn right" (click)="cancelBet()">
+            <i class="fas fa-times"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="bid-rate betslip-button">
+        <a *ngFor="let chip of chip; let i = index;" href="javascript:void(0)" (click)="setStake(chip,true);">
+          {{chip}}
+        </a>
+      </div>
+      <div class="col s12 p-0">
+        <div class="col s7 m8 select-stake">
+          Please select a Stake Amount. Enter a custom amount by clicking on the custom box.
+        </div>
+        <div class="col s5 m4 betslip-button">
+          <button class="btn btn-bet" (click)="openLoginModel()">
+            <span class="animate-btn">
+              Place Bet
+            </span>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div> -->

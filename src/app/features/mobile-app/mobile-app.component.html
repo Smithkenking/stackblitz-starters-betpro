@@ -1,0 +1,209 @@
+<ng-container *ngIf="user !== null else elseBlock">
+    <main class="full-wrap " [class.full-wrap-margin]="isNewsExits">
+        <div class="row m-0">
+            <div class="col-center">
+                <ng-template [ngTemplateOutlet]="apppage"></ng-template>
+            </div>
+        </div>
+        <app-footer />
+    </main>
+</ng-container>
+<ng-template #elseBlock>
+    <div class="row m-0">
+        <div class="col-center">
+            <ng-template [ngTemplateOutlet]="apppage"></ng-template>
+        </div>
+    </div>
+</ng-template>
+
+<!-- mobile-app-starts here -->
+<ng-template #apppage>
+    <div class="mobile-app">
+        <div class="main-title hide-on-small-only">
+            <h2>Mobile apps</h2>
+            <p>Free streams, subscription to results and other featuresto help you make predictions even faster.</p>
+        </div>
+        <div class="main-content">
+            <div class="left-section hide-on-small-only">
+                <img src="assets/images/app-android-web.png.png" alt="" class="responsive-img" loading="lazy">
+            </div>
+            <div class="right-section ">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a href="javascript:void(0);" [class.active]="selectedTab == 'ios'"
+                                    (click)="onselectTab('ios')">ios</a></li>
+                            <li class="tab col s3"><a class="active" href="javascript:void(0);"
+                                    [class.active]="selectedTab == 'Android'"
+                                    (click)="onselectTab('Android')">Android</a></li>
+                        </ul>
+                    </div>
+                    <div id="ios" class="col s12" *ngIf="selectedTab == 'ios'">
+                        <div class="ios">
+                            <div class="contents">
+                                <div class="title">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"
+                                        fill="none">
+                                        <g clip-path="url(#clip0_2696_6789)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M24.9127 0C25.1719 2.07545 24.3423 4.20151 23.0458 5.66951C21.7494 7.1375 19.7271 8.30178 17.6528 8.14992C17.3935 6.12509 18.3788 3.99903 19.5715 2.6829C20.8679 1.16428 23.0977 0.0506206 24.9127 0ZM32.413 25.9857C31.8168 25.7166 27.6573 23.8394 27.6089 18.8311C27.5634 14.8827 30.5054 12.7617 31.3379 12.1614C31.4553 12.0768 31.5308 12.0224 31.55 11.9974C29.4239 8.96014 26.105 8.55517 24.9124 8.50456C23.1637 8.34937 21.4735 8.9934 20.1047 9.51496C19.2411 9.84407 18.5053 10.1244 17.9637 10.1244C17.362 10.1244 16.607 9.8346 15.7565 9.5081C14.6278 9.07482 13.331 8.57693 12.0002 8.60579C8.88882 8.65642 6.08859 10.3775 4.48104 13.0604C1.26596 18.4769 3.65135 26.5255 6.76271 30.9295C8.31841 33.1062 10.1334 35.536 12.5188 35.4347C13.6059 35.3875 14.3779 35.0658 15.1703 34.7355C16.0788 34.3567 17.0142 33.9667 18.4822 33.9667C19.8815 33.9667 20.7699 34.3472 21.6266 34.7141C22.4527 35.0678 23.2493 35.4089 24.4457 35.3841C26.8829 35.3335 28.4905 33.2075 29.9943 31.0307C31.4953 28.8551 32.2383 26.7184 32.4332 26.1578C32.4605 26.0793 32.4771 26.0318 32.4834 26.0194C32.48 26.0159 32.4556 26.0049 32.413 25.9857Z" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_2696_6789">
+                                                <rect width="35.4375" height="35.4375" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    Web Application for iOS
+                                </div>
+                                <p>It is the same as in the app, only more convenient and you do not have to download
+                                    it.</p>
+                                <div class="title hide-on-small-only">
+                                    How to install:
+                                </div>
+                                <div class="install hide-on-small-only">
+                                    <div class="content">
+                                        <div class="left-side"> <img src="assets/images/safari.png" alt="" class="" loading="lazy">
+                                        </div>
+                                        <div class="right-side"> Open the Safari browser and paste the link in the
+                                            search bar.</div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="left-side"> <img src="assets/images/share.png" alt="" class="" loading="lazy">
+                                        </div>
+                                        <div class="right-side"> Click the Share button in the lower menu.</div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="left-side"> <img src="assets/images/add-btn.png" alt="" class="" loading="lazy">
+                                        </div>
+                                        <div class="right-side"> Select To Home Screen and click the Add button.</div>
+                                    </div>
+
+                                </div>
+                                <div class="qr hide-on-small-only">
+                                    <div class="qr-code-img">
+                                        <img src="assets/images/QR-code-mobile-app.png" class="" alt="" loading="lazy">
+                                    </div>
+                                    <div class="qr-content">
+                                        Point your camera at the QR code to open the mobile website
+                                    </div>
+                                </div>
+                                <div class="install-mob-instruction  ">
+                                    <div class="mobile hide-on-large-only">
+                                        <img src="assets/images/app-ios-mobile.png" alt="" class="" loading="lazy">
+                                    </div>
+                                    <div class="instruction hide-on-large-only">
+                                        <h2>
+                                            Installation instructions
+                                        </h2>
+                                        <p>Open www.betpro.com in safari, click the Share button in the browser menu.
+                                            Then select "To
+                                            Home Screen" and click Add.</p>
+                                    </div>
+                                    <ul class="collapsible hide-on-large-only">
+
+                                        <li>
+                                            <div class="collapsible-header">To Home Screen
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="spacer"></div>
+                                            <div class="collapsible-body">
+
+                                                <p> Get up to 350% bonus on your first deposit as a betpro member. From
+                                                    Deposit of RS
+                                                    500-2000, Bonus will be 200% From Deposit of RS 2001-5000, Bonus
+                                                    will be 100% From
+                                                    Deposit of RS 5001- 10000, Bonus will be 50% from RS 10001 to
+                                                    1000000 .
+                                                </p>
+
+
+                                            </div>
+
+                                    </ul>
+                                    <div class="arrow-red hide-on-large-only">
+                                        <img src="assets/images/arrow-mobile-bottom.png" alt="" loading="lazy">
+                                    </div>
+                                    <div class="icon-row hide-on-large-only">
+                                        <div class="icon"><img src="assets/images/micon1.png" alt="" loading="lazy"></div>
+                                        <div class="icon"><img src="assets/images/micon2.png" alt="" loading="lazy"></div>
+                                        <div class="icon active"><img src="assets/images/micon3.png" alt="" loading="lazy"></div>
+                                        <div class="icon"><img src="assets/images/micon4.png" alt="" loading="lazy"></div>
+                                        <div class="icon"><img src="assets/images/micon5.png" alt="" loading="lazy"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="android" *ngIf="selectedTab == 'Android'" class="col s12">
+                        <div class="android">
+                            <div class="contents">
+                                <div class="title">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="28" viewBox="0 0 24 28"
+                                        fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M16.8823 0.387907L15.5147 2.41914C17.6895 3.45556 19.2074 5.4312 19.3988 7.72884H4.58646C4.7782 5.4312 6.3098 3.45596 8.48456 2.41914L7.117 0.387907C7.03499 0.275505 7.04866 0.107502 7.158 0.0375007C7.26774 -0.0325006 7.41809 -0.00450007 7.5001 0.121502L8.92236 2.23674C9.86586 1.85833 10.9054 1.64833 11.9997 1.64833C13.0939 1.64833 14.1471 1.85873 15.0769 2.23674L16.4992 0.121502C16.5816 -0.00450007 16.7319 -0.0325006 16.8413 0.0375007C16.937 0.107902 16.9643 0.261905 16.8823 0.387907ZM8.08836 4.78686C8.08836 5.24887 8.45736 5.62728 8.90886 5.62728C9.36026 5.62728 9.72926 5.24887 9.72926 4.78686C9.72926 4.32485 9.36026 3.94645 8.90886 3.94645C8.45776 3.94645 8.08836 4.32485 8.08836 4.78686ZM15.0904 5.62728C14.639 5.62728 14.27 5.24887 14.27 4.78686C14.27 4.32485 14.6394 3.94645 15.0904 3.94645C15.5415 3.94645 15.9109 4.32485 15.9109 4.78686C15.9109 5.24887 15.5419 5.62728 15.0904 5.62728ZM1.98802 19.0064C2.90456 19.0064 3.64303 18.25 3.64303 17.3111V10.4746C3.64303 9.5358 2.90456 8.77939 1.98802 8.77939C1.07148 8.77939 0.333008 9.5358 0.333008 10.4746V17.3111C0.333008 18.25 1.07148 19.0064 1.98802 19.0064ZM4.60013 8.82106V21.1773C4.60013 21.9057 5.17457 22.5081 5.89937 22.5081H7.43137V26.3046C7.43137 27.2434 8.16986 27.9998 9.08636 27.9998C10.003 27.9998 10.7414 27.2434 10.7414 26.3046V22.5081H13.2716V26.3046C13.2716 27.2434 14.01 27.9998 14.9266 27.9998C15.8431 27.9998 16.5816 27.2434 16.5816 26.3046V22.5081H18.1136C18.8247 22.5081 19.4128 21.9197 19.4128 21.1773V8.82106H4.60013ZM22.0116 19.0064C21.095 19.0064 20.3566 18.25 20.3566 17.3111V10.4746C20.3566 9.5358 21.095 8.77939 22.0116 8.77939C22.9281 8.77939 23.6666 9.5358 23.6666 10.4746V17.3111C23.6666 18.25 22.9281 19.0064 22.0116 19.0064Z" />
+                                    </svg>
+                                    Android App
+                                </div>
+                                <p>Due to Google's internal policy, bookmakers' apps cannot be placed on the Play
+                                    Market. To
+                                    install the application, follow the instructions:</p>
+                                <div class="title hide-on-small-only">
+                                    How to install:
+                                </div>
+                                <div class="version hide-on-large-only">
+                                    <p>Device OS version</p>
+                                    <!-- <select class="version-content">
+                          <option value="" disabled selected>Android version 8.0 and newer</option>
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                        </select> -->
+                                    <div class="device-os">
+                                        Android version 8.0 and newer
+                                    </div>
+                                </div>
+                                <div class="install">
+                                    <ul>
+                                        <li> Go to the Batery website from your smartphone or tablet, go to the
+                                            "Applications" section
+                                            and download the installation file.
+                                        </li>
+                                        <li>Go to the "Settings" section of your device and allow the installation of
+                                            applications
+                                            from unknown sources.
+                                        </li>
+                                        <li>Launch the app, wait for the installation and enjoy the game!</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <a href="{{mobileAppUrl}}" target="_blank" class="download-btn">
+                                        Download
+                                    </a>
+                                    <div class="require-content hide-on-small-only">
+                                        Requires Android 5.0 or newer OS version. Compatible with all tablets and
+                                        smartphones based on
+                                        Android OS.
+                                    </div>
+                                </div>
+
+                                <div class="require-content center-align mt-10 hide-on-med-and-up">This app is not
+                                    available on
+                                    your device</div>
+                                <div class="mobile hide-on-large-only">
+                                    <img [src]="commonService.imgRelativePath('assets/images/app-android-web.png.png')"
+                                        alt="" class="responsive-img" loading="lazy">
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

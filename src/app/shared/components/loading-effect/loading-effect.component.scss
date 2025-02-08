@@ -1,0 +1,105 @@
+.skeleton-effect .h4:empty,
+.skeleton-effect p:empty,
+.skeleton-effect a:empty,
+.skeleton-effect .slider,
+.skeleton-effect .collapse-title,
+.skeleton-effect .date-time,
+.skeleton-effect .versis-img,
+.skeleton-effect .game-list-time,
+.skeleton-effect .back-rate,
+.skeleton-effect .lay-rate,
+.skeleton-effect .casino-title,
+.skeleton-effect .game-item,
+.skeleton-effect .team-title,
+.skeleton-effect .team-bg,
+.skeleton-effect .tournament {
+  animation        : loading 1.7s infinite linear;
+  background       : #dedfe1;
+  background-image : -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+  background-image : linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+  background-repeat: no-repeat; 
+}
+.skeleton-effect .tournament {
+  border-radius: 5px;
+  height: 15px;
+  top: 5px;
+}
+.skeleton-effect .date-time{
+  background-color       : #dedfe1 !important;
+}
+.skeleton-effect .date-time::before{
+  border-top: 15px solid #dedfe1 !important;
+}
+.skeleton-effect .team-title{
+  border-radius: 5px;
+}
+.skeleton-effect .mobile-badge {
+  margin-top: 5px;
+}
+.skeleton-effect .collapse-title {
+  width: 200px;
+  border-radius: 8px;
+}
+
+.skeleton-effect .slider {
+  height       : 63px;
+  border-radius: 8px;
+}
+.skeleton-effect .date-height {
+  margin-bottom: 5px;
+}
+.skeleton-effect .versis-img {
+  width : 200px;
+  height: 15px;
+  margin: 0 0 2px 75px;
+  border-radius: 4px;
+}
+
+.skeleton-effect  .game-list-time {
+  width : 150px;
+  height: 10px;
+  float: left;
+  border-radius: 2px;
+}
+
+.skeleton-effect  a:empty {
+  width : 100px;
+  height: 40px;
+  border: 0;
+}
+
+.skeleton-effect h4:empty {
+  height: 18px;
+  width : 200px;
+}
+
+.skeleton-effect  p:empty {
+  height: 10px;
+  width : 250px;
+}
+
+.skeleton-effect p:empty.lead {
+  height: 15px;
+  width : 250px;
+}
+// .skeleton-effect .game-item {
+//   height: 107px !important;
+//   min-width: 145px;
+// }
+.skeleton-effect .big-game-item{
+  height: 114px !important;
+  border-radius: 10px;
+}
+.skeleton-effect .small-game-item{
+  height: 114px !important;
+  border-radius: 10px;
+}
+@keyframes loading {
+  0% {
+    background-position: -100px;
+  }
+
+  100% {
+    background-position: 200px;
+  }
+}

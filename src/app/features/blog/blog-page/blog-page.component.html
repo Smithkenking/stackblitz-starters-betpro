@@ -1,0 +1,61 @@
+<div class="blog-item-section" *ngIf="!isBlogDetails">
+    <ng-container *ngFor="let category of BlogCategoryData1">
+        <div class="blog-block" *ngIf="selectedCategory === 'home' || selectedCategory === category.bc">
+            <p class="blog_title">{{category.bc}}</p>
+            <div class="blog_slider swiper-container">
+                <div class="swiper-wrapper">
+                    <ng-container *ngFor="let slide of BlogData | filterBlog : category.bcid; trackBy: trackByFun">
+                        <div class="blog-box1 swiper-slide">
+                            <div class="card">
+                                <a href="javascript:void(0);" (click)="openBlogDetails(slide.bi, slide.su)">
+                                    <div class="card-image">
+                                        <img src="{{ slide.img }}" alt="" loading="lazy">
+                                        <!-- <img ngSrc="{{ slide.img }}" height="480" width="640" style="height: auto; width: auto;" priority class="responsive-img" alt=""> -->
+
+                                    </div>
+                                    <div class="card-content">
+                                        <!-- <div class="blog-details d-flex justify-content-between">
+                                            <div class="more-link">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
+                                                </svg>
+                                            </div>
+                                        </div> -->
+                                        <div class="card-title">{{slide.bt}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--  -->
+            <!-- <ngx-slick-carousel #slickModal="slick-carousel" [config]="blogConfig" class="blog_slider swiper-container">
+                  <ng-container *ngFor="let slide of BlogData | filterBlog : category.bcid; trackBy: trackByFun">
+                      <div ngxSlickItem class="swiper-wrapper ">
+                          <div class="blog-box1 swiper-slide">
+                              <div class="card">
+                                  <a href="javascript:void(0);" (click)="openBlogDetails(slide.bi, slide.su)">
+                                      <div class="card-image">
+                                          <img src="{{ slide.img }}" alt="">
+                                      </div>
+                                      <div class="card-content">
+                                          <div class="card-title">{{slide.bt}}</div>
+                                      </div>
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </ng-container>
+              </ngx-slick-carousel>  -->
+            <!--  -->
+        </div>
+    </ng-container>
+</div>
+
+<div class="blog-item-section" *ngIf="isBlogDetails">
+    <app-blog-details [BlogData]="BlogData"/>
+</div>

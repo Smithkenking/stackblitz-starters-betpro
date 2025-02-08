@@ -1,0 +1,6 @@
+<ng-container *ngIf="router.url.indexOf('/event/virtual-sports') == 0 else marketBlock">
+  <app-login-virtual-sports/>
+</ng-container>
+<ng-template #marketBlock>
+  <app-dashboard-market/>
+</ng-template>

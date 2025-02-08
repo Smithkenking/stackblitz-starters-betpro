@@ -1,0 +1,9 @@
+<ng-container>
+  <div class="row m-0">
+    <div class="col-center col s12">
+  <ng-container *ngIf="(getCurrentMarket$() | async)">
+    <app-common-dashboard [allMarkets]="allMatches" />
+  </ng-container>
+  </div>
+  </div>
+</ng-container>

@@ -1,0 +1,401 @@
+<ng-container *ngIf="getMarket() | async as market">
+  <div class="bet-semiheader match-events is-hidden" [class.is-show]="selectedCategory == categoryName || selectedCategory == 'All'">
+  <div class="row m-0 "  >
+    <div class="col s12 m12 p-0 ">
+      <div class="odd-title-bg row m-0">
+        <div class="col m6 s6 p-0">
+          <div class="match-odd" id="match-odd">
+            <!-- <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.1094 15.5V17.6" stroke="#A3A4A6" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M6.10938 21H16.1094V20C16.1094 18.9 15.2094 18 14.1094 18H8.10937C7.00937 18 6.10938 18.9 6.10938 20V21V21Z"
+                stroke="#A3A4A6" stroke-width="1.5" stroke-miterlimit="10" />
+              <path d="M5.10938 21H17.1094" stroke="#A3A4A6" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M10.9609 15C7.09094 15 3.96094 11.87 3.96094 8V5C3.96094 2.79 5.75094 1 7.96094 1H13.9609C16.1709 1 17.9609 2.79 17.9609 5V8C17.9609 11.87 14.8309 15 10.9609 15Z"
+                stroke="#A3A4A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M4.43 10.6501C3.68 10.4101 3.02 9.9701 2.5 9.4501C1.6 8.4501 1 7.2501 1 5.8501C1 4.4501 2.1 3.3501 3.5 3.3501H4.15C3.95 3.8101 3.85 4.3201 3.85 4.8501V7.8501C3.85 8.8501 4.06 9.7901 4.43 10.6501Z"
+                stroke="#A3A4A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M17.4922 10.6501C18.2422 10.4101 18.9022 9.9701 19.4222 9.4501C20.3222 8.4501 20.9222 7.2501 20.9222 5.8501C20.9222 4.4501 19.8222 3.3501 18.4222 3.3501H17.7722C17.9722 3.8101 18.0722 4.3201 18.0722 4.8501V7.8501C18.0722 8.8501 17.8622 9.7901 17.4922 10.6501Z"
+                stroke="#A3A4A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg> -->
+            <i class="market-name-icon">
+              <img src="assets/images/time.png" alt="" loading="lazy">
+          </i>
+            <div class="scores-event">{{market.name}}</div> &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="live" *ngIf="market.isInPlay;">
+              <span class="live-title">Live</span>
+            </div>            
+            <!-- <ng-container *ngIf="showCashOut && getCashoutDetails() | async as cs" >
+              <div class="cashout-content right" (click)="openConfirmModal()">
+                <div class="profit-text">
+                    Profit:  {{cs.cashout}}
+                    <span>Cash out </span>
+                </div>
+                <div class="profit-value" [class.greatercashout]="cs.plCashout > 0" [class.lesscashout]="cs.plCashout < 0">{{cs.plCashout}}</div>
+                <div class="cashout-loader" *ngIf="displayOverlay">
+                  <img  [src]="commonService.contentRelativePath('assets/images/loader.svg')" alt="" />
+                </div>
+              </div>
+          </ng-container>
+
+          <ng-container *ngIf="showNewCashOut && getCashoutDetails1() | async as cs1" >
+            <div class="cashout-content right" (click)="openConfirmNewCSModal()" *ngIf="cs1">
+              <div class="profit-text">
+                  Profit:  {{cs1.cashout}}
+                  <span>Cash out </span>
+              </div>
+              <div class="profit-value" [class.greatercashout]="cs1.libility > 0" [class.lesscashout]="cs1.libility < 0">
+                {{cs1.libility}}</div>
+              <div class="cashout-loader" *ngIf="displayOverlay">
+                <img  [src]="commonService.contentRelativePath('assets/images/loader.svg')" alt="" />
+              </div>
+            </div>
+        </ng-container> -->
+            <!-- <span class="rules-badge">
+                    <i class="fa fa-info-circle"></i>
+                </span> -->
+            <!-- <a class="rules-badge modal-trigger" data-target="modal1" (click)="rulesPopUp()">
+              <i class="fa fa-info-circle"></i>
+            </a> -->
+            <ng-container *ngIf="showCashOut && getCashoutDetails() | async as cs" >
+            <a href="javascript:void(0)" class="modal-trigger"  (click)="openConfirmModal()">
+              <div class="cashout-available">
+                <div class="cashout-image">
+                  <img src="assets/images/currency-symbol.png" alt="" loading="lazy">
+             </div>
+                  <div class="profit-value minus" [class.greatercashout]="cs.plCashout > 0" [class.lesscashout]="cs.plCashout < 0">{{cs.plCashout}}</div>
+                  <div class="cashout-loader" *ngIf="displayOverlay">
+                    <img  src="assets/images/loader-cashout.svg" alt="" loading="lazy">
+                  </div>
+              </div>
+          </a>
+          </ng-container>
+          <ng-container *ngIf="showNewCashOut && getCashoutDetails1() | async as cs1" >
+            <a href="javascript:void(0)" class="modal-trigger" (click)="openConfirmNewCSModal()" *ngIf="cs1">
+              <div class="cashout-available">
+                <div class="cashout-image">
+                  <img src="assets/images/currency-symbol.png" alt="" loading="lazy">
+             </div> 
+                  <div class="profit-value minus" [class.greatercashout]="cs1.libility > 0" [class.lesscashout]="cs1.libility < 0">{{cs1.libility}}</div>
+                  <div class="cashout-loader" *ngIf="displayOverlay">
+                    <img  src="assets/images/loader-cashout.svg" alt="" loading="lazy">
+                  </div>
+              </div>
+          </a>
+            </ng-container>
+
+         
+
+          <div class="stake-info">
+          <div class="limit-sec d-flex align-items-center element-to-ignore" [class.active]="showLimitPopup">
+                                                                    
+            <div class="limits-arrow" href="javascript:void(0);" (click)="$event.stopPropagation();showLimitPopup=!showLimitPopup;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+                    <rect x="6.5" y="2" width="10" height="18" fill="#404040"/>
+                    <path d="M11.5097 0C11.5068 0 11.5029 0.000485962 11.5 0.000485962C11.4966 0.000485962 11.4937 0 11.4903 0C5.42099 0 0.5 4.92474 0.5 11.0002C0.5 17.0748 5.42099 22 11.4903 22C11.4937 22 11.4966 22 11.5 22C11.5029 22 11.5068 22 11.5097 22C17.579 22 22.5 17.0748 22.5 11.0002C22.5005 4.92474 17.5795 0 11.5097 0ZM11.5097 18.851C11.5068 18.851 11.5029 18.8505 11.5 18.8505C11.4966 18.8505 11.4937 18.851 11.4903 18.851C10.4969 18.851 9.69135 18.0452 9.69135 17.0505C9.69135 16.0567 10.4969 15.251 11.4903 15.251C11.4937 15.251 11.4966 15.251 11.5 15.251C11.5029 15.251 11.5068 15.251 11.5097 15.251C12.5026 15.251 13.3091 16.0567 13.3091 17.0505C13.3091 18.0448 12.5041 18.851 11.5097 18.851ZM14.0894 5.13079C13.9719 6.92739 13.1513 12.2705 13.1513 12.2705C13.1513 13.1715 12.4138 13.9014 11.5136 13.9014C11.5087 13.9014 11.5039 13.9014 11.4995 13.9014C11.4951 13.9014 11.4898 13.9014 11.4854 13.9014C10.5857 13.9014 9.84818 13.1706 9.84818 12.2705C9.84818 12.2705 9.0281 6.92739 8.91059 5.13079C8.85233 4.23127 9.54083 2.56102 11.4859 2.56102C11.4908 2.56102 11.4956 2.56151 11.5 2.56151C11.5044 2.56151 11.5092 2.56102 11.5141 2.56102C13.4587 2.56102 14.1482 4.23127 14.0894 5.13079Z" fill="#ECEDED"/>
+                </svg>
+            </div>
+            <div class="limits-info" *ngIf="showLimitPopup">
+                <div class="limit">Stack limit:<span>{{market.minStake !== 'No Limit' ? (market.minStake | shortNumber) : 'No Limit'}}-{{market.maxStake !== 'No Limit' ? (market.maxStake | shortNumber) : 'No Limit'}}</span></div>
+                <div class="limit">Max profit:<span>{{market.maxProfit !== 'No Limit' ? (market.maxProfit | shortNumber) : 'No Limit'}}</span></div>
+            </div>
+        </div>
+      </div>
+          </div>
+          
+        </div>
+        <div class="col m6 s6 p-0">
+          <div class="title-right">
+            <div class="market-overarround"><span></span><strong>Back</strong></div>
+            <div class="market-overarround market-overarround-lay"><strong>Lay</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div app-market-bet-details [matchId]="matchId" [marketRunner]="marketRunner"
+      [currentMarketVolumns]="currentMarketVolumn" [betId]="betId" [marketType]="market.name" [market]="market"
+      [sport]="sport">
+      </div>
+    </div>
+</ng-container>
+
+
+<div id="cashout" class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #cashOutModal>
+  <a href="javascript:void(0)" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-cashout-content">
+      <svg xmlns="http://www.w3.org/2000/svg" width="93" height="81" viewBox="0 0 93 81" fill="none">
+        <path d="M46.9276 9.26297C49.5531 9.26297 52.1646 10.9025 54.1537 14.1816L81.8226 59.8202C85.8054 66.3738 82.7306 71.737 75.0083 71.737H18.8468C11.1246 71.737 8.04974 66.3691 12.0325 59.8202L39.7015 14.1816C41.6905 10.9025 44.302 9.26297 46.9276 9.26297ZM46.9276 0C40.8621 0 35.3115 3.4273 31.675 9.40654L4.0061 55.0544C0.327521 61.117 -0.0749695 67.5826 2.90627 72.793C5.88752 78.0034 11.7002 81 18.8468 81H75.0083C82.1549 81 87.9723 78.0081 90.9489 72.7976C93.9254 67.5872 93.5276 61.1217 89.849 55.0591L62.1801 9.42044C58.5436 3.4273 52.993 0 46.9276 0Z" fill="#29B769"/>
+        <path d="M53.9493 61.3068C53.9493 61.3068 50.6217 62.9788 48.9181 62.1497C47.2239 61.2975 46.887 59.6441 47.8464 56.8143L49.7465 51.1592C51.6326 45.5042 49.1802 41.5443 44.6826 41.2895C38.795 40.9653 35.2288 45.1151 35.2288 45.1151C35.2288 45.1151 38.5517 43.4247 40.2599 44.2722C41.9541 45.1244 42.2817 46.7778 41.3316 49.6077L39.4315 55.2627C37.5361 60.9178 39.9884 64.8684 44.4954 65.1324C50.383 65.4612 53.9493 61.3068 53.9493 61.3068Z" fill="#29B769"/>
+        <path d="M46.9299 36.0792C50.2927 36.0792 53.0188 33.3815 53.0188 30.0536C53.0188 26.7258 50.2927 24.0281 46.9299 24.0281C43.5671 24.0281 40.8411 26.7258 40.8411 30.0536C40.8411 33.3815 43.5671 36.0792 46.9299 36.0792Z" fill="#29B769"/>
+    </svg>
+      <div class="cash-value mt-20">Cash out</div>
+      <div class="desc mt-15">Are you sure, You want to Cash out</div>     
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="submit-btn center-align">
+    <a href="javascript:void(0)" class="submit-button" (click)="confirm()">
+      <span class="submit-title">Yes</span>
+    </a>
+    <a href="javascript:void(0)" class="submit-button" (click)="decline()">
+      <span class="submit-title">No</span>
+    </a>
+  </div>
+  </div>
+</div>
+
+<div id="cashout" class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #newcashOutModal>
+  <a href="javascript:void(0)" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-cashout-content">
+      <svg xmlns="http://www.w3.org/2000/svg" width="93" height="81" viewBox="0 0 93 81" fill="none">
+        <path d="M46.9276 9.26297C49.5531 9.26297 52.1646 10.9025 54.1537 14.1816L81.8226 59.8202C85.8054 66.3738 82.7306 71.737 75.0083 71.737H18.8468C11.1246 71.737 8.04974 66.3691 12.0325 59.8202L39.7015 14.1816C41.6905 10.9025 44.302 9.26297 46.9276 9.26297ZM46.9276 0C40.8621 0 35.3115 3.4273 31.675 9.40654L4.0061 55.0544C0.327521 61.117 -0.0749695 67.5826 2.90627 72.793C5.88752 78.0034 11.7002 81 18.8468 81H75.0083C82.1549 81 87.9723 78.0081 90.9489 72.7976C93.9254 67.5872 93.5276 61.1217 89.849 55.0591L62.1801 9.42044C58.5436 3.4273 52.993 0 46.9276 0Z" fill="#29B769"/>
+        <path d="M53.9493 61.3068C53.9493 61.3068 50.6217 62.9788 48.9181 62.1497C47.2239 61.2975 46.887 59.6441 47.8464 56.8143L49.7465 51.1592C51.6326 45.5042 49.1802 41.5443 44.6826 41.2895C38.795 40.9653 35.2288 45.1151 35.2288 45.1151C35.2288 45.1151 38.5517 43.4247 40.2599 44.2722C41.9541 45.1244 42.2817 46.7778 41.3316 49.6077L39.4315 55.2627C37.5361 60.9178 39.9884 64.8684 44.4954 65.1324C50.383 65.4612 53.9493 61.3068 53.9493 61.3068Z" fill="#29B769"/>
+        <path d="M46.9299 36.0792C50.2927 36.0792 53.0188 33.3815 53.0188 30.0536C53.0188 26.7258 50.2927 24.0281 46.9299 24.0281C43.5671 24.0281 40.8411 26.7258 40.8411 30.0536C40.8411 33.3815 43.5671 36.0792 46.9299 36.0792Z" fill="#29B769"/>
+    </svg>
+      <div class="cash-value mt-20">Cash out</div>
+      <div class="desc mt-15">Are you sure, You want to Cash out</div>
+      <div class="odd-changes">
+        <label>
+          <input type="checkbox" class="filled-in ng-untouched ng-pristine ng-valid" [(ngModel)]="isAcceptAnyPL"
+            (ngModelChange)="onChangeisAcceptAnyPL($event)" [ngModelOptions]="{standalone: true}">
+          <span>Accept Any Profit-Loss Changes</span>
+        </label>
+      </div>     
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="submit-btn center-align">
+    <a href="javascript:void(0)" class="submit-button" (click)="confirmnc()">
+      <span class="submit-title">Yes</span>
+    </a>
+    <a href="javascript:void(0)" class="submit-button" (click)="declinenc()">
+      <span class="submit-title">No</span>
+    </a>
+  </div>
+  </div>
+
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal" #rules>
+  <div class="modal-content">
+    <div class="modal-head">
+    <h4>Market Rules</h4>
+    <a href="javascript:void(0)"  class="modal-close waves-effect waves-green btn-flat"><i class="fas fa-times"></i></a>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Voided Bets</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-danger">
+                    Betfair.com reserves the right to reverse, resettle or void any Market or bet in case of result change or mistake, etc , Exchange in that case will settle according to Betfair.com.
+                    <strong>If any bets are voided by Betfair for any reasons we will not be responsible for it.</strong>
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Horse and GreyHound Racing</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-danger">
+                    In Place Markets , Dead Heat will be applicable on All Runners. Runner Positions will not matter.
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Even-Odd / Last Figure Markets</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-danger">
+                    In Figure and Kali (Even ODD) Markets only will be settled if Specific Overs are completed. Market will be voided if overs are not completed due to all team out , chase or rain or duck-worth etc.
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Fancy</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><span class="text-danger">1. 1% commission will be charged in Betfair Fancy.</span></td>
+                        </tr>
+                        <tr><td><span class="text-danger">1a. No bets Will be Voided in Betfair Fancy (Line) Markets in case of NoBall or Wrong Commentary or Player Walkout etc.</span></td></tr>
+
+                        <tr><td><span class="text-danger">2. All fancy bets will be validated when match has been tied.</span></td></tr>
+                        <tr><td><span class="text-danger">3. All advance fancy will be suspended before toss or weather condition.</span></td></tr>
+                        <tr>
+                            <td>
+                                <span class="text-danger">
+                                    4. In case technical error or any circumstances any fancy is suspended and does not resume result will be given all
+                                    previous bets will be valid (based on haar/jeet).
+                                </span>
+                            </td>
+                        </tr>
+                        <tr><td><span class="text-danger">5. If any case wrong rate has been given in fancy that particular bets will be cancelled.</span></td></tr>
+                        <tr><td><span class="text-danger">6. In any circumstances management decision will be final related to all exchange items.</span></td></tr>
+                        <tr><td><span class="text-danger">7. In case customer make bets in wrong fancy we are not liable to delete, no changes will be made and bets will be consider as confirm bet.</span></td></tr>
+                        <tr><td><span class="text-danger">8. Due to any technical error market is open and result has came all bets after result will be deleted.</span></td></tr>
+                        <tr><td><span class="text-danger">9. Manual bets are not accepted in our exchange</span></td></tr>
+                        <tr><td><span class="text-danger">10.Our exchange will provide 5 second delay in our tv.</span></td></tr>
+                        <tr>
+                            <td>
+                                <span class="text-danger">
+                                    11. Once our exchange give username and password it is your responsibility to change a
+                                    password.
+                                </span>
+                            </td>
+                        </tr>
+                        <tr><td><span class="text-danger">12. Penalty runs will not be counted in any fancy.</span></td></tr>
+                        <tr><td><span class="text-danger">13. Warning:- live scores and other data on this site is sourced from third party feeds and may be subject to time delays and/or be inaccurate. If you rely on this data to place bets, you do so at your own risk. Our exchange does not accept responsibility for loss suffered as a result of reliance on this data.</span></td></tr>
+                        <tr><td><span class="text-danger">14. Our exchange is not responsible for misuse of client id.</span></td></tr>
+                        <tr><td><span class="text-danger">Test</span></td></tr>
+                        <tr><td><span class="text-danger">1 Session:-</span></td></tr>
+                        <tr><td><span class="">1.1 Complete session valid in test.</span></td></tr>
+                        <tr><td><span class="">1.2 Session is not completed for ex:- India 60 over run session Ind is running in case India team declares or all-out at 55 over next 5 over session will be continue in England inning.</span></td></tr>
+                        <tr><td><span class="">1.3 1st day 1st session run minimum 25 over  will be played then result is given otherwise 1st day 1st session will be deleted.</span></td></tr>
+                        <tr><td><span class="">1.4 1st day 2nd session run minimum 25 over  will be played then result is given otherwise 1st day 2nd session will be deleted.</span></td></tr>
+                        <tr><td><span class="">1.5 1st day total run minimum 80 over  will be played then result is given otherwise 1st day total run will be deleted.</span></td></tr>
+                        <tr><td><span class="">1.6 Test match both advance session is valid.</span></td></tr>
+                        <tr><td><span class="text-danger">2 Test lambi:-</span></td></tr>
+                        <tr><td><span class="">2.1 Mandatory 70 over played in test lambi paari. If any team all-out or declaration lambi paari is valid.</span></td></tr>
+                        <tr><td><span class="">2.2 In case due to weather situation match has been stopped all lambi trades will be deleted.</span></td></tr>
+                        <tr><td><span class="">2.3 In test both lambi paari is valid in advance fancy.</span></td></tr>
+                        <tr><td><span class="text-danger">3 Test batsman:-</span></td></tr>
+                        <tr><td><span class="">3.1 In case batsmen is injured he/she is made 34 runs the result will be given 34 runs.</span></td></tr>
+                        <tr><td><span class="">3.2 Batsman 50/100 run if batsman is injured or declaration the result will be given on particular run.</span></td></tr>
+                        <tr><td><span class="">3.3 In next men out fancy if player is injured particular fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="">3.4 In advance fancy opening batsmen is only valid if same batsmen came in opening the fancy will be valid in case one batsmen is changed that particular player fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="">3.5 Test match both advance fancy batsmen run is valid.</span></td></tr>
+                        <tr><td><span class="text-danger">4 Test partnership:-</span></td></tr>
+                        <tr><td><span class="">4.1 In partnership one batsman is injured partnership is continued in next batsman.</span></td></tr>
+                        <tr><td><span class="">4.2 Partnership and player runs due to weather condition or match abandoned the result will be given as per score.</span></td></tr>
+                        <tr><td><span class="">4.3 Advance partnership is valid in case both players are different or same.</span></td></tr>
+                        <tr><td><span class="">4.4 Test match both advance fancy partnership is valid.</span></td></tr>
+                        <tr><td><span class="text-danger">5 Other fancy advance (test):-</span></td></tr>
+                        <tr><td><span class="">5.1 Four, sixes, wide, wicket,  extra run, total run, highest over and top batsmen is valid only if 2 innings will be played otherwise all other fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="text-danger">2 Odi rule:-</span></td></tr>
+                        <tr><td><span class="text-danger">Session:-</span></td></tr>
+                        <tr><td><span class="">Match 1st over run advance fancy only 1st innings run will be counted.</span></td></tr>
+                        <tr><td><span class="">Complete session is valid in case due to rain or match abandoned particular session will be deleted.</span></td></tr>
+                        <tr><td><span class="">For example:- 35 over run team a is playing any case team A  is all-out in 33 over team a has made 150 run the session result is validated on particular run.</span></td></tr>
+                        <tr><td><span class="">Advance session is valid in only 1st innings.</span></td></tr>
+                        <tr><td><span class="text-danger">50 over runs:-</span></td></tr>
+                        <tr><td><span class="">In case 50 over is not completed all bet will be deleted due to weather or any condition.</span></td></tr>
+                        <tr><td><span class="">Advance 50 over runs is valid in only 1st innings.</span></td></tr>
+                        <tr><td><span class="text-danger">Odi batsman runs:-</span></td></tr>
+                        <tr><td><span class="">In case batsman is injured he/she is made 34 runs the result will be given 34 runs.</span></td></tr>
+                        <tr><td><span class="">In next men out fancy if player is injured particular fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="">In advance fancy opening batsmen is only valid if same batsmen came in opening the fancy will be valid in case one batsmen is changed that particular player fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="text-danger">Odi partnership runs:-</span></td></tr>
+                        <tr><td><span class="">In partnership one batsman is injured partnership is continued in next batsman.</span></td></tr>
+                        <tr><td><span class="">Advance partnership is valid in case both players are different or same.</span></td></tr>
+                        <tr><td><span class="">Both team advance partnerships are valid in particular match.</span></td></tr>
+                        <tr><td><span class="text-danger">Other fancy:-</span></td></tr>
+                        <tr><td><span class="">Four, sixes, wide, wicket, extra run, total run, highest over ,top batsman,maiden over,caught-out,no-ball,run-out,fifty and century are valid only match has been completed in case due to rain over has been reduced all other fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="text-danger">T20:-</span></td></tr>
+                        <tr><td><span class="text-danger">Session:-</span></td></tr>
+                        <tr><td><span class="">Match 1st over run advance fancy only 1st innings run will be counted.</span></td></tr>
+                        <tr><td><span class="">Complete session is valid in case due to rain or match abandoned particular session will be deleted.</span></td></tr>
+                        <tr><td><span class="">For example :- 15 over run team a is playing any case team a  is all-out in 13 over team A has made 100 run the session result is validated on particular run.</span></td></tr>
+                        <tr><td><span class="">Advance session is valid in only 1st innings.</span></td></tr>
+                        <tr><td><span class="text-danger">20 over runs:-</span></td></tr>
+                        <tr><td><span class="">In case 20 over is not completed all bet will be deleted due to weather or any condition.</span></td></tr>
+                        <tr><td><span class="">Advance 20 over run is valid only in 1st innings.</span></td></tr>
+                        <tr><td><span class="text-danger">T20 batsman runs:-</span></td></tr>
+                        <tr><td><span class="">In case batsman is injured he/she is made 34 runs the result will be given 34 runs.</span></td></tr>
+                        <tr><td><span class="">In next men out fancy if player is injured particular fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="">In advance fancy opening batsmen is only valid if same batsmen came in opening the fancy will be valid in case one batsmen is changed that particular player fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="text-danger">T20 partnership runs:-</span></td></tr>
+                        <tr><td><span class="">In partnership one batsman is injured partnership is continued in next batsman.</span></td></tr>
+                        <tr><td><span class="">Advance partnership is valid in case both players are different or same.</span></td></tr>
+                        <tr><td><span class="">Both team advance partnerships are valid in particular match.</span></td></tr>
+                        <tr><td><span class="text-danger">Other fancy:-</span></td></tr>
+                        <tr><td><span class="">T-20 ,one day and test match in case current innings player and partnership are running in between match has been called off or abandoned that situation all current player and partnership results are valid.</span></td></tr>
+                        <tr>
+                            <td>
+                                <span class="">
+                                    Four, sixes, wide, wicket, extra run, total run, highest over and top batsman,maiden over,caught-out,no-ball,run-out,fifty and century are valid only match has been completed in case due to rain over has been reduced all other fancy will be deleted.
+                                    1st 6 over dot ball and  20 over dot ball fancy only valid is 1st innings.
+                                </span>
+                            </td>
+                        </tr>
+                        <tr><td><span class="">For example:- Multiplication of 1st over run scenario is England 1st over run 5 and India 1st over run 0 the result will be announced as 0 run.This rules are applying in all multiplication related fancies</span></td></tr>
+                        <tr><td><span class="">1st wicket lost to any team balls meaning that any team 1st wicket fall down in how many balls that particular fancy at least minimum one ball have to be played otherwise bets will be deleted.</span></td></tr>
+                        <tr><td><span class="">1st wicket lost to any team fancy valid both innings.</span></td></tr>
+                        <tr><td><span class="">How many balls for 50 runs any team meaning that any team achieved 50 runs in how many balls that particular fancy at least one ball have to be played otherwise that fancy bets will be deleted.</span></td></tr>
+                        <tr><td><span class="">How many balls for 50 runs fancy any team only first inning valid.</span></td></tr>
+                        <tr><td><span class="">For example:-Any team score is 49 run in 5.5 overs if next ball is wide or no-ball 50 runs completed the result will be announced in 35 balls.</span></td></tr>
+                        <tr><td><span class="">1st 6 inning boundaries runs any team fancy will be counting only according to run scored fours and sixes at least 6 over must be played otherwise that fancy will be deleted.</span></td></tr>
+                        <tr><td><span class="">1st inning 6 over boundaries runs any team run like wide ,no-ball ,leg-byes ,byes and over throw runs are not counted this fancy.</span></td></tr>
+                        <tr><td><span class="">How many balls face any batsman meaning that any batsman how many balls he/she played that particular fancy at least one ball have to be played otherwise that fancy bets will be deleted.</span></td></tr>
+                        <tr><td><span class="">How many balls face by any batsman both innings valid.</span></td></tr>
+                        <tr><td><span class="text-danger">Concussion in Test:-</span></td></tr>
+                        <tr><td><span class="text-danger">All bets of one over session will be deleted in test scenario, in case session is incomplete. For example innings declared or match suspended to bad light or any other conditions.</span></td></tr>
+                        <tr><td><span class="text-danger">1. All bets will be considered as valid if a player has been replaced under concussion substitute, result will be given for the runs scored by the mentioned player. For example DM Bravo gets retired hurt at 23 runs, then result will be given for 23.</span></td></tr>
+                        <tr><td><span class="text-danger">2. Bets of both the player will be valid under concussion substitute.</span></td></tr>
+                        <tr><td><span class="text-danger">IPL RULES</span></td></tr>
+                        <tr><td><span class="text-danger">1.Super over does not count any IPL fancy market  and the fancy will be deleted if fastest fifty and fastest centuries do not get done.</span></td></tr>
+                        <tr><td><span class="text-danger">2. Match 1st over rule:-If match is abandoned due to any reason 6 runs added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">3. Lowest innings run only 1st inning valid.</span></td></tr>
+                        <tr><td><span class="text-danger">4. Total Four:-In case 20 over is not completed 26 fours will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">5. Total Sixes:-In case 20 over is not completed 12 sixes will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">6. Total Wicket:-In case 20 over is not completed 12 wickets will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">7. Total Wide:-In case 20 over is not completed 8 wide will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">8. Total Extra Run:-In case 20 over is not completed 14 extra run will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">9. Total No ball:-In case 20 over is not completed 1 no-ball will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">10. Total Fifties:-In case 20 over is not completed 2 fifty will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">11. Total Run-out:-In case 20 over is not completed 1 run-out will be added as per game.</span></td></tr>
+                        <tr><td><span class="text-danger">12. Player and partnership are valid only 14 matches.</span></td></tr>
+                        <tr><td><span class="text-danger">13. Csk partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 26 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">14. Rcb partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 25 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">16. Kkr partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 23 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">17. Rr partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 24 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">18. Srh Partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 25 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">19. Mi partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 26 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">20. Kxip partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 26 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">21. Dc partnership:-Partnership is valid as per regular game and in case match is abandoned due to any reason 24 runs added as per average.</span></td></tr>
+                        <tr><td><span class="text-danger">51. In Ipl special event player fancy will be deleted if player does not play for 3 consecutive matches.</span></td></tr>
+                        <tr><td><span class="text-danger">Ipl players rule:- all bets for the fancy will be deleted if the player does not play for three consecutive matches.</span></td></tr>
+                        <tr><td><span class="text-danger">Boundary on Match 1st Free hit</span></td></tr>
+                        <tr><td><span class="">Both innings are valid</span></td></tr>
+                        <tr><td><span class="">Boundary hit on Free hit only be considered as valid</span></td></tr>
+                        <tr><td><span class="">Bets will be deleted if there is no Free hit in the mentioned match</span></td></tr>
+                        <tr><td><span class="">Boundary by bat will be considered as valid</span></td></tr>
+                        <tr><td><span class="text-danger">Boundaries by Player</span></td></tr>
+                        <tr><td><span class="">Both Four and six are valid</span></td></tr>
+                        <tr><td><span class="text-danger">Any query regarding result or rate has to be contacted within 7 days from the event, query after 7 days from the event will not be considered as valid</span></td></tr>
+                        <tr>
+                            <td>
+                                <span class="">
+                                    Casino does not provide us reason for voided bets or fully voided markets. So punters are advised to bet on their own risk. We will <b>NOT</b> explain reason for voided bets or markets.
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    If result changes or market Information updated markets can be resettled within 24 hours.
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

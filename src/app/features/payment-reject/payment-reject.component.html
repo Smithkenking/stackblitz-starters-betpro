@@ -1,0 +1,33 @@
+<main class="full-wrap ">
+    <div class="row m-0">
+        <div class="col-center">
+            <div class="card z-depth-0 ">
+                <div class="card-content">
+                    <form>
+                        <div class="payment-accept center-align payment-reject">
+                            <img src="assets/images/payment-reject.png" alt="Payment Rejected" class="payment-img" loading="lazy">
+                            <h2 class="mt-10 mb-0">{{amount}}</h2>
+                            <button class="mt-30">Payment Rejected</button>
+                            <div class="mt-30 pt-20">
+                                <p class="mb-5">Contact Customer Support</p>
+                                <a href="tel:+91 70468 88888" class="text-decoration-none">
+                                    <span class="d-flex align-items-center justify-content-center"><img
+                                            src="assets/images/support-wa.png" alt="WhatsApp" class="responsive-img" loading="lazy">+91
+                                        81418 00792</span>
+                                </a>
+                                <div class="d-flex align-items-center justify-content-center mt-30 transaction-btn">
+                                    <button class="mr-10" [routerLink]="['/home']"><span
+                                            class="animate-btn">Home</span></button>
+                                    <button [routerLink]="['/transaction-history']"><span
+                                            class="animate-btn">Transactions</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <app-rightsidebar />
+            <app-footer />
+        </div>
+    </div>
+</main>

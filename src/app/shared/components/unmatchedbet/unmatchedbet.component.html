@@ -1,0 +1,75 @@
+<div class="bet-start" *ngFor="let unMatchBet of unMatchBets;let first=first;">
+    <div class="header" *ngIf="first">
+        <div class="row m-0  valign-wrapper">
+            <div class="col s6 left-align">Selection</div>
+            <div class="col s2 center">Odds</div>
+            <div class="col s2 center">Stake</div>
+            <div class="col s2 center">P/L</div>
+        </div>
+    </div>
+    <ng-container *ngIf="isCheckAverageOdd">
+        <ng-container *ngFor="let avg of averageOddList;">
+            <ng-container *ngIf="avg.match == unMatchBet.match">
+                <div class="odd-title" *ngIf="avg.isHead">
+                    <div class="title"> {{ avg.betName }}</div>
+                    <div class="match-name">{{ avg.match | splitVSPipe : true }}
+                        <span class="vs-text" *ngIf="(avg.match | splitVSPipe : false).length > 0"> VS </span>
+                      <span *ngIf="(avg.match | splitVSPipe : false).length > 0">{{ avg.match | splitVSPipe : false }}</span> </div>
+                </div>
+
+                <div class="bet-record" [class.v-blue]="avg.isBack" [class.v-pink]="!avg.isBack">
+                    <div class="row m-0  valign-wrapper">
+                        <div class="col s6 left-align">
+                            <div class="beatteam">{{avg.betTitle}}</div>
+                            <small></small>
+                        </div>
+                        <div class="col s2 center">
+                            {{((avg.profit / avg.stake) + 1).toFixed(2)}}
+                        </div>
+                        <div class="col s2 center">{{ avg.stake }}</div>
+                        <div class="col s2 center">{{ avg.profit }}</div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let bet of unMatchBet.betDetails">
+        <ng-container *ngIf="bet.active !== false">
+            <div class="odd-title ">
+                <div class="title"> {{ bet.name }}</div>
+                <div class="match-name">{{ unMatchBet.match | splitVSPipe : true }} 
+                    <span class="vs-text" *ngIf="(unMatchBet.match | splitVSPipe : false).length > 0"> VS </span>
+                   <span *ngIf="(unMatchBet.match | splitVSPipe : false).length > 0">{{ unMatchBet.match | splitVSPipe : false }}</span> </div>
+            </div>
+            <div class="bet-record" *ngFor="let betDetail of bet.details" [class.v-blue]="betDetail.clientBetDetails.isBack"
+                [class.v-pink]="!betDetail.clientBetDetails.isBack">
+                <ng-container *ngIf="betDetail.unMatchBets.betDetails as detail">
+                    <div class="row m-0  valign-wrapper">
+                        <div class="col s6 left-align">
+                            <div class="beatteam">
+                                <span class="close-icon">
+                                    <a (click)="deleteBets(detail.betID, detail.clientBetId)"><i class="fas fa-times"></i></a>
+                                </span> {{detail.betTitle}}</div>
+                            <div class="date-time">{{detail.createdDate?(' - ' + (detail.createdDate|date:'dd-MM-yyyy hh:mm:ss')):'-'}}</div>
+                            <div *ngIf="detail.isOverfolw">
+                                Not Matched: {{detail.overflowMessage}}
+                            </div>
+                        </div>
+                        <div class="col s2 center">{{ detail.rate }}</div>
+                        <div class="col s2 center">{{detail.stake}}</div>
+                        <div class="col s2 center">{{detail.profit}}</div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+<div class="bet-start" *ngIf="(unMatchBets !=null && unMatchBets.length > 0)">
+    <div class="average-odd">
+        <label>
+            <input type="checkbox" class="filled-in" [(ngModel)]="isCheckAverageOdd" (change)="getAverageOdds()">
+            <span>Average Odd</span>
+        </label>
+    </div>
+</div>
+<div *ngIf="!(unMatchBets !=null && unMatchBets.length > 0)" class="center-align no-bets">There are currently no unmatched Bets.</div>

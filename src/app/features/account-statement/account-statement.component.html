@@ -1,0 +1,427 @@
+<div class="center" style="font-size: 24px;" *ngIf="loading">
+  <i class="fa fa-circle-notch fa-spin fa-sm"></i>
+</div>
+<div class="market-right market-result-main">
+  <div class="market-result statement">
+    <div class="marketresult-header">
+      <i class="fa fa-align-justify"></i>
+      <span>Account Ledger</span>
+    </div>
+    <div class="center mt-10" *ngIf="accountstatement.length == 0 && !loading">
+      No Account Statement details available.
+    </div>
+    <div class="marketresult-body">
+      <div id="soccer-tab" class="responsive-table">
+        <table class="striped highlight marketresult-table">
+          <tr>
+            <th>
+              <div>
+                <span>Date</span>
+                <img src="assets/images/sort_market-result.svg" alt="" class="right" loading="lazy">
+              </div>
+            </th>
+            <th>
+              <div>
+                <span>Description</span>
+                <img src="assets/images/sort_market-result.svg" alt="" class="right" loading="lazy">
+              </div>
+            </th>
+           
+            <th>
+              <div>
+                <span>DEBIT/CREDIT</span>
+                <img src="assets/images/sort_market-result.svg" alt="" class="right" loading="lazy">
+              </div>
+
+            </th>
+            <th>
+              <div class="d-flex">
+                <span>Balance</span>
+                <img src="assets/images/sort_market-result.svg" alt="" class="right" loading="lazy">
+              </div>
+            </th>
+          
+          </tr>
+          <ng-container *ngFor="let item of getPaginatedItems()">
+          <tr >
+            <td>
+              <div>{{item.appDate | date}} &nbsp;&nbsp; {{ item.appDate  | istToPkt }} </div>
+              <!-- <div >{{item.appDate | date: "MMM '\''yy"}}</div> -->
+              <!-- <div >{{item.appDate | date:'h:mm a'}}</div></td> -->
+            <td><a class="opening" [class.cursor-pointer]="item.appBetID != 0"
+                (click)="getBetHistory(item)">{{item.appBetID != 0 ? item.appMarket : item.appParticular}} </a></td>
+            <td *ngIf="item.appDR" style="color: rgb(255, 59, 5);"> <span class="label"> DE </span> &nbsp; &nbsp;{{ item.appDR }}</td>
+            <td *ngIf="item.appCR" style="color: darkgreen;"><span class="label"> CR </span> &nbsp;&nbsp;{{ item.appCR }}</td>
+            <td >{{item.appBalance}}</td>
+          </tr>
+        </ng-container>
+        </table>
+      </div>
+
+      <!--  -->
+      <div class="marketresult-filter">
+        <div class="row">
+          <div class="col m5 s12">
+            <!-- <p class="entries">Showing 1 to 1 of 1 entries</p> -->
+          </div>
+          <div class="col m7 s12" *ngIf="accountstatement && accountstatement.length > 0">
+            <ul class="pagination">
+              <li class="waves-effect" [class.disabled]="currentPage === 1"><a href="javascript:void(0)"
+                  (click)="onPageChange(currentPage - 1)">previous</a></li>
+              <li><a href="javascript:void(0)" class="active">{{ currentPage }}</a></li>
+              <li class="waves-effect" [class.disabled]="currentPage === getPageCount()"><a href="javascript:void(0)"
+                  (click)="onPageChange(currentPage + 1)">next</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+    </div>
+  </div>
+</div>
+
+<!-- Client Bet History -->
+<div id="bet-history-popup" class="modal modal-fixed-footer" tabindex="0" #cbh>  
+
+  <div class="modal-content">
+    <a href="javascript:void(0)" (click)="hideModal()" class="modal-close close-icon"><i class="fa fa-times"
+      aria-hidden="true"></i></a>
+
+    <div class="modal-body">
+      <span class="title">
+        &nbsp; &nbsp; Client Bet History
+     </span>
+      <div class="liability-table">
+        <table class="table highlight">
+          <thead>
+            <tr>
+              <th>Ref.ID</th>
+              <th>Market</th>
+              <th *ngIf="isSportsData">Type</th>
+              <th class="right-align" *ngIf="isSportsData">Odds</th>
+              <th class="right-align" *ngIf="isSportsData">Stake</th>
+              <th class="right-align">P|L</th>
+              <th class="right-align">M. Date</th>
+              <th class="right-align">Win/Loss</th>
+              <th class="right-align">Net</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!avgForm.value.avgCtrl">
+              <tr *ngFor="let history of betWiseHistory">
+                <td class="text-center">{{ history.appClientBetID }}</td>
+                <td (click)="GetGameData(history.eReportKey)" style="cursor: pointer;">
+                  <div class=" col 12 col 12">
+                    {{ history.appMarket }}
+                  </div>
+                </td>
+                <td class="text-center" *ngIf="isSportsData">
+                  <div *ngIf="history.appIsFancy">
+                    <div *ngIf="history.appIsBack">Yes</div>
+                    <div *ngIf="!history.appIsBack">No</div>
+                  </div>
+                  <div *ngIf="!history.appIsFancy">
+                    <div *ngIf="history.appIsBack">Back</div>
+                    <div *ngIf="!history.appIsBack">Lay</div>
+                  </div>
+                </td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appRate }}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appStake }}</td>
+                <td class="right-align">{{ history.appProfit }}</td>
+                <td class="right-align">
+                  {{ !history.appMatchedDate ? '-' :history.appMatchedDate | date: 'dd/MM/yyyy , h:mm a' }}</td>
+                <td class="right-align" *ngIf="history.appDR !== '-'" style="color: red;">{{ history.appDR }}</td>
+                <td class="right-align" *ngIf="history.appCR !== '-'" style="color: green;">{{ history.appCR }}</td>
+                <td class="right-align">
+                  <span style="font-weight: bold;">{{ history.appBalance }}</span>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="avgForm.value.avgCtrl">
+              <tr *ngFor="let history of avgDetails">
+                <td class="text-center"></td>
+                <td (click)="GetGameData(history.eReportKey)" style="cursor: pointer;">
+                  <div class="col 12 col 12">
+                    {{ history.appMarket }}
+                  </div>
+                </td>
+                <td class="text-center" *ngIf="isSportsData">{{history.type}}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appRate | number:'1.0-2'}}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appStake | number:'1.0-2'}}</td>
+                <td class="right-align">{{ history.appProfit | number:'1.0-2'}}</td>
+                <td></td>
+                <td class="right-align" *ngIf="history.appDR !== '-'" style="color: red;">{{ history.appDR }}</td>
+                <td class="right-align" *ngIf="history.appCR !== '-'" style="color: green;">{{ history.appCR }}</td>
+                <td class="right-align">
+                  <span style="font-weight: bold;">{{ history.appBalance }}</span>
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+          <tfoot *ngIf="isSportsData">
+            <tr>
+              <td class="col 8" colspan="4">
+                <div class="form-group">
+                  <label> Average Odds : </label>
+                  <form [formGroup]="avgForm">
+                    <label>
+                      <input class="with-gap" type="radio" [value]="true" formControlName="avgCtrl"><span>on</span>
+                    </label>
+                    <label>
+                      <input class="with-gap" type="radio" [value]="false" formControlName="avgCtrl"><span>off</span>
+                    </label>
+                  </form>
+                </div>
+              </td>
+              <td class="col 2" colspan="4">
+                <div class="col 12 no-padding">
+                  <label class="lbl">Back Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Lay Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Market Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Total</label>
+                </div>
+              </td>
+              <td class="col 2" colspan="4">
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{backTotal | number:'1.0-2' }}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{layTotal | number:'1.0-2' }}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{marketTotal | number:'1.0-2'}}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{total | number:'1.0-2'}}</label>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0)" class="btn modal-close">Close</a>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div class="center" style="font-size: 24px;" *ngIf="loading">
+  <i class="fa fa-circle-notch fa-spin fa-sm"></i>
+</div>
+<div class="market-result statement">
+  <div class="marketresult-header">
+    <i class="fa fa-align-justify"></i>
+    <span>Account Ledger</span>
+  </div>
+
+  <div class="center mt-10" *ngIf="accountstatement.length == 0 && !loading">
+    No Account Statement details available.
+  </div>
+  <ng-container *ngFor="let item of getPaginatedItems()">
+    <div id="soccer-tab" class="responsive-table">
+      <div class="striped highlight marketresult-table">
+        <div class="date-col">
+          <div class="col s12 d-flex align-items-center full-date-center">
+            <div class="full-date-between">
+              <div class="date">{{item.appDate | date:'dd'}}</div>
+              <div class="month">{{item.appDate | date: "MMM '\''yy"}}</div>
+              <div class="time">{{item.appDate | date:'h:mm a'}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="detail row mb-0">
+          <div class="col xl6 s12 d-flex align-items-center">
+            <div class="name">
+              <div class="act-name" [class.cursor-pointer]="item.appBetID != 0" (click)="getBetHistory(item)">
+                <span class="icon-holder-verysmall">
+                  <span class="sports-icon cricket"></span>
+                </span>
+                <span> {{item.appBetID != 0 ? item.appMarket : item.appParticular}} </span>
+              </div>
+            </div>
+          </div>
+          <div class="col xl6 s12 d-flex align-items-center justify-between balance-data">
+            <div *ngIf="item.appDR" class="amount-data">
+              <div class="label"> DEBIT </div>
+              <div class="rupees"> PKR <span class="debit">{{ item.appDR }}</span></div>
+            </div>
+            <div *ngIf="item.appCR" class="amount-data">
+              <div class="label"> CREDIT </div>
+              <div class="rupees"> PKR <span class="credit">{{ item.appCR }}</span></div>
+            </div>
+            <div class="round"
+              [innerText]="[13, 4, 29].includes(item.appTransactionType) ? 'D|W' : [5, 6, 30].includes(item.appTransactionType) ? 'P|L' : item.appTransactionType">
+            </div>
+            <div class="amount-data text-align-end">
+              <div class="label"> BALANCE </div>
+              <div class="rupees"> PKR <span class="debit"> {{item.appBalance}} </span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ul class="pagination right" *ngIf="accountstatement && accountstatement.length > 0">
+  <li [class.disabled]="currentPage === 1">
+    <a href="javascript:void(0)" (click)="onPageChange(currentPage - 1)">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+  </li>
+  <li *ngFor="let page of generatePaginationRange(); let isFirst = first; let isLast = last"
+    [class.active]="page === currentPage" (click)="onPageChange(page)">
+    <a href="javascript:void(0)">{{ page }}</a>
+  </li>
+  <li [class.disabled]="currentPage === getPageCount()">
+    <a href="javascript:void(0)" (click)="onPageChange(currentPage + 1)">
+      <i class="fas fa-chevron-right"></i>
+    </a>
+  </li>
+</ul>
+<div id="cbh" class="modal modal-fixed-footer" #cbh>
+  <a href="javascript:void(0)" (click)="hideModal()" class="modal-close right close-icon"><i class="fa fa-times"
+      aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+      <span class="title">
+        Client Bet History
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+
+    <div class="modal-body">
+      <div class="liability-table">
+        <table class="table highlight">
+          <thead>
+            <tr>
+              <th>Ref.ID</th>
+              <th>Market/Round</th>
+              <th *ngIf="isSportsData">Type</th>
+              <th class="right-align" *ngIf="isSportsData">Odds</th>
+              <th class="right-align" *ngIf="isSportsData">Stake</th>
+              <th class="right-align">P|L</th>
+              <th class="right-align">M. Date</th>
+              <th class="right-align">Win/Loss</th>
+              <th class="right-align">Net</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!avgForm.value.avgCtrl">
+              <tr *ngFor="let history of betWiseHistory">
+                <td class="text-center">{{ history.appClientBetID }}</td>
+                <td (click)="GetGameData(history.eReportKey)" style="cursor: pointer;">
+                  <div class=" col 12 col 12">
+                    {{ history.appMarket }}
+                  </div>
+                </td>
+                <td class="text-center" *ngIf="isSportsData">
+                  <div *ngIf="history.appIsFancy">
+                    <div *ngIf="history.appIsBack">Yes</div>
+                    <div *ngIf="!history.appIsBack">No</div>
+                  </div>
+                  <div *ngIf="!history.appIsFancy">
+                    <div *ngIf="history.appIsBack">Back</div>
+                    <div *ngIf="!history.appIsBack">Lay</div>
+                  </div>
+                </td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appRate }}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appStake }}</td>
+                <td class="right-align">{{ history.appProfit }}</td>
+                <td class="right-align">
+                  {{ !history.appMatchedDate ? '-' :history.appMatchedDate | date: 'dd/MM/yyyy , h:mm a' }}</td>
+                <td class="right-align" *ngIf="history.appDR !== '-'" style="color: red;">{{ history.appDR }}</td>
+                <td class="right-align" *ngIf="history.appCR !== '-'" style="color: green;">{{ history.appCR }}</td>
+                <td class="right-align">
+                  <span style="font-weight: bold;">{{ history.appBalance }}</span>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="avgForm.value.avgCtrl">
+              <tr *ngFor="let history of avgDetails">
+                <td class="text-center"></td>
+                <td (click)="GetGameData(history.eReportKey)" style="cursor: pointer;">
+                  <div class="col 12 col 12">
+                    {{ history.appMarket }}
+                  </div>
+                </td>
+                <td class="text-center" *ngIf="isSportsData">{{history.type}}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appRate | number:'1.0-2'}}</td>
+                <td class="right-align" *ngIf="isSportsData">{{ history.appStake | number:'1.0-2'}}</td>
+                <td class="right-align">{{ history.appProfit | number:'1.0-2'}}</td>
+                <td></td>
+                <td class="right-align" *ngIf="history.appDR !== '-'" style="color: red;">{{ history.appDR }}</td>
+                <td class="right-align" *ngIf="history.appCR !== '-'" style="color: green;">{{ history.appCR }}</td>
+                <td class="right-align">
+                  <span style="font-weight: bold;">{{ history.appBalance }}</span>
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+          <tfoot *ngIf="isSportsData">
+            <tr>
+              <td class="col 8" colspan="4">
+                <div class="form-group">
+                  <label> Average Odds : </label>
+                  <form [formGroup]="avgForm">
+                    <label>
+                      <input class="with-gap" type="radio" [value]="true" formControlName="avgCtrl"><span>on</span>
+                    </label>
+                    <label>
+                      <input class="with-gap" type="radio" [value]="false" formControlName="avgCtrl"><span>off</span>
+                    </label>
+                  </form>
+                </div>
+              </td>
+              <td class="col 2" colspan="4">
+                <div class="col 12 no-padding">
+                  <label class="lbl">Back Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Lay Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Market Total</label>
+                </div>
+                <div class="col 12 no-padding">
+                  <label class="lbl">Total</label>
+                </div>
+              </td>
+              <td class="col 2" colspan="4">
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{backTotal | number:'1.0-2' }}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{layTotal | number:'1.0-2' }}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{marketTotal | number:'1.0-2'}}</label>
+                </div>
+                <div class="col 12 no-padding right-align">
+                  <label class="lbl right-align">{{total | number:'1.0-2'}}</label>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->

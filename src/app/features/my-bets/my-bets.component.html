@@ -1,0 +1,68 @@
+<div class="market-result bets-history">
+  <div class="marketresult-header">
+    <i class="fa fa-align-justify"></i>
+    <span>Bets History</span>
+  </div>
+  <div class="marketresult-body">
+    <div class="marketresult-date">
+      <div class="select-game">
+        <select [(ngModel)]="sportVal" (ngModelChange)="onSportChange($event)" #sports>
+          <option [ngValue]="0" selected>Select sport</option>
+          <option *ngFor="let item of sportsData" [ngValue]="item.appSportID">{{item.appSport}}</option>
+        </select>
+        <label>Sports</label>
+      </div>
+      <div class="select-game">
+        <select [(ngModel)]="tournamentval" (ngModelChange)="onTournamentChange($event)" #tournament>
+          <option [ngValue]="0" selected>Select tournament</option>
+          <option *ngFor="let item of tournamentsData" [ngValue]="item.appTournamentID">
+            {{item.appTournament}}
+          </option>
+        </select>
+        <label>Tournaments</label>
+      </div>
+      <div class="select-game">
+        <select [(ngModel)]="matchVal" (ngModelChange)="onMatchChange($event)" #match>
+          <option [ngValue]="0" selected>Select match</option>
+          <option *ngFor="let item of matchsData" [ngValue]="item.appMatchID">{{item.appMatch}} -
+            {{item.appMatchDate | date :'dd/MM/yyyy'}}</option>
+        </select>
+        <label>Matches</label>
+      </div>
+      <div class="select-game">
+        <select [(ngModel)]="marketVal" (ngModelChange)="onMarketChange($event)" #market>
+          <option [ngValue]="0" selected>Select market</option>
+          <option *ngFor="let item of marketsData" [ngValue]="item.appBetID">{{item.appBetName}}</option>
+        </select>
+        <label>Markets</label>
+      </div>
+      <!-- <div class="row m-0"> -->
+        <div class="d-flex valign-wrapper">
+          <!-- <label for="From_Date">From Date</label> -->
+          <input type="text" class="datepicker" #fdp>
+          <div class="modal datepicker-modal" id="modal-91c65c86-85f7-f8d9-8ee3-ff562917866b" tabindex="0"><div class="modal-content datepicker-container"><div class="datepicker-date-display"><span class="year-text"></span><span class="date-text"></span></div><div class="datepicker-calendar-container"><div class="datepicker-calendar"></div><div class="datepicker-footer"><button class="btn-flat datepicker-clear waves-effect" style="visibility: hidden;" type="button"></button><div class="confirmation-btns"><button class="btn-flat datepicker-cancel waves-effect" type="button">Cancel</button><button class="btn-flat datepicker-done waves-effect" type="button">Ok</button></div></div></div></div></div><div class="marketresult-date-img datepicker">
+            <img src="assets/images/marketresult-calander.svg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="d-flex valign-wrapper">
+          <!-- <label for="To_Date">To Date</label> -->
+          <input type="text" class="datepicker" #tdp>
+          <div class="modal datepicker-modal" id="modal-91c65c86-85f7-f8d9-8ee3-ff562917866b" tabindex="0"><div class="modal-content datepicker-container"><div class="datepicker-date-display"><span class="year-text"></span><span class="date-text"></span></div><div class="datepicker-calendar-container"><div class="datepicker-calendar"></div><div class="datepicker-footer"><button class="btn-flat datepicker-clear waves-effect" style="visibility: hidden;" type="button"></button><div class="confirmation-btns"><button class="btn-flat datepicker-cancel waves-effect" type="button">Cancel</button><button class="btn-flat datepicker-done waves-effect" type="button">Ok</button></div></div></div></div></div><div class="marketresult-date-img datepicker">
+            <img src="assets/images/marketresult-calander.svg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="select-game" >
+          <select [(ngModel)]="betTypeVal" (ngModelChange)="onBetsTypeChange($event)" #market>
+            <option [ngValue]="0" selected disabled>Select bet type</option>
+            <option [ngValue]="'All'" selected>All</option>
+            <option [ngValue]="true">Matched Bets</option>
+            <option [ngValue]="false">UnMatched Bets</option>
+          </select>
+          <label style="top: -33px;">Bets Type</label>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+<!--  -->
+<table #dataTable class="display" width="100%"></table>

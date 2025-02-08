@@ -1,0 +1,212 @@
+<ng-container *ngIf="getSessionDetail() | async as sessionDetail">
+  <div class="bet-list"
+    *ngIf="(sessionDetail?.layRate2 != null && sessionDetail?.backRate2 != null) && (sessionDetail.layRate2 != '' && sessionDetail.backRate2 != '')">
+    <div class="team-market">
+      <div class="team1 cteam">
+        <!-- <div class="team-name">
+                <p>Australia</p>
+                <span class="minus"></span>
+            </div> -->
+        <div class="match-primary-rate-box d-flex align-items position-relative">
+          <!-- <div class="bet-value b-blue hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.54</p>
+                        <span>2.5M</span>
+                    </a>
+                </div> -->
+          <!-- <div class="bet-value b-blue hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.56</p>
+                        <span>375.1k</span>
+                    </a>
+                </div> -->
+          <div class="bet-value v-blue ">
+            <a href="javascript:void(0);" class="back-bet-btn " data-target="market-bet-modal"
+              (click)="placeBet(sessionDetail,sessionDetail.layRate2, false,'layRate2',sessionDetail.layPoint2);priority=2">
+              <p class="lay-rate" pbHighlight [value]="sessionDetail.layRate2">{{sessionDetail.layRate2 !== null &&
+                sessionDetail.layRate2 !== 0 ? sessionDetail.layRate2 : ''}}</p>
+              <span
+                *ngIf="sessionDetail?.layPoint2 != null && sessionDetail?.layPoint2 != 0">[&nbsp;{{sessionDetail?.layPoint2
+                != 0 ? (sessionDetail?.layPoint2 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <div class="bet-value v-pink">
+            <a href="javascript:void(0);" class="lay-bet-btn " data-target="market-bet-modal"
+              (click)="placeBet(sessionDetail,sessionDetail.backRate2, true,'backRate2',sessionDetail.backPoint2);priority=2">
+              <p pbHighlight [value]="sessionDetail.backRate2">{{sessionDetail.backRate2 !== null &&
+                sessionDetail.backRate2 != 0 ? sessionDetail.backRate2 : ''}}</p>
+              <span
+                *ngIf="sessionDetail?.backPoint2 != null && sessionDetail?.backPoint2 != 0">[&nbsp;{{sessionDetail?.backPoint2
+                != 0 ? (sessionDetail?.backPoint2 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <!-- <div class="bet-value l-pink hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.62</p>
+                        <span>4.4M</span>
+                    </a>
+                </div> -->
+          <!-- <div class="bet-value l-pink hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.64</p>
+                        <span>476.2k</span>
+                    </a>
+                </div> -->
+        </div>
+      </div>
+      <div class="bet-collapse animated animatedfadeInDown fadeInDown mt-2p"
+        *ngIf="priority === 2 && isShowBetSlipBelowRunner && togglePanelView && vSelectedRunner==betId+'_'+sessionDetail.betDetailId+'_'+vIsBack+'_'+currSeleItem"
+        [class.back]="vIsBack" [class.lay]="!vIsBack" style="display: flex;">
+        <div class="bet-cont" app-login-market-place-bet-views [bet]="placeBetInfo" (openPopup)="openLoginModel()">
+        </div>
+        <div class="betslip-loader" *ngIf="displayOverlay && vBetId === betId">
+          <img [src]="loaderPath" alt="" *ngIf="!isShowPlaceBetCounter" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bet-list">
+    <div class="team-market">
+      <div class="team1 cteam">
+        <div class="team-name">
+          <p>{{sessionDetail.betTitle}}</p>
+          <span class="minus"></span>
+        </div>
+        <div class="match-primary-rate-box d-flex align-items position-relative"
+          [class.suspend-no-rate]="market.overlayMessage !==''">
+          <div class="bet-value b-blue hide-on-med-and-down">
+            <a>
+              <p></p>
+              <span></span>
+            </a>
+          </div>
+          <div class="bet-value b-blue hide-on-med-and-down">
+            <a>
+              <p></p>
+              <span></span>
+            </a>
+          </div>
+          <div class="bet-value v-pink">
+            <a href="javascript:void(0);" class="back-bet-btn " data-target="market-bet-modal"
+              (click)="placeBet(sessionDetail,sessionDetail.layRate1, false,'layRate1',sessionDetail.layPoint1);priority=1">
+              <p pbHighlight [value]="sessionDetail.layRate1">{{sessionDetail.layRate1 !== null &&
+                sessionDetail.layRate1 !== 0 ? sessionDetail.layRate1 : ''}}</p>
+              <span
+                *ngIf="sessionDetail?.layPoint1 != null && sessionDetail?.layPoint1 != 0">[&nbsp;{{sessionDetail?.layPoint1
+                != 0 ? (sessionDetail?.layPoint1 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <div class="bet-value v-blue">
+            <a href="javascript:void(0);" class="lay-bet-btn " data-target="market-bet-modal"
+              (click)="placeBet(sessionDetail,sessionDetail.backRate1, true,'backRate1',sessionDetail.backPoint1);priority=1">
+              <p pbHighlight [value]="sessionDetail.backRate1">{{sessionDetail.backRate1 !== null &&
+                sessionDetail.backRate1 != 0 ? sessionDetail.backRate1 : ''}}</p>
+              <span
+                *ngIf="sessionDetail?.backPoint1 != null && sessionDetail?.backPoint1 != 0">[&nbsp;{{sessionDetail?.backPoint1
+                != 0 ? (sessionDetail?.backPoint1 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <div class="bet-value l-pink hide-on-med-and-down">
+            <a>
+              <p></p>
+              <span></span>
+            </a>
+          </div>
+          <div class="bet-value l-pink hide-on-med-and-down">
+            <a>
+              <p></p>
+              <span></span>
+            </a>
+          </div>
+          <!--  -->
+          <div class="bet-list">
+            <div class="team-market">
+              <div class="team1 cteam">
+                <div class="match-primary-rate-box d-flex align-items position-relative">                  
+                  <div class="suspend" *ngIf="market.overlayMessage !==''">
+                    <div class="suspend-cont"> {{market.overlayMessage}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+      <div class="bet-collapse animated animatedfadeInDown fadeInDown mt-2p"
+        *ngIf="priority === 1 && isShowBetSlipBelowRunner && togglePanelView && vSelectedRunner==betId+'_'+sessionDetail.betDetailId+'_'+vIsBack+'_'+currSeleItem"
+        [class.back]="vIsBack" [class.lay]="!vIsBack" style="display: flex;">
+        <div class="bet-cont" app-login-market-place-bet-views [bet]="placeBetInfo" (openPopup)="openLoginModel()">
+        </div>
+        <div class="betslip-loader" *ngIf="displayOverlay && vBetId === betId">
+          <img [src]="loaderPath" alt="" *ngIf="!isShowPlaceBetCounter" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bet-list"
+    *ngIf="(sessionDetail?.layRate3 != null && sessionDetail?.backRate3 != null) && (sessionDetail.layRate3 !=='' && sessionDetail.backRate3 !=='')">
+    <div class="team-market">
+      <div class="team1 cteam">
+        <!-- <div class="team-name">
+                <p>Australia</p>
+                <span class="minus"></span>
+            </div> -->
+        <div class="match-primary-rate-box d-flex align-items position-relative">
+          <!-- <div class="bet-value b-blue hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.54</p>
+                        <span>2.5M</span>
+                    </a>
+                </div> -->
+          <!-- <div class="bet-value b-blue hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.56</p>
+                        <span>375.1k</span>
+                    </a>
+                </div> -->
+          <div class="bet-value v-blue ">
+            <a href="javascript:void(0);" class="back-bet-btn " data-target="market-bet-modal"
+              (click)="placeBet(sessionDetail,sessionDetail.layRate3, false,'layRate3',sessionDetail.layPoint3);priority=3">
+              <p pbHighlight [value]="sessionDetail.layRate3">{{sessionDetail.layRate3 !== null &&
+                sessionDetail.layRate3 !== 0 ? sessionDetail.layRate3 : ''}}</p>
+              <span
+                *ngIf="sessionDetail?.layPoint3 != null && sessionDetail?.layPoint3 != 0">[&nbsp;{{sessionDetail?.layPoint3
+                != 0 ? (sessionDetail?.layPoint3 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <div class="bet-value v-pink"
+            (click)="placeBet(sessionDetail,sessionDetail.backRate3, true,'backRate3',sessionDetail.backPoint3);priority=3">
+            <a href="javascript:void(0);" class="lay-bet-btn " data-target="market-bet-modal">
+              <p pbHighlight [value]="sessionDetail.backRate3">{{sessionDetail.backRate3 !== null &&
+                sessionDetail.backRate3 != 0 ? sessionDetail.backRate3 : ''}}</p>
+              <span *ngIf="sessionDetail?.backPoint3 != null && sessionDetail?.backPoint3 != 0">
+                [&nbsp;{{sessionDetail?.backPoint3 != 0 ? (sessionDetail?.backPoint3 | shortNumber) : ''}}&nbsp;]</span>
+            </a>
+          </div>
+          <!-- <div class="bet-value l-pink hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.62</p>
+                        <span>4.4M</span>
+                    </a>
+                </div> -->
+          <!-- <div class="bet-value l-pink hide-on-med-and-down">
+                    <a href="#">
+                        <p>2.64</p>
+                        <span>476.2k</span>
+                    </a>
+                </div> -->
+        </div>
+      </div>
+      <div class="bet-collapse animated animatedfadeInDown fadeInDown mt-2p"
+        *ngIf="priority === 3 && isShowBetSlipBelowRunner && togglePanelView && vSelectedRunner==betId+'_'+sessionDetail.betDetailId+'_'+vIsBack+'_'+currSeleItem"
+        [class.back]="vIsBack" [class.lay]="!vIsBack" style="display: flex;">
+        <div class="bet-cont" app-login-market-place-bet-views [bet]="placeBetInfo" (openPopup)="openLoginModel()">
+        </div>
+        <div class="betslip-loader" *ngIf="displayOverlay && vBetId === betId">
+          <img [src]="loaderPath" alt="" *ngIf="!isShowPlaceBetCounter" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,49 @@
+<ng-container *ngIf="user !== null else elseBlock">
+    <main class="full-wrap " [class.full-wrap-margin]="isNewsExits">
+        <div class="row m-0">
+            <div class="col-center blog-main">
+                <ng-template [ngTemplateOutlet]="blogpage"></ng-template>
+            </div>
+        </div>
+    </main>
+</ng-container>
+<ng-template #elseBlock>
+    <div class="row m-0">
+        <div class="col-center blog-main">
+            <ng-template [ngTemplateOutlet]="blogpage"></ng-template>
+        </div>
+    </div>
+</ng-template>
+<ng-template #blogpage>
+
+    <div class="blog-section">
+        <div class="blog-image">
+            <!-- <img src="assets/images/blog-img.png" alt="" class="w-100"> -->
+            <nav class="banner-menu">
+                <div class="nav-wrapper">
+                    <ul id="nav-mobile" class="left">
+                        <li><a href="javascript:void(0);" [routerLink]="['/blog/home']" routerLinkActive="active"
+                                (click)="selectCategory('home')">Home</a></li>
+                        <li *ngFor="let category of BlogCategoryData1; trackBy: trackByFun">
+                            <a href="javascript:void(0);" [routerLink]="['/blog', category.bc]"
+                                routerLinkActive="active" (click)="selectCategory(category.bc)">{{category.bc}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="banner-title">
+                <h2>START WINNING TODAY</h2>
+                <button *ngIf="user == null" class="banner-btn" routerLink="/signup">REGISTER NOW!</button>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- <div class="rightsidebar scrollbar" [class.news-margin]="isNewsExits">
+        <app-rightsidebar *ngIf="user != null else elseBlock"></app-rightsidebar>
+        <ng-template #elseBlock>
+            <app-login-rightsidebar></app-login-rightsidebar>
+        </ng-template>
+    </div> -->
+
+</ng-template>

@@ -1,0 +1,95 @@
+<div class="match-details" [class.mt-10]="!first" *ngFor="let matchBet of matchBets;let first=first;">
+    <ng-container *ngIf="isCheckAverageOdd">
+        <ng-container *ngFor="let avg of averageOddList;;let f=first;">
+            <ng-container *ngIf="avg.match == matchBet.match">
+                <div class="match-name" *ngIf="avg.isHead">
+                    {{ avg.match | splitVSPipe : true }}
+                    <div class="middle" *ngIf="( avg.match | splitVSPipe : false).length > 0">VS</div>
+                    <ng-container *ngIf="( avg.match | splitVSPipe : false).length > 0">{{ avg.match | splitVSPipe
+                        : false}}</ng-container>
+                </div>
+                <div class="bet-start">
+                    <div class="header" *ngIf="f">
+                        <div class="row m-0 valign-wrapper">
+                            <div class="col s6 left-align">
+                                {{ avg.betName }}
+                            </div>
+                            <div class="col s2 center">Odds</div>
+                            <div class="col s2 center">Stake</div>
+                            <div class="col s2 center">P&L</div>
+                        </div>
+                    </div>
+                    <div class="bet-record " [class.v-blue]="avg.isBack" [class.v-pink]="!avg.isBack">
+                        <div class="row m-0 valign-wrapper value">
+                            <div class="col s6 left-align">
+                                <div class="beatteam">{{avg.betTitle}}</div>
+                                <div class="date-time"></div>
+                            </div>
+                            <div class="col s2 center-align value-bg" [class.back-rate]="avg.isBack"
+                                [class.lay-rate]="!avg.isBack">
+                                {{((avg.profit / avg.stake) + 1).toFixed(2)}}
+                            </div>
+                            <div class="col s2 center-align value-bg" [class.back-rate]="avg.isBack"
+                                [class.lay-rate]="!avg.isBack">{{ avg.stake }}</div>
+                            <div class="col s2 center-align value-bg" [class.back-rate]="avg.isBack"
+                                [class.lay-rate]="!avg.isBack">{{ avg.profit }}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let bet of matchBet.betDetails">
+        <ng-container *ngIf="bet.active !== false">
+            <div class="match-name">
+                {{ matchBet.match | splitVSPipe : true }}
+                <div class="middle" *ngIf="(matchBet.match | splitVSPipe : false).length > 0">VS</div>
+                <ng-container *ngIf="(matchBet.match | splitVSPipe : false).length > 0">{{ matchBet.match | splitVSPipe
+                    : false}}</ng-container>
+            </div>
+            <div class="bet-start">
+                <div class="header">
+                    <div class="row m-0 valign-wrapper">
+                        <div class="col s6 left-align">
+                            {{ bet.name }}
+                        </div>
+                        <div class="col s2 center">Odds</div>
+                        <div class="col s2 center">Stake</div>
+                        <div class="col s2 center">P&L</div>
+                    </div>
+                </div>
+                <div class="bet-record " *ngFor="let betDetail of bet.details"
+                    [class.v-blue]="betDetail.clientBetDetails.isBack"
+                    [class.v-pink]="!betDetail.clientBetDetails.isBack">
+                    <ng-container *ngIf="betDetail.matchBets.betDetails as detail">
+                        <div class="row m-0 valign-wrapper value">
+                            <div class="col s6 left-align">
+                                <div class="beatteam">{{detail.betTitle}}</div>
+                                <div class="date-time">{{detail.createdDate?((detail.createdDate|date:'dd-MM-yyyy hh:mm:ss')):''}}</div>
+                            </div>
+                            <div class="col s2 center-align value-bg"
+                                [class.back-rate]="betDetail.clientBetDetails.isBack"
+                                [class.lay-rate]="!betDetail.clientBetDetails.isBack">{{ detail.rate }}</div>
+                            <div class="col s2 center-align value-bg"
+                                [class.back-rate]="betDetail.clientBetDetails.isBack"
+                                [class.lay-rate]="!betDetail.clientBetDetails.isBack">{{detail.stake}}</div>
+                            <div class="col s2 center-align value-bg"
+                                [class.back-rate]="betDetail.clientBetDetails.isBack"
+                                [class.lay-rate]="!betDetail.clientBetDetails.isBack">{{detail.profit}}</div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <div class="bet-record" *ngIf="(matchBets !=null && matchBets.length > 0)">
+        <div class="average-odd">
+            <label>
+                <input type="checkbox" class="filled-in" [(ngModel)]="isCheckAverageOdd" (change)="getAverageOdds()">
+                <span>Average Odd</span>
+            </label>
+        </div>
+    </div>
+</div>
+<div *ngIf="!(matchBets !=null && matchBets.length > 0)" class="center-align no-bets">
+    There are currently no matched Bets. </div>

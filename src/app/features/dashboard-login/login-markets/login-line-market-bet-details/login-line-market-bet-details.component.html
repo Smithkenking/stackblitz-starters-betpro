@@ -1,0 +1,72 @@
+<ng-container  *ngIf="getMarketDetail() | async as marketDetail">
+    <div class="upper-content">
+      <span class="no-icon">
+        <span class="title">{{market.name | eventShortname}}</span>
+      </span>
+      <div class="team-title">
+        <span class="main-title">{{market.name}}</span>
+        <span class="sub-title">{{marketDetail.betTitle}}</span>
+      </div>
+      <div class="live" *ngIf="market.isInPlay;">
+        <span class="live-title">Live</span>
+      </div>
+      <div class="m-info" *ngIf="market.totalAmount">
+        <span class="smalltext"> ({{market.totalAmount}}) </span>
+      </div>
+    </div>
+    <div class="bottom-content">
+      <div class="match-odds">
+        <div class="matchrate hide-on-med-and-down" >
+          <div class="left-side" (click)="placeBet(marketDetail,marketDetail.backRate2, true,'item3');">
+            <div class="back-rate">
+              <div>{{marketDetail.backRate2 !== null && marketDetail.backRate2 !== 0 ? marketDetail.backRate2 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalBackAmount2 != null && marketDetail?.totalBackAmount2 != 0">
+                {{marketDetail?.totalBackAmount2 != 0 ? (marketDetail?.totalBackAmount2 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+          <div class="right-side" (click)="placeBet(marketDetail,marketDetail.layRate2, false,'item6');">
+            <div class="lay-rate">
+              <div>{{marketDetail.layRate2 !== null && marketDetail.layRate2 != 0 ? marketDetail.layRate2 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalLayAmount2 != null && marketDetail?.totalLayAmount2 != 0">
+                 {{marketDetail?.totalLayAmount2 != 0 ? (marketDetail?.totalLayAmount2 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="matchrate" >
+          <div class="left-side" (click)="placeBet(marketDetail,marketDetail.backRate1, true,'item4');">
+            <div class="back-rate">
+              <div>{{marketDetail.backRate1 !== null && marketDetail.backRate1 !== 0 ? marketDetail.backRate1 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalBackAmount1 != null && marketDetail?.totalBackAmount1 != 0">
+                {{marketDetail?.totalBackAmount1 != 0 ? (marketDetail?.totalBackAmount1 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+          <div class="right-side" (click)="placeBet(marketDetail,marketDetail.layRate1, false,'item5');">
+            <div class="lay-rate">
+              <div>{{marketDetail.layRate1 !== null && marketDetail.layRate1 != 0 ? marketDetail.layRate1 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalLayAmount1 != null && marketDetail?.totalLayAmount1 != 0">
+                 {{marketDetail?.totalLayAmount1 != 0 ? (marketDetail?.totalLayAmount1 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="matchrate hide-on-med-and-down" >
+          <div class="left-side" (click)="placeBet(marketDetail,marketDetail.backRate3, true,'item2');">
+            <div class="back-rate">
+              <div>{{marketDetail.backRate3 !== null && marketDetail.backRate3 !== 0 ? marketDetail.backRate3 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalBackAmount3 != null && marketDetail?.totalBackAmount3 != 0">
+                {{marketDetail?.totalBackAmount3 != 0 ? (marketDetail?.totalBackAmount3 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+          <div class="right-side" (click)="placeBet(marketDetail,marketDetail.layRate3, false,'item7')">
+            <div class="lay-rate">
+              <div>{{marketDetail.layRate3 !== null && marketDetail.layRate3 != 0 ? marketDetail.layRate3 : ''}}</div>
+              <div class="second-rate" *ngIf="marketDetail?.totalLayAmount3 != null && marketDetail?.totalLayAmount3 != 0">
+                 {{marketDetail?.totalLayAmount3 != 0 ? (marketDetail?.totalLayAmount3 | shortNumber) : ''}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="suspend" *ngIf="market.overlayMessage !== ''">
+          {{market.overlayMessage}}
+        </div>
+    </div> 
+    </div>
+  </ng-container>

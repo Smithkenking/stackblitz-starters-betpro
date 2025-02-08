@@ -1,0 +1,55 @@
+<div class="toaster" [class]="options.toastClass">
+    <div class="toast-icon" >
+      <img src="assets/images/success-icon.png?v=1" alt="" *ngIf="options.toastClass == 'custom-toast-success'" loading="lazy">
+      <img src="assets/images/error-icon.png?v=1.1" alt="" *ngIf="options.toastClass == 'custom-toast-error'" loading="lazy">
+      <img src="assets/images/warning-icon.png?v=1" alt="" *ngIf="options.toastClass == 'custom-toast-warning'" loading="lazy">
+    </div>
+    <div class="toast-details">
+      <div>
+        <div
+          
+          [class]="options.titleClass"
+          [attr.aria-label]="title"
+          class="custom-title"
+        >
+          {{ title ? title : 'Notification'}} 
+        </div>
+        <div
+          *ngIf="message && options.enableHtml"
+          role="alert"
+          aria-live="polite"
+          class="custom-message"
+          [class]="options.messageClass"
+          [innerHTML]="message"
+        ></div>
+        <div
+          *ngIf="message && !options.enableHtml"
+          role="alert"
+          aria-live="polite"
+          class="custom-message"
+          [class]="options.messageClass"
+          [attr.aria-label]="message"
+        >
+          {{ message }}
+        </div>
+        <div class="mt-5">
+          <a *ngFor="let btn of options.buttons" class="btn btn-sm button" (click)="action(btn)">
+            {{btn.title}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="close-icon">
+      <a
+        *ngIf="options.closeButton"
+        (click)="remove()"
+        class="toast-close-button"
+      >
+        &times;
+      </a>
+    </div>
+  </div>
+  <div *ngIf="options.progressBar">
+    <div class="toast-progress" [style.width]="width + '%'"></div>
+  </div>
+  

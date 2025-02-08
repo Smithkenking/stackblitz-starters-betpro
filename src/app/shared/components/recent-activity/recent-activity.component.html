@@ -1,0 +1,29 @@
+<ng-container *ngFor="let item of getTopFiveList">
+  <div class="tab-right-event valign-wrapper">
+    <div class="date-time">
+      <div class="time_date" [class.live_events]="allMarkets | checkIsInPlay: item.eid">
+        <!-- <span class="live-title" *ngIf="(allMarkets | checkIsInPlay: item.eid)">
+          <span class="live-blink">InPlay</span>
+        </span> -->
+        <span class="date" *ngIf="!(allMarkets | checkIsInPlay: item.eid)">
+          {{item.ed | ordinalDate}}
+        </span>
+        <span class="time" *ngIf="!(allMarkets | checkIsInPlay: item.eid)">
+          {{item.ed | istToPkt}}
+        </span>
+      </div>
+    </div>
+    <div class="game-name">
+      <a href="javascript:void(0);" (click)="recentMarketClick(item)" *ngIf="!item.angularCasinoGameId">
+        {{item.en | splitVSPipe : true}} v <ng-container *ngIf="(item.en | splitVSPipe : false).length > 0">{{item.en |
+          splitVSPipe : false}}</ng-container>
+      </a>
+      <!-- <div class="game-name">
+          <span class="sport-name">{{item.st}} | </span> <span>{{item.tn}} </span>
+        </div> -->
+    </div>
+  </div>
+
+</ng-container>
+<div *ngIf="getTopFiveList.length == 0" class="center-align no-bets">
+  There is no recent activity </div>

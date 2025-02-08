@@ -1,0 +1,234 @@
+<!-- <div class="col-center  market-right">
+  <div class="row mb-0"> -->
+    <!-- <div class="tabGroup"> -->
+      <!-- <div class="market-main"> -->
+        <div class="table-box-header">
+          <div class="box-main">
+            <div class="box-icon">
+              <div class="icon-holder-big">
+                <div class="sports-icon"  [ngClass]="currentMarketVolumn[0].sn | sportsIcon"></div>
+              </div>
+            </div>
+            <div class="tb-top-text">
+              <div class="d-flex">
+                <div>
+                  <p>
+                    <img ngSrc="./assets/images/clock-green.svg" height="16" width="16" priority alt="">
+                    <span class="black-light-text">
+                      <ng-container *ngIf="getMatchInfo$() | async as matchinfo">
+                        <ng-container *ngIf="matchinfo?.er && matchinfo.er > 0;else eventTitle">
+                          <pb-count-down [remaingTime]="matchinfo.er ? matchinfo.er : 0"></pb-count-down>
+                        </ng-container>
+                        <ng-template #eventTitle>
+                          <!-- <div class="evt-title countdownHolder"> -->
+                          <span>{{tournamentName ? tournamentName : ''}}</span>
+                          <!-- </div> -->
+                        </ng-template>
+                      </ng-container>
+                    </span>
+                    <!-- <span class="black-light-text"> | Winners: 1</span> -->
+                  </p>
+                  <h4 class="event-title"  class="event-title">
+                    <span >   {{team1}}  </span> <span *ngIf="team2 && team2.length > 0">v &nbsp;</span>
+                   <span  *ngIf="team2 && team2.length > 0">{{team2}}</span> 
+                  </h4>
+                  <!-- <div>
+                    <span>Matched:</span>
+                    <span class="medium-black">274,454,719</span>
+                  </div> -->
+
+                </div>
+                <!-- <p>
+                  <span class="inpay-text">
+                    <div class="time_date" [class.live_events]="allMarkets | checkIsInPlay: market.eid">
+                       <span class="live-title" *ngIf="(allMarkets | checkIsInPlay: market.eid)">
+                        <span class="live-blink">InPlay</span>
+                      </span> 
+                      <span class="date" *ngIf="!(allMarkets | checkIsInPlay: market.eid)">
+                        {{market.ed | ordinalDate}}
+                      </span>
+                      <span class="time" *ngIf="!(allMarkets | checkIsInPlay: market.eid)">
+                        {{market.ed  | istToPkt}}
+                      </span>
+                    </div>
+                  </span>                 
+                </p> -->
+                <div class="addmarket-icon">
+                                               
+                  <div class="live-stream right" *ngIf="widgetUrl && widgetUrl.length > 0">
+                    <a (click)="onScoreClick()">
+                      <img src="assets/images/chart.png" alt="score" loading="lazy">
+                    </a>
+                  </div>
+                  <ng-container *ngIf="getMatchInfo$() | async as matchinfo">
+                  <div class="score right" *ngIf="matchinfo && matchinfo.ei">
+                    <a (click)="onTvClick()">
+                      <img src="assets/images/live.png" alt="live" loading="lazy">
+                    </a>
+                  </div>
+                  </ng-container>
+                  
+                </div>
+                <!-- <ng-container *ngIf="getMatchInfo$() | async as matchinfo">
+                  <div class="live-stream right" *ngIf="matchinfo && matchinfo.ei">
+                      <a href="javascript:void(0);" (click)="onTvClick()">
+                        <img src="assets/images/live.png" style="background-color: white;" alt="TV">
+                      </a>
+                  </div>
+              </ng-container> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="selectbet-header">
+          <div class="bottom-row" [class.bottom-margin]="isShowScore && widgetUrl && widgetUrl.length > 0">
+            <ng-container *ngIf="isShowScore && widgetUrl && widgetUrl.length > 0 ">
+              <iframe #widgetIframe id="{{ 'widgetIframe1' + matchIndex }}" [src]="widgetUrl | safe: 'resourceUrl'"
+                allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" width="100%"
+                height="100%" scrolling="auto" style="border: none;"></iframe>
+            </ng-container>
+          </div>
+        </div>
+        <div class="select-bet">
+          <div class="" id="categories">
+            <div class="select-category" *ngIf="marketCategory.length > 1">
+              <div class="cat-scroll">
+                <ul class="tabs">
+                  <li class="tab"><a class="ripple" href="javascript:void(0)" (click)="setIndex(-1,'All')"
+                      [class.active]="selectedIndex === -1"> All </a></li>
+                  <li class="tab" *ngFor="let category of marketCategory;trackBy:trackByFun; let i= index">
+                    <a (click)="setIndex(i,category.cn)" [class.blinker3]="category.mt === 14"
+                      [class.active]="selectedIndex === i" href="javascript:void(0)" class="ripple">
+                      {{category.cn}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+         
+          <div class="tab-contents" id="category-tab">
+            <div id="tab1" class="swichtab-panel active" data-swichtab="target" style="display: block;">
+
+              <ng-container *ngIf="(getCurrentMarket() | async) else loading">
+
+                <!-- <div class="row m-0"> -->
+                <div *ngFor="let market of matches; trackBy:identify; let i = index" [ngSwitch]="market.mt">
+                  <app-market-type *ngSwitchDefault [matchId]="market.eid" [betId]="market.mid"
+                    [marketCount]="market.marketCount" [marketIndex]="i" [marketRunner]="marketRunner"
+                    [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex" [sport]="market.st"
+                    [categoryName]="market.categoryName" [selectedCategory]="selectedCategory">
+                  </app-market-type>
+                  <app-advance-session-type *ngSwitchCase="6" [matchId]="market.eid" [betId]="market.mid"
+                    [marketCount]="market.marketCount" [marketRunner]="marketRunner"
+                    [currentMarketVolumn]="currentMarketVolumn" [isShowFancyTitle]="market.isShowFancyTitle"
+                    [categoryName]="market.categoryName" [selectedCategory]="selectedCategory">
+                  </app-advance-session-type>
+                  <!-- :: TODO  :: premium-odds-->
+                  <!-- <ng-container *ngSwitchCase="14">
+                            
+                          </ng-container> -->
+                  <!-- </div> -->
+                  <!-- <ng-container *ngFor="let obj of markets; trackBy:trackByFunction; let i = index"
+                          [ngSwitch]="obj.marketType">
+                          <ng-container *ngSwitchDefault>
+                            <ng-container *ngFor="let market of obj.matches; trackBy:identify; let i = index">
+                                <app-market-type  [matchId]="market.eid" [betId]="market.mid"
+                                        [marketCount]="market.marketCount" [marketIndex]="i" [marketRunner]="marketRunner"
+                                        [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex" [sport]="market.st"
+                                         [categoryName]="market.categoryName" [selectedCategory]="selectedCategory">
+                                    </app-market-type>
+                            </ng-container>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="14">
+                            <app-premium-odds [premiumoddsMarkets]="obj.matches" [currentMarketVolumn]="currentMarketVolumn" [marketRunner]="marketRunner" [selectedCategory]="selectedCategory"></app-premium-odds>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="6">
+                              <app-session-type [fancyMarkets]="obj.matches" [currentMarketVolumn]="currentMarketVolumn" [marketRunner]="marketRunner" [selectedCategory]="selectedCategory"></app-session-type>
+                          </ng-container>
+                        </ng-container> -->
+                  <!-- </div> -->
+                </div>
+              </ng-container>
+              <ng-template #loading>
+                <div class="bet-semiheader skeleton-effect">
+                  <div class="row m-0">
+                    <div class="col s12 m12 l12 p-0 match-events">
+                      <div class="match-odds-title">
+                      </div>
+                      <div class="events-details">
+
+                        <div class="events">
+                          <div class="contents" *ngFor="let matches of [1,2]">
+                            <div class="upper-content">
+                              <!-- <div class="team-logo">
+                                      </div> -->
+                              <div class="team-title">
+                                <div class="main-title"></div>
+                              </div>
+                            </div>
+                            <div class="bottom-content">
+                              <div class="match-odds">
+                                <div class="matchrate back-matchrate hide-on-med-and-down">
+                                  <div class="left-side back-side2">
+                                    <div class="back-rate no-back-rate">
+                                      <div></div>
+                                      <div class="second-rate"></div>
+                                    </div>
+                                  </div>
+                                  <div class="left-side back-side1">
+                                    <div class="back-rate no-back-rate">
+                                      <div></div>
+                                      <div class="second-rate"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="matchrate back-lay-matchrate">
+                                  <div class="left-side">
+                                    <div class="back-rate no-back-rate">
+
+                                    </div>
+                                  </div>
+                                  <div class="right-side">
+                                    <div class="lay-rate no-lay-rate">
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="matchrate lay-matchrate hide-on-med-and-down">
+                                  <div class="right-side lay-side1">
+                                    <div class="lay-rate no-lay-rate">
+                                      <div></div>
+                                      <div class="second-rate"></div>
+                                    </div>
+                                  </div>
+                                  <div class="right-side lay-side2">
+                                    <div class="lay-rate no-lay-rate">
+                                      <div></div>
+                                      <div class="second-rate"></div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+    <!-- </div> -->
+    <app-rightsidebar/>
+  <!-- </div>
+</div> -->
+
+
+

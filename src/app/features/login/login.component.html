@@ -1,0 +1,484 @@
+<!-- <body class="bg-img"> -->
+  <main class="full-wrap mb-0 bg-login ">
+    <div class="row m-0">
+    <div class="col-center col s12">
+      <div class="login-page">
+        <div class="login-box-wrapper">
+          <div class="login-leftBox-wrapper">
+
+
+            <div class="boxes first">
+              <div class="box-1">
+                <img src="assets/images/mobile.png" alt="" loading="lazy">
+              </div>
+
+            </div>
+
+            <div class="boxes second">
+              <div class="box-2">
+                <h1>Welcome To BETPRO.TV</h1>
+                <h3>We Bring You Closer To Your Wins.</h3>
+              </div>
+
+            </div>
+
+            <div class="boxes third">
+              <div class="box-3">
+                <img src="assets/images/BetPro.png" alt="" loading="lazy">
+              </div>
+
+            </div>
+            <div class="boxes four">
+              <div class="box-4">
+                <h4>The House of High Stakes and Higher Rewards</h4>
+                <p>Experience the perfect blend of strategy and luck in a world of endless possibilities.
+                </p>
+
+                <div class="casino-itemWrapper">
+                  <img src="assets/images/casino-item.png" alt="" loading="lazy">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="boxes five">
+              <div class="box-5">
+                <div>
+                  <h4>Bet Beyond the Ordinary</h4>
+                  <p>Elevate your game with innovative casino experiences and dynamic sports betting.</p>
+                </div>
+
+                <div class="allGameImage">
+                  <img src="assets/images/allgame.png" alt="" loading="lazy">
+                </div>
+              </div>
+            </div>
+            <div class="boxes six">
+              <div class="box-6 ">
+                <h4>Your Chance to Win Big Awaits</h4>
+                <p>Join the action with premium casino games and live sports betting right at your
+                  fingertips.</p>
+                <div class="casino-itemWrapper">
+                  <img src="assets/images/gift.png" alt="" loading="lazy">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="login-rightBox-wrapper">
+            <div class="loginbox-wrapper">
+              <div class="loginBox-titleWrapper">
+                <h2 class="loginBox-title">Welcome Back</h2>
+                <p class="loginBox-para">Login To your Account</p>
+              </div>              
+              <div class="left-arrow" [routerLink]="['/sports']">
+                <img src="assets/images/arrow-left.png" alt="" loading="lazy">
+              </div>
+            </div>
+            <div class="login-bottom-wrapper">
+              <div class="txt-red" style="color: red;">{{errorMessage}}</div>
+              <div id="otplessModal" class="modal" #otplessModal>
+                <div class="modal-content">
+                  <div id="otpless-login-page"  data-ch="mobile" ></div>
+                </div>
+                </div>
+              <div class="all-tabs-content">
+                <ul class="tabs" *ngIf="isSendOTP">
+                  <li class="tab" (click)="switchTab('password')"><a href="javascript:void(0)"
+                      [class.active]="activeTab === 'password'">By Password </a></li>
+                  <li class="tab" (click)="switchTab('otp')"><a href="javascript:void(0)"
+                      [class.active]="activeTab === 'otp'">By OTP</a></li>
+                </ul>
+                <div class="login-tabs">
+                  <!-- password content data -->
+                  <div id="password" *ngIf="activeTab === 'password'">
+                    <form class="" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isForgotPassword">
+                      <div class="login-inner-container">
+                        <div class="username-password">
+                          <div class="user_input" *ngIf="loginWith == 1 && loginForm.get('UserName') as userNameCtrl">
+                            <input placeholder="Enter username" id="user_name" type="text" formControlName="UserName"
+                              class="input-field ">
+                            <div *ngIf="userNameCtrl.errors && (userNameCtrl.dirty || userNameCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong"
+                                data-success="right" *ngIf="userNameCtrl.errors.required">Username is required</span>
+                            </div>
+                          </div>
+                          <div class="user_input" *ngIf="loginWith == 3 && loginForm.get('UserName') as mobilenumCtrl">
+                            <ngx-intl-tel-input [cssClass]="'input-field'" [onlyCountries]="onlyCountries"
+                              [enableAutoCountrySelect]="true" [customPlaceholder]="PhonePacleHolder"
+                              [searchCountryFlag]="false" [enablePlaceholder]="false"
+                              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                              [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO" [maxLength]="10"
+                              [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                              [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="UserName"
+                              (focusout)="mobileFocusOutFn($event)" (keyup)="mobilekeyup($event)">
+                            </ngx-intl-tel-input>
+                            <div *ngIf="mobilenumCtrl.errors && (mobilenumCtrl.dirty || mobilenumCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong" data-success="right"
+                                *ngIf="numberrequiredvalidation">Mobile number is required</span>
+                              <span class="helper-text error left-align" data-error="wrong"
+                                data-success="right" *ngIf="numbervalidation">Enter valid mobile number.</span>
+                            </div>
+                          </div>
+                          <div class="user_input" *ngIf="loginWith == 2 && loginForm.get('UserName') as emailCtrl">
+                            <input placeholder="Enter email" id="user_name" type="text" formControlName="UserName"
+                              class="input-field ">
+                            <div *ngIf="emailCtrl.errors && (emailCtrl.dirty || emailCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong"
+                                data-success="right" *ngIf="emailCtrl.errors.required">Email is required</span>
+                              <span *ngIf="emailCtrl.errors.pattern" class="helper-text error left-align"
+                                data-error="wrong" data-success="right">Email must be a valid email address</span>
+                            </div>
+                          </div>
+                          <div class="password-field">
+                            <div class="user_input password-wrapper" *ngIf="loginForm.get('Password') as passwordCtrl">
+                              <input placeholder="Enter password" id="password" class="input-field "
+                                type="{{showPasswordVisibility ? 'text' : 'password'}}" formControlName="Password"
+                                (keyup.enter)="onSubmit()">
+                              <svg class="eye-icon" [ngClass]="showPasswordVisibility ? 'fa-eye-slash' : 'fa-eye'"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                (click)="showPasswordVisibility =! showPasswordVisibility">
+                                <path
+                                  d="M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.6819 3.96914 7.65661 6.06 6.06M9.9 4.24C10.5883 4.07888 11.2931 3.99834 12 4C19 4 23 12 23 12C22.393 13.1356 21.6691 14.2047 20.84 15.19M14.12 14.12C13.8454 14.4147 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.481 9.80385 14.1962C9.51897 13.9113 9.29439 13.5719 9.14351 13.1984C8.99262 12.8248 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2218 9.18488 10.8538C9.34884 10.4859 9.58525 10.1546 9.88 9.88M1 1L23 23"
+                                  stroke="#3D3D3D" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                              </svg>
+                              <div *ngIf="passwordCtrl.errors && (passwordCtrl.dirty || passwordCtrl.touched)">
+                                <span class="helper-text error left-align" data-error="wrong"
+                                  data-success="right" *ngIf="passwordCtrl.errors.required">Password is required</span>
+                              </div>
+                            </div>
+                            <div class="otp-wrapper forgot-passwordWrapper">
+                              <div class="resend-otpWrapper " *ngIf="isB2C  && !isForgotPassword && isSendOTP">
+                                <div class="forgot-password">
+                                  <a href="javascript:void(0);" (click)="OnForgotPasswordClick()"> Forgot Password?</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-15"
+                            *ngIf="!isShowGoogleCaptcha && loginForm.get('Captcha') as captchaCtrl">
+                            <div class="input-field col s12 user_input mb-0">
+                              <input id="captcha" type="text" formControlName="Captcha" placeholder="Enter captcha">
+                              <label for="captcha">Captcha</label>
+                              <img class="captch-image" id="loginBoxAuthenticateImage" alt="captcha"
+                                [src]="getCaptchaCodeImg()">
+                              <a class="code-refresh" href="javascript:void(0)" (click)="getCaptcha()"><i
+                                  class="fas fa-sync" aria-hidden="true"></i></a>
+                            </div>
+                            <div *ngIf="captchaCtrl.errors && (captchaCtrl.dirty || captchaCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong" data-success="right"
+                                *ngIf="captchaCtrl.errors.required">* Please enter captcha</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="login-top-buttons">
+                          <div class="button-content">
+                            <a href="javascript:void(0)" (click)="onSubmit()" [ngClass]="loading?'login-disable':''">
+                              <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm"></i>
+                              <span class="animate-btn">Login</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <form class="" [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmitForgotPasswordForm()"
+                      *ngIf="isForgotPassword">
+                      <div class="login-inner-container">
+                        <div class="username-password">
+                          <div class="user_input"
+                            *ngIf="loginWith == 1 &&  forgotPasswordForm.get('UserName') as userNameCtrl">
+                            <input placeholder="" id="user_name" type="text" formControlName="UserName"
+                              class="input-field ">
+                            <div *ngIf="userNameCtrl.errors && (userNameCtrl.dirty || userNameCtrl.touched)">
+                              <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                *ngIf="userNameCtrl.errors.required">* Please enter username</span>
+                            </div>
+                          </div>
+                          <div class="user_input"
+                            *ngIf="loginWith == 3 && forgotPasswordForm.get('UserName') as mobilenumCtrl">
+                            <ngx-intl-tel-input [cssClass]="'input-field'" [onlyCountries]="onlyCountries"
+                              [enableAutoCountrySelect]="true" [customPlaceholder]="PhonePacleHolder"
+                              [searchCountryFlag]="false" [enablePlaceholder]="false"
+                              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                              [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO" [maxLength]="10"
+                              [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                              [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="UserName"
+                              (focusout)="mobileFocusOutFn($event)" (keyup)="mobilekeyup($event)"
+                              (keyup.enter)="onSubmitForgotPasswordForm()">
+                            </ngx-intl-tel-input>
+                            <div *ngIf="mobilenumCtrl.errors && (mobilenumCtrl.dirty || mobilenumCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong" data-success="right"
+                                *ngIf="numberrequiredvalidation">Mobile number is required</span>
+                              <span class="helper-text error left-align" data-error="wrong"
+                                data-success="right" *ngIf="numbervalidation">Enter valid mobile number.</span>
+                            </div>
+                          </div>
+                          <div class="user_input"
+                            *ngIf="loginWith == 2 && forgotPasswordForm.get('UserName') as emailCtrl">
+                            <input placeholder="Enter email" id="user_name" type="text" formControlName="UserName"
+                              class="input-field ">
+                            <div *ngIf="emailCtrl.errors && (emailCtrl.dirty || emailCtrl.touched)">
+                              <span class="helper-text error left-align" data-error="wrong"
+                                data-success="right" *ngIf="emailCtrl.errors.required">Email is required</span>
+                              <span *ngIf="emailCtrl.errors.pattern" class="helper-text error left-align"
+                                data-error="wrong" data-success="right">Email must be a valid email address</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="login-top-buttons">
+                          <div class="button-content">
+                            <a href="javascript:void(0)" (click)="onSubmitForgotPasswordForm()"
+                              [ngClass]="loading?'login-disable':''">
+                              <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="z-index: 9;"></i>
+                              <span class="animate-btn">Reset</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- otp content data -->
+                  <div id="otp" *ngIf="activeTab === 'otp'">
+                    <form class="" [formGroup]="loginByOTPForm" (ngSubmit)="onSubmitLoginByOTP()"
+                      *ngIf="!isForgotPassword">
+                        <div class="login-inner-container" *ngIf="loginByOTPForm.get('Mobile') as mobilenumCtrl">
+                          <div class="phoneNumber-wrapper">
+                            <div class="phoneinput">
+                            <ngx-intl-tel-input [cssClass]="'input-field'" [onlyCountries]="onlyCountries"
+                              [enableAutoCountrySelect]="true" [customPlaceholder]="PhonePacleHolder"
+                              [searchCountryFlag]="false" [enablePlaceholder]="false"
+                              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                              [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO" [maxLength]="10"
+                              [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                              [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="Mobile"
+                              (focusout)="mobileFocusOutFn($event)" (keyup)="mobilekeyup($event)">
+                            </ngx-intl-tel-input>
+                          </div>
+                          </div>
+                          <div *ngIf="mobilenumCtrl.errors && (mobilenumCtrl.dirty || mobilenumCtrl.touched)">
+                            <span class="helper-text error left-align" data-error="wrong" data-success="right"
+                              *ngIf="numberrequiredvalidation">Mobile number is required</span>
+                            <span class="helper-text error left-align" data-error="wrong" data-success="right"
+                              *ngIf="numbervalidation">Enter valid mobile number.</span>
+                          </div>                        
+                        <div class="login-top-buttons" *ngIf="!otpSent">
+                          <div class="button-content">
+                            <a href="javascript:void(0);" (click)="onSubmitLoginByOTP()"
+                              [ngClass]="loading?'login-disable':''">
+                              <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="z-index: 9;"></i>
+                              <span class="animate-btn">Send OTP</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                    <ng-container *ngIf="otpSent">
+                      <form [formGroup]="otpForm">
+                        <div class="login-bottom-wrapper">
+                          <div class="otp-wrapper">
+                            <div class="row">
+                              <label>Enter your OTP</label>
+                            </div>
+                            <div class="">
+                              <div class="otp-field-boxes">
+                                <ng-container *ngFor="let input of formInput;  index as i">
+                                  <div class="input-fieldBox">
+                                    <input #formRow type="number" formControlName="{{input}}" pattern="[0-9]{1}" maxlength="1"
+                                      (keyup)="keyUpEvent($event, i)" class="input-field ">
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>                    
+                            <div class="resend-otpWrapper">
+                              <p *ngIf="!isResendOtp">Resend Code In <span class="timer" id="timer"> {{displayotptimer}}</span> </p>
+                              <p (click)="onSubmitLoginByOTP()" *ngIf="isResendOtp">Resend code</p>
+                            </div>
+                            <div class="confirm-button">
+                              <a href="javascript:void(0)" (click)="verifyLoginByOTP()" [ngClass]="loading?'login-disable':''">
+                                <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="z-index: 9;"></i>
+                                <span class="animate-btn">verify OTP</span>
+                              </a>
+                            </div>                    
+                          </div>
+                        </div>
+                      </form>
+                    </ng-container>
+
+                  </div>
+                  <div class="login-inner-container">
+                    <div class="demo-user-button top-spacing" *ngIf="isDemoLogin">
+                      <a href="javascript:void(0);" href="javascript:void(0)" (click)="DemoLogin()"
+                        [ngClass]="demoloading?'login-disable':''">
+                        <i *ngIf="demoloading" class="fa fa-circle-notch fa-spin fa-sm"></i>
+                        <span class="animate-btn">Try Demo</span></a>
+                    </div>
+
+                    <div class="joinus-option">
+                      <p>Or login with</p>
+                      <div class="social-media">
+                        <!-- <asl-google-signin-button  size='large' class="google-button" type="standard" text="continue_with" theme="filled_blue" >
+                        </asl-google-signin-button> -->
+                        <div class="mediabox">
+                        <asl-google-signin-button 
+                        size="small" 
+                        class="google-button" 
+                        style="width: auto; height: 32px; font-size: 40px; padding: 4px 8px;" 
+                        type="standard" 
+                        text="continue_with" 
+                        theme="filled_blue">
+                      </asl-google-signin-button>
+                    </div>
+                        <!-- <div class="mediabox">
+                          <div class="social-image"><img src="assets/images/google.png" alt=""></div>
+                          <span>Google</span>
+                        </div> -->
+                        <div class="mediabox" *ngIf="isWALoginEnable" (click)="openModal()">
+                          <div class="social-image">
+                            <img src="assets/images/whatsapp.png" alt="" loading="lazy">
+                          </div>
+                          <span>WhatsApp</span>
+                        </div>
+                        <div class="mediabox" (click)="signInWithFB()">
+                          <div class="social-image">
+                            <img src="assets/images/facebook.png" alt="" loading="lazy">
+                          </div>
+                          <span>Facebook</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="account-wrapper">
+                      <p>Don’t Have An Account? <a href="javascript:void(0);" (click)="OnSignUpClick()">Sign up</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <app-footer/>
+  </main>
+<!-- </body> -->
+<div id="password-page" class="modal" #forgotPasswordPage>
+
+  <a href="javascript:void(0)" class="modal-close right close-icon" (click)="forgotPasswordPageInstances.close()"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <img src="assets/images/ac-title-bg.png" alt="title" loading="lazy"
+        class="responsive-img">
+      <span class="title">
+        Forgot Password
+      </span>
+    </span>
+  </h5>
+
+  <div class="modal-content">
+    <div class="otp-page">
+      <div class="otp-details">
+        <form [formGroup]="ForgotPasswordOTPForm">
+          <div class="row enter-password">
+            <div class="input-field" *ngIf="ForgotPasswordOTPForm.get('Password') as newPwdCtrl">
+              <input placeholder="Enter New Password" autocomplete="off" id="new_password" type="password"
+                (focusout)="compairFPNewConfirm()" formControlName="Password" class="validate mobile-input">
+              <label for="new_password" class="active">New Password </label>
+              <div *ngIf="newPwdCtrl.errors && (newPwdCtrl.dirty || newPwdCtrl.touched)">
+                <span *ngIf="newPwdCtrl.errors.required" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">New Password is required.</span>
+                <span *ngIf="newPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">{{passwordPatterncheck[1]}}</span>
+                <span *ngIf="newPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">Example: {{passwordPatterncheck[2]}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row enter-password">
+            <div class="input-field" *ngIf="ForgotPasswordOTPForm.get('ConfirmPassword') as confirmPwdCtrl">
+              <input placeholder="Enter Confirm New Password" autocomplete="off" id="confirm_password" type="password"
+                (focusout)="compairFPNewConfirm()" formControlName="ConfirmPassword">
+              <label for="confirm_password" class="active">Confirm New Password </label>
+              <div *ngIf="confirmPwdCtrl.errors && (confirmPwdCtrl.dirty || confirmPwdCtrl.touched)">
+                <span *ngIf="confirmPwdCtrl.errors.required" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">Confirm
+                  Password is required.</span>
+                <span *ngIf="confirmPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">{{passwordPatterncheck[1]}}</span>
+                <span *ngIf="confirmPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                  data-success="right">Example: {{passwordPatterncheck[2]}}</span>
+              </div>
+              <span *ngIf="!isFPPasswordSame" class="helper-text error left-align" data-error="wrong"
+                data-success="right">
+                Confirm password must be same as new password.</span>
+            </div>
+          </div>
+
+          <div class="wrap">
+            <div class="text">We sent a 6-digit code to your mobile number </div>
+          </div>
+          <div class="bottom-border">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1" viewBox="0 0 740 1" fill="none">
+              <line y1="0.5" x2="740" y2="0.5" stroke="url(#paint0_radial_1123_2933)" />
+              <defs>
+                <radialGradient id="paint0_radial_1123_2933" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(345.501 -3.99881) rotate(58.742) scale(166.697 123356)">
+                  <stop stop-color="#E4E1E1" />
+                  <stop offset="1" stop-color="#F5F4F4" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="otp-verify">
+            <div class="enter-otp">
+              Enter Your OTP code here
+            </div>
+            <div class="mt-10 mb-10">
+              <ng-otp-input *ngIf="showOtpComponent" #ngOtpInput (onInputChange)="onOtpChange($event)"
+                [config]="config"></ng-otp-input>
+            </div>
+            <div *ngIf="isOtpCheck">
+              <span class="helper-text error  left-align" data-error="wrong" data-success="right">Only 1 Number can
+                Add</span>
+            </div>
+            <div class="otp-expire" *ngIf="!isResendOtp">
+              Resend OTP in :<span class="timer" id="timer"> {{displayotptimer}} </span>
+            </div>
+            <div class="send-code" *ngIf="isResendOtp">
+              <div class="text"> Didn't receive the code? </div>
+              <a href="javascript:void(0)" class="resend-code" (click)="onResendOtpClick()">Resend code</a>
+            </div>
+            <button class="btn btn-verify" [disabled]="loading || !ForgotPasswordOTPForm.valid"
+              (click)="ForgotResetPassword()">
+              <i *ngIf="loading && ForgotPasswordOTPForm.valid" class="fa fa-circle-notch fa-spin fa-sm"
+                style="font-size: 14px;margin-right: 2px;"></i>
+              <span class="animate-btn">
+                Update
+              </span>
+            </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form #form [formGroup]="panelForm" action="{{PanelUrl}}" method="post" style="display: none">
+  <input name="UserId" formControlName="UserName">
+  <input name="Password" formControlName="Password">
+  <button type="submit" class="btn btn-success" #submitInput (click)="form.submit()">Submit</button>
+</form>
+<form #formAgent [formGroup]="agentForm" action="{{agentpanelUrl}}" method="post" style="display: none">
+  <input name="UserId" formControlName="UserName">
+  <input name="Password" formControlName="Password">
+  <button type="submit" class="btn btn-success" #submitAgentInput (click)="formAgent.submit()">Submit</button>
+</form>
+<div *ngIf="isShowGoogleCaptcha" style="visibility: hidden;">
+  <re-captcha size="invisible" #captchaRef="reCaptcha" (resolved)="resolved($event)" [siteKey]="sitekey"></re-captcha>
+</div>
+<app-change-password #resetpassword/>

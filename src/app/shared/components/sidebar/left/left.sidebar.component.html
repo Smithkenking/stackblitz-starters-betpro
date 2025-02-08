@@ -1,0 +1,101 @@
+<ul class="sidenav scroller sidenav-margin collapse-open news-margin" id="mobile-nav" (mouseover)="over()" (mouseout)="out()">
+  <li>
+    <!-- <div class="logo">
+      <a href="javascript:void(0)" [routerLink]="['/home']">
+        <img [src]="logoUrl" alt="Betpro">
+      </a>
+    </div> -->
+    <div class="divider mt-10"></div>
+    <ul class="collapsible">
+      <li *ngFor="let market of markets; let i = index">
+        <a href="javascript:void(0)" class="collapsible-header dropdown-toggle" role="button" data-toggle="dropdown"
+          (click)="currentMenuIndex =currentMenuIndex > 0 ? currentMenuIndex == i + 1 ? 0 : i + 1 : i + 1; currentTournamentIndex = 0">
+          <!--  -->
+          <div class="icon-holder-big">
+            <div class="sports-icon" [ngClass]="market.sport | sportsIcon"></div>
+          </div>
+          <!--  -->
+          <span> {{ market.sport }} </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav">
+          <ul class="sub-menu">
+            <li>
+              <a><strong>All {{ market.sport }}</strong></a>
+            </li>
+            <li class="divider"></li>
+            <li *ngFor="let tour of market.appTournament; let last = last; let j = index">
+              <div class="nav-item"
+                (click)="currentTournamentIndex = currentTournamentIndex > 0 ? currentTournamentIndex == j + 1 ? 0 : j + 1 : j + 1 ">
+                <a href="javascript:void(0)" class=""><span>{{ tour.tournamentName }}</span>&nbsp;
+                  <i class="fa fa-plus"
+                    [style.transform]="currentTournamentIndex == j + 1 ? 'rotate(-45deg)' : 'rotate(0deg)'"></i>
+                </a>
+              </div>
+              <ul *ngIf="j + 1 == currentTournamentIndex" class="sub-menu">
+                <li *ngFor="let match of tour.matches">
+                  <div class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" (click)="onMarketClick(match)">{{ match.name }}</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" [routerLink]="['/event/virtual-sports']"
+          class="collapsible-header dropdown-toggle" role="button">
+          <div class="icon-holder-big">
+            <div class="sports-icon cricket"></div>
+          </div>
+          <span>E-sports</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" [routerLink]="['/live-casino']" (click)="handleLinkClick('Casino')"
+          class="collapsible-header dropdown-toggle" role="button">
+          <div class="icon-holder-big">
+            <div class="sports-icon star-casino"></div>
+          </div>
+          <span>Star Casino</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="collapsible-header dropdown-toggle " role="button" href="javascript:void(0)" (click)="onOneClick()">
+          <div class="icon-holder-big" id="invertcolor3">
+            <div class="sports-icon oneclick"></div>
+          </div>
+          <span>One Click Bet</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="collapsible-header dropdown-toggle " role="button" href="javascript:void(0)"
+          (click)="openSearchModal()">
+          <div class="icon-holder-big" id="invertcolor3">
+            <div class="sports-icon search"></div>
+          </div>
+          <span>Search</span>
+        </a>
+      </li>
+      <!-- <li class="divider"></li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['/login']">
+          <div class="icon-holder-big">
+            <div class="sports-icon current-position"></div>
+          </div>
+          <span>Current Position</span>
+        </a>
+      </li> -->
+      <!-- <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link" [routerLink]="['/sports']">
+          <div class="icon-holder-big">
+            <div class="sports-icon football"></div>
+          </div>
+          <span>All Sports</span>
+        </a>
+      </li> -->
+    </ul>
+  </li>
+</ul>
+<app-one-click #oneclick/>
+<app-search #search [searchString]="" (valueChange)='searchValueChange($event)'/>

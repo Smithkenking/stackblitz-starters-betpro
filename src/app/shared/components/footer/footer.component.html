@@ -1,0 +1,34 @@
+<footer>
+    <div class="footer">
+        <div class="footer-details">
+            <a href="javascript:void(0);">Privacy Policy - </a>
+            <a href="javascript:void(0);">Terms and Conditions - </a>
+            <a href="javascript:void(0);">Rules and Regulations - </a>
+            <a href="javascript:void(0);">KYC - </a>
+            <a href="javascript:void(0);">Responsible Gaming - </a>
+            <a href="javascript:void(0);">About Us - </a>
+            <a href="javascript:void(0);">Self-exclusion Policy - </a>
+            <a href="javascript:void(0);">Underage Policy -</a>
+            <a href="javascript:void(0);">Dispute Resolution -</a>
+            <a href="javascript:void(0);">AML -</a>
+            <a href="javascript:void(0);">Fairness & RNG -</a>
+            <a href="javascript:void(0);">Accounts & Bonuses</a>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-Links row">
+                <div class="col xl2 m1"></div>
+                <div class="col xl4 s12 m5" [ngClass]="{'skeleton-effect': isValueNullOrEmpty(leftdiv)}" *ngIf="leftdiv && leftdiv.length > 0">
+                    <p class="sub-title"  [innerHTML]="leftdiv | safe: 'html'"></p>
+                </div>
+                <div class="col xl3 s12 m4">
+                    <div class="d-flex">
+                        <a href="javascript:void(0);" target="_blank"><img class="caoimg"
+                                src="assets/images/validate.png" alt="" width="100" loading="lazy"></a>
+                        <!-- <img class="bffooter" src="./assets/images/BFlogo.webp" alt=""> -->
+                    </div>
+                </div>
+                <div class="col xl3 m2"></div>
+            </div>
+        </div>
+    </div>
+</footer>

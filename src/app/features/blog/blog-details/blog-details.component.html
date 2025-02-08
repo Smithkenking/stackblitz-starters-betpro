@@ -1,0 +1,65 @@
+<div class="row" *ngIf="BlogCategoryList; else elseBlock">
+  <div class="col xl7 l12 m12 s12">
+    <div class="inner-breadcumbs">
+      <nav>
+        <div class="nav-wrapper pb-15">
+          <a href="javascript:void(0);" class="breadcrumb" (click)="backToBlog()">Home <i
+              class="fas fa-chevron-right"></i></a>
+          <a href="javascript:void(0);" class="breadcrumb active">{{BlogCategoryList.bt}}</a>
+        </div>
+      </nav>
+    </div>
+    <div class="blog-desc">
+      <div class="details_img">
+        <!-- <img src="{{ BlogCategoryList.img }}" class="responsive-img"> -->
+        <img ngSrc="{{ BlogCategoryList.img }}" alt="" height="700" width="933" priority
+          style="height: auto; width: auto;" class="responsive-img">
+
+        <!-- <div class="all-bages">
+            <span class="badge">Betting Guide</span>
+          </div> -->
+      </div>
+      <div class="main-description">
+        <div>
+          <div class="title d-flex justify-content-between">
+            <h6>{{BlogCategoryList.su}}</h6>
+            <!-- <div class="date"><i class="far fa-calendar-alt"></i><span>Published On 21 Nov 2023</span></div> -->
+          </div>
+        </div>
+        <div [innerHTML]="BlogCategoryList.desc"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col xl5 l7 m5 s12 ">
+    <div class="blog-desc rightbox">
+      <h5>Popular Articles</h5>
+      <div class="blog-box1">
+        <div class="card">
+          <a href="javascript:void(0);" (click)="openBlogDetails(Blogcategory.bi, Blogcategory.su)">
+            <div class="card-image">
+              <img src="{{ Blogcategory.img }}" alt="" loading="lazy">
+              <!-- <img ngSrc="{{ Blogcategory.img }}" height="256" width="384" style="height: auto; width: auto;" class="responsive-img" priority  alt=""> -->
+
+            </div>
+            <div class="card-content">
+              <div class="card-title">{{Blogcategory.su}} </div>
+              <div class="blog-details d-flex justify-content-between">
+                <!-- <div class="date"><i class="far fa-calendar-alt"></i><span>Published On 21 Nov 2023</span>
+                  </div> -->
+              </div>
+            </div>
+          </a>
+          <!-- <div class="all-bages">
+              <span class="badge">Satsport 24/7</span>
+            </div> -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <div class="center mt-10"> No data available in BlogDetails</div>
+</ng-template>

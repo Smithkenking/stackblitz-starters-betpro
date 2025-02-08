@@ -1,0 +1,620 @@
+<!-- <div class="row m-0"> -->
+<!-- Center Content -->
+<!-- <div class="col-center col s12"> -->
+<div class="top-content" *ngIf="user !== null && router.url.indexOf('/sports') == 0">
+  <div class="table-wrap m-0">
+    <div class="table-box-header tb-top-text">
+      <span>Balance: {{!account?.balance? "0.00": (account?.balance | number : "1.2-2") }}</span>
+      <span class="runrate" (click)="onLiabilityClick()" href="javascript:void(0);">Lability: {{!account?.liability?
+        "0": (account?.liability | number : "1.2-2") }}</span>
+      <span class="runrate">Withdrawable Amount: {{!account?.withdrawableAmount? "0" : (account?.withdrawableAmount |
+        number : "1.2-2") }}</span>
+    </div>
+  </div>
+</div>
+<!-- carousel over here -->
+<!-- <app-popular-games /> -->
+<!-- <div class="row upcoming-events">
+      <div class="col s12 m12 p-0">
+        <div class="collapse-bg">
+          <div class="collapse-title">
+            <div class="icon-holder-big">
+              <div class="sports-icon upcoming"></div>
+            </div> Upcoming Events
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m12 p-0">
+        <div class="upcoming-matches">
+          <div class="slider-scroll">
+            <div class="scroll-slider">
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == 'All'"
+                  (click)="onUpcomingCountClick('All')">
+                  <div class="contents">
+                    All
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : 'All');else countZeroBlock let allCount">
+                      {{allCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == '1h'"
+                  (click)="onUpcomingCountClick('1h')">
+                  <div class="contents">
+                    1h
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament :  0 : '1h');else countZeroBlock let onehourCount">
+                      {{onehourCount ? onehourCount : 0}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == '2h'"
+                  (click)="onUpcomingCountClick('2h')">
+                  <div class="contents">
+                    2h
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : '2h');else countZeroBlock let twohourCount">
+                      {{twohourCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == '3h'"
+                  (click)="onUpcomingCountClick('3h')">
+                  <div class="contents">
+                    3h
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : '3h');else countZeroBlock let threehourCount">
+                      {{threehourCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == '6h'"
+                  (click)="onUpcomingCountClick('6h')">
+                  <div class="contents">
+                    6h
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : '6h');else countZeroBlock let sixhourCount">
+                      {{sixhourCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == '12h'"
+                  (click)="onUpcomingCountClick('12h')">
+                  <div class="contents">
+                    12h
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : '12h');else countZeroBlock let twelhourCount">
+                      {{twelhourCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == 'Today'"
+                  (click)="onUpcomingCountClick('Today')">
+                  <div class="contents">
+                    Today
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : 'Today');else countZeroBlock let TodayCount">
+                      {{TodayCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="items">
+                <a href="javascript:void(0);" [class.active]="selectedCount == 'Tomorrow'"
+                  (click)="onUpcomingCountClick('Tomorrow')">
+                  <div class="contents">
+                    Tomorrow
+                    <div class="counts"
+                      *ngIf="(allMarkets | upcomingCount : selectedSport : selectedTournament : 0 : 'Tomorrow');else countZeroBlock let TomorrowCount">
+                      {{TomorrowCount}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <ng-template #countZeroBlock>
+                <div class="counts">0</div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+<div class="market">
+  <!--  -->
+  <div class="racecard" *ngIf="horseRacing && horseRacing.length > 0">
+    <div class="racecard__header">
+      <div class="icon-holder-big">
+        <div class="sports-icon horse-racing"></div>
+      </div> <b class="imghorseb">Horse Racing</b>
+    </div>
+    <ngx-slick-carousel #slickModal="slick-carousel" [config]="slickConfig" class="racecard-slider">
+      <div class="race-time" ngxSlickItem *ngFor="let horse of horseRacing">
+        <a href="javascript:void(0);" (click)="onMarketClick(horse, horse.mid)">
+          <b class="chkmobile">
+            <span class="slidedate market-time">{{ horse.ed | istToPkt }}</span>
+            <br>
+            <span class="slidename">
+              {{ horse.en | nameHR }}
+            </span>
+          </b>
+        </a>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+
+  <div class="racecard" *ngIf="greyhoundRacing && greyhoundRacing.length > 0">
+    <div class="racecard__header">
+      <div class="icon-holder-big">
+        <div class="sports-icon greyhound-racing"></div>
+      </div> <b class="imghorseb">Greyhound Racing</b>
+    </div>
+    <ngx-slick-carousel #slickModal="slick-carousel" [config]="slickConfig" class="racecard-slider">
+      <div class="race-time" ngxSlickItem *ngFor="let grey of greyhoundRacing">
+        <a href="javascript:void(0);" (click)="onMarketClick(grey, grey.mid)">
+          <b class="chkmobile">
+            <span class="slidedate market-time">{{grey.ed | istToPkt}} </span>
+            <br>
+            <span class="slidename">
+              {{ grey.en | nameHR }}
+            </span>
+          </b>
+        </a>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+  <!--  -->
+  <div class="select-game" *ngIf="(getCurrentMarket$() | async)">
+    <div class="" id="categories">
+      <div class="select-category">
+        <div class="sports-scroll">
+          <div class="sport-items scroller">
+            <div class="item_main" *ngFor="let market of groupedSportType;trackBy:trackByFn;let i= index;">
+              <a [class.active]="selectedSport == market.sport" href="javascript:void(0);"
+                (click)="onSportsClick(market.sport)">
+                <div class="match-icon">
+                  <!-- <span>{{ market.count ? market.count : 0}}</span>  -->
+                  <span>{{market.inPlayCount}}</span>
+                  <div class="in-pay">
+                    <div class="icon-holder-large">
+                      <div class="sports-icon" [ngClass]="market.sport | sportsIcon"></div>
+                    </div>
+                  </div>
+                  <p>{{market.sport }}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!--  -->
+          <!-- <div class="tabs scroller" *ngFor="let market of groupedSportType;trackBy:trackByFn;let i= index;">
+                <div class="tab">
+                <a [class.active]="selectedSport == market.sport" href="javascript:void(0);"
+                  (click)="onSportsClick(market.sport)" class="ripple">
+                  <div class="tab-icon">
+                    <span>{{market.inPlayCount}}</span>
+                    <div class="in-pay">
+                    <div class="icon-holder-big">
+                        <div class="sports-icon  " [ngClass]="market.sport | sportsIcon"></div>
+                      </div>
+                    </div>
+                       <p> {{market.sport }}</p>  
+                  </div>
+                </a>
+               </div>
+              </div> -->
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="selectedSport !== excludeSport[0] && selectedSport !== excludeSport[1] else horseBlock">
+      <ng-container *ngIf="(allMarkets  | top8markets : selectedSport ).length > 0 && router.url.indexOf('/home') == 0">
+        <div>
+          <ng-container>
+            <!-- <div class="tab-contents" id="category-tab">
+              <div id="tab1" class="swichtab-panel" data-swichtab="target"> -->
+                <div class="event-content">
+                  <ul class="expandable">
+                    <li class="active inplay">
+                      <!-- <div class="tab-body"> -->
+                        <!-- Matket List -->
+                        <div class="markets-container">
+                          <div class="market">
+                            <div class="market-list">
+                              <div class="market-sport">
+                                <div class="d-flex">
+                                  <div class="sport">
+                                    <div class="sport-icon">
+                                    </div>
+                                    <div class="matched">
+                                      <strong>Matched</strong>
+                                    </div>
+                                  </div>
+                                  <div class="sport-right">
+                                    <div class="sport-rate">
+                                      <strong>1</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>x</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>2</strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <ng-container
+                                *ngFor="let matches of allMarkets  | top8markets : selectedSport; let i= index;trackBy:trackByFn">
+                                <ng-container [ngTemplateOutlet]="dashboardWeb"
+                                  [ngTemplateOutletContext]="{matches:matches}">
+                                </ng-container>
+                              </ng-container>
+                            </div> <!-- market-data over here -->
+                            <!-- market-data over here -->
+                          </div>
+                        </div> <!-- Matket list over -->
+                      <!-- </div> -->
+                    </li>
+                  </ul>
+                </div>
+              <!-- </div>
+
+            </div> -->
+          </ng-container>
+        </div>
+      </ng-container>
+      <ng-container
+        *ngIf="(allMarkets  | allInplayMarket : isVirtualMarkets).length > 0 && !isUpcomingMarkets && selectedSport == 'Inplay'">
+        <ng-container
+          *ngFor="let item of allMarkets  | allInplayMarket : isVirtualMarkets ; let i= index;trackBy:trackByFn">
+          <ng-container>
+            <!-- <div class="tab-contents" id="category-tab">
+              <div id="tab1" class="swichtab-panel" data-swichtab="target"> -->
+                <div class="event-content">
+                  <ul class="expandable">
+                    <li class="active inplay">
+                      <!-- <div class="tab-body"> -->
+                        <!-- Matket List -->
+                        <div class="markets-container">
+                          <div class="market">
+                            <div class="market-list">
+                              <div class="market-sport">
+                                <div class="d-flex">
+                                  <div class="sport">
+                                    <div class="sport-icon">
+                                      <div class="icon-holder-big">
+                                        <div class="sports-icon" [ngClass]="item.sport | sportsIcon"></div>
+                                      </div>
+                                      {{item.type == 'Virtual' ? 'E-'+ item.sport : item.sport}}
+                                    </div>
+
+                                    <div class="matched">
+                                      <strong>Matched</strong>
+                                    </div>
+                                  </div>
+                                  <div class="sport-right">
+                                    <div class="sport-rate">
+                                      <strong>1</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>x</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>2</strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <ng-container *ngFor="let matches of item.matches; let i= index;trackBy:trackByFn">
+                                <ng-container [ngTemplateOutlet]="dashboardWeb"
+                                  [ngTemplateOutletContext]="{matches:matches}">
+                                </ng-container>
+                              </ng-container>
+                            </div> <!-- market-data over here -->
+                            <!-- market-data over here -->
+                          </div>
+                        </div> <!-- Matket list over -->
+                      <!-- </div> -->
+                    </li>
+                  </ul>
+                </div>
+              <!-- </div>
+
+            </div> -->
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-container
+        *ngIf="(allMarkets  | inplayMarkets : selectedSport : selectedTournament: isVirtualMarkets).length > 0 && !isUpcomingMarkets && router.url.indexOf('/home') !== 0">
+        <div>
+          <ng-container>
+            <!-- <div class="tab-contents" id="category-tab">
+              <div id="tab1" class="swichtab-panel" data-swichtab="target"> -->
+                <div class="event-content">
+                  <ul class="expandable">
+                    <li class="active inplay">
+                      <!-- <div class="tab-body"> -->
+                        <!-- Matket List -->
+                        <div class="markets-container">
+                          <div class="market">
+                            <div class="market-list">
+                              <div class="market-sport">
+                                <div class="d-flex">
+                                  <div class="sport">
+                                    <div class="sport-icon">
+                                      Inplay
+                                    </div>
+                                    <div class="matched">
+                                      <strong>Matched</strong>
+                                    </div>
+                                  </div>
+                                  <div class="sport-right">
+                                    <div class="sport-rate">
+                                      <strong>1</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>x</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>2</strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <ng-container
+                                *ngFor="let matches of allMarkets  | inplayMarkets : selectedSport : selectedTournament: isVirtualMarkets | slice:0:showAllInplayEvents; let i= index;trackBy:trackByFn">
+                                <ng-container [ngTemplateOutlet]="dashboardWeb"
+                                  [ngTemplateOutletContext]="{matches:matches}">
+                                </ng-container>
+                              </ng-container>
+                            </div> <!-- market-data over here -->
+                            <!-- market-data over here -->
+                          </div>
+                        </div> <!-- Matket list over -->
+                      <!-- </div> -->
+                    </li>
+                  </ul>
+                </div>
+              <!-- </div>
+
+            </div> -->
+          </ng-container>
+        </div>
+      </ng-container>
+      <ng-container
+        *ngIf="!isUpcomingMarkets && (allMarkets  | upComingMarkets : selectedSport : selectedTournament : selectedCount : isVirtualMarkets).length > 0 && router.url.indexOf('/home') !== 0">
+        <div>
+          <ng-container>
+            <!-- <div class="tab-contents" id="category-tab">
+              <div id="tab1" class="swichtab-panel" data-swichtab="target"> -->
+                <div class="event-content">
+                  <ul class="expandable">
+                    <li class="active inplay">
+                      <!-- <div class="tab-body"> -->
+                        <!-- Matket List -->
+                        <div class="markets-container">
+                          <div class="market">
+                            <div class="market-list">
+                              <div class="market-sport">
+                                <div class="d-flex">
+                                  <div class="sport">
+                                    <div class="sport-icon">
+                                      Upcoming
+                                    </div>
+                                    <div class="matched">
+                                      <strong>Matched</strong>
+                                    </div>
+                                  </div>
+                                  <div class="sport-right">
+                                    <div class="sport-rate">
+                                      <strong>1</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>x</strong>
+                                    </div>
+                                    <div class="sport-rate">
+                                      <strong>2</strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <ng-container
+                                *ngFor="let matches of allMarkets | upComingMarkets : selectedSport : selectedTournament : selectedCount : isVirtualMarkets  | slice:0:showAllUpcomingEvents; let i= index;trackBy:trackByFn">
+                                <ng-container [ngTemplateOutlet]="dashboardWeb"
+                                  [ngTemplateOutletContext]="{matches:matches}">
+                                </ng-container>
+                              </ng-container>
+                            </div> <!-- market-data over here -->
+                            <!-- market-data over here -->
+                          </div>
+                        </div> <!-- Matket list over -->
+                      <!-- </div> -->
+                    </li>
+                  </ul>
+                </div>
+              <!-- </div>
+
+            </div> -->
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #horseBlock>
+      <ng-container *ngFor="let market of rmatches;trackBy:trackByFn">
+        <div class="horse-events" *ngIf="selectedSport == market.sport">
+          <!-- <div class="horse-title">
+              <div class="icon-holder-big">
+                <div class="sports-icon sports-icon-dark" [ngClass]="selectedSport | sportsIcon"></div>
+              </div>
+              {{market.sport}}
+            </div> -->
+          <div class="horse-content" *ngFor="let matches of market.matches;trackBy:trackByFn">
+            <div class="row m-0 valign-wrapper">
+              <div class="col s12 m12">
+                <a class="race-title">{{matches.en | nameHR}}</a>
+                <ul class="race-list">
+                  <li *ngFor="let item of getHRMarket(matches.eid);trackBy:fnEventWise">
+                    <a class="race-link cursor-pointer" [ngClass]="item.mi ? 'inplay-state':''"
+                      (click)="onMarketClick(item, item.mid)">
+                      {{item.ed | istToPkt}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+   </div>
+<!-- </div>  -->
+  <ng-template #dashboardWeb let-matches='matches'>
+    <div class="market-data">
+      <div class="row m-0 markets valign-wrapper">
+        <div class="col s12 m6 l7 xl8 p-0 valign-wrapper team-market">
+          <div class="date-height">
+            <div class="date-time in-play">
+              <ul class="flip-animation">
+                <li class="time_date" [class.live_events]="allMarkets | checkIsInPlay: matches.eid">
+                  <!-- <div class="date-time" > -->
+                  <span class="live-title" *ngIf="(allMarkets | checkIsInPlay: matches.eid)">
+                    <span class="live-blink">InPlay</span>
+                <li class="time_date">
+                  <!-- <span class="date">{{matches.ed | date:'HH:mm'}}</span> -->
+                  <span class="date">{{matches.ed | istToPkt}}</span>
+                </li>
+                </span>
+
+                <span class="date" *ngIf="!(allMarkets | checkIsInPlay: matches.eid)">
+                  {{matches.ed | ordinalDate}}
+                </span>
+                <!-- <span class="time" *ngIf="!(allMarkets | checkIsInPlay: matches.eid)"> {{matches.ed | date:'HH:mm'}} </span> -->
+                <span class="time" *ngIf="!(allMarkets | checkIsInPlay: matches.eid)"> {{matches.ed | istToPkt}} </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col s9 m9 l8 xl7 pl-5 pr-5 ml-5">
+            <a href="javascript:void(0);" (click)="onMarketClick(matches)" class="display-initial">
+              <div class="game-name">
+                <span>{{matches.en}}</span>
+              </div>
+            </a>
+          </div>
+          <div class="col s9 m9 l5 xl5 pl-5 pr-5 mk-count">
+            <div class="market-count">
+              <div class="right badge-right">
+                <a href="" *ngIf="matches.isl">
+                  <span>
+                    <img alt="TV" src="assets/images/DTV.svg">
+                  </span>
+                </a>
+                <a *ngIf="(allMarkets | checkFancyType: matches.eid : 7); let bookMakerCount">
+                  <span>
+                    <img alt="BM" src="assets/images/DBM.svg">
+                    <!-- title="BookMaker: {{bookMakerCount}}" -->
+                    *ngIf="(allMarkets | checkFancyType: matches.eid : 7); let
+                    bookMakerCount"
+                  </span>
+                </a>
+                <a *ngIf="(allMarkets | checkFancyType: matches.eid : 6); let sessionCount">
+                  <span>
+                    <img alt="Fancy" src="assets/images/DF.svg">
+                    <!-- {{sessionCount}} -->
+                  </span>
+                </a>
+                <a *ngIf="(allMarkets | checkFancyType: matches.eid : 0); let marketCount">
+                  <span class="TMFORDESK">{{marketCount}}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m6 l5 xl4 p-0 position-relative" *ngIf="!deviceInfoService.isMobile() || !isCheckDevice">
+          <div class="row m-0">
+            <div class="col s4 m4 center p-0">
+              <div class="row m-0 matchrate">
+                <div class="col s6 back-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].backRate1 : '-'">
+                    {{matches.marketDetail && matches.marketDetail[0] ?
+                    matches.marketDetail[0].backRate1: '-'}}</strong>
+                  <!-- <span>64</span> -->
+                </div>
+
+                <div class="col s6 lay-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].layRate1 : '-'">{{matches.marketDetail
+                    &&
+                    matches.marketDetail[0] ?
+                    matches.marketDetail[0].layRate1
+                    :
+                    '-'}}</strong>
+                  <!-- <span>17.19k</span> -->
+                </div>
+              </div>
+            </div>
+            <div class="col s4 m4 center p-0">
+              <div class="row m-0 matchrate">
+                <div class="col s6 back-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].backRate1 : '-'">
+                    {{matches.marketDetail &&
+                    matches.marketDetail[2] ?
+                    matches.marketDetail[2].backRate1
+                    : '-'}} </strong>
+                  <!-- <span></span> -->
+                </div>
+                <div class="col s6 lay-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].layRate1 : '-'">
+                    {{matches.marketDetail &&
+                    matches.marketDetail[2] ?
+                    matches.marketDetail[2].layRate1
+                    :
+                    '-'}}</strong>
+                  <!-- <span></span> -->
+                </div>
+              </div>
+            </div>
+            <div class="col s4 m4 center p-0">
+              <div class="row m-0 matchrate">
+                <div class="col s6 back-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].backRate1 : '-'">
+                    {{matches.marketDetail &&
+                    matches.marketDetail[1] ?
+                    matches.marketDetail[1].backRate1
+                    : '-'}} </strong>
+                  <!-- <span>53k</span> -->
+                </div>
+                <div class="col s6 lay-rate">
+                  <strong pbHighlight
+                    [value]="matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].layRate1 : '-'">
+                    {{matches.marketDetail &&
+                    matches.marketDetail[1] ?
+                    matches.marketDetail[1].layRate1
+                    :
+                    '-'}} </strong>
+                  <!-- <span>172</span> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <pb-liability #liability />

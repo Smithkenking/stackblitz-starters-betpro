@@ -1,0 +1,30 @@
+export class Market1 {
+    id: number;
+    appBetID: number;
+    appMatchID: number;
+    appDate: string;
+    appBetName: string;
+    appMarketID_BF: string;
+    appMatch: string;
+    appTournamentID: number;
+    appTournament: string;
+    appSportID: number;
+    appSport: string;
+    appBetStatus: string;
+    appIsFancy: boolean;
+    appFancyType: number;
+    appCentralizationID: string;
+    appInPlay: boolean;
+    appEventID_BF: number;
+    appIsChild: number;
+    appMarketStatus: number;
+    appCommentryID: number;
+    appIsInPlay: boolean;
+    appImage?: any;
+    appLink: string;
+    betIsActive: boolean;
+    marketOpenDate: string;
+    strMarketOpenDate: string;
+    categoryName?: string;
+    appCategoryMarketTypeID?: number;
+  }

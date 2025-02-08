@@ -1,0 +1,379 @@
+
+          <div class="withraw">
+                <div class="withraw-content">
+                  <div class="row p-0">
+                    <div class="kyc-staus-box status-box">
+                        <span class="kyc-title" *ngIf="isKYCRequired"> KYC Status : 
+                            <span class="status pending" *ngIf="KYCStatus == '' || KYCStatus == null" >Pending</span>
+                            <span class="status approved" *ngIf="KYCStatus == 'Approved'">{{KYCStatus}} </span>
+                            <span class="status decline" *ngIf="KYCStatus == 'Declined'">{{KYCStatus}} </span>
+                            <span class="status pending" *ngIf="KYCStatus == 'Pending'">InProgress</span>
+                        </span>
+                        <span class="kyc-title" *ngIf="isKYCRequired">
+                            <span class="declinemsg"  *ngIf="KYCStatus == 'Declined'">Reason: {{DeclineKYCStatus}}</span>
+                        </span>
+                        <span  *ngIf="KYCStatus === 'Approved'  || !isKYCRequired" class="withdrawable-amt">
+                        <span class="hide-on-small-only" *ngIf="isKYCRequired">|</span> Your withdrawable amount is PKR <span class="amount">{{Amountminmax.wa}}</span>
+                        </span>
+                    </div>
+                    <div class="kyc-title"  *ngIf="KYCStatus === 'Approved' && isShowCampaignMsg">
+                      <span class="declinemsg" style="color: var(--stake-color); font-weight: 600;">
+                        Please make a deposit of {{isWithdraweligibleAmount}} or above to proceed with your next withdrawal.</span>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="isKYCRequired && KYCStatus !== 'Approved' && isUpdateKYC">
+                    <form  [formGroup]="KYCForm" (ngSubmit)="KYCRequest()">
+                          <div class="row p-0 kyc-upload" >
+                            <div  class="input-field col s12 m6 m-0" >
+                              <ng-container  *ngIf="KYCForm.get('documentType') as documentTypeCtrl">
+                              <div class="kyc-dropdown">
+                                <label class="active" style="position: initial;">Identity Proof<span class="text-danger">*</span>:</label>
+                                <select class="scroller" id="b2cSelectDocumentTypes" formControlName="documentType" [(ngModel)]="documentType" (ngModelChange)="ondocumentTypeChange($event)">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option *ngFor="let item of documentTypes" [ngValue]="item.kmi">
+                                      <input type="checkbox" class="filled-in"><span>{{item.nm}}</span>
+                                    </option>
+                                </select>
+                              </div>
+                              <div *ngIf="documentTypeCtrl.errors && (documentTypeCtrl.dirty || documentTypeCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="documentTypeCtrl.errors.required">Identity proof is required</span>
+                              </div>
+                            </ng-container>
+                              <div class="document-details" *ngIf="KYCForm.get('documentNo') as documentNoCtrl">
+                                <div class="input-field col s12 p-0">
+                                  <input placeholder="Enter {{documentName}} number" type="text" class="validate" formControlName="documentNo" (keyup)="validationdocument($event)">
+                                  <label class="active">{{documentName}} Number<span class="text-danger">*</span>: </label>
+                                </div>
+                                <div *ngIf="documentNoCtrl.errors && (documentNoCtrl.dirty || documentNoCtrl.touched)">
+                                  <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                    *ngIf="documentNoCtrl.errors.required">The {{documentName}} number is required</span>
+                                </div>
+                                <div *ngIf="this.KYCForm.value.documentNo == 0">
+                                  <span class="helper-text error  left-align" data-error="wrong" data-success="right">The space contain not required</span>
+                                </div>
+                                  <div *ngIf="documentName">
+                                    <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                    *ngIf="isdocumentcheck">Enter Valid {{documentName}} number</span>
+                                  </div>
+                              </div>                              
+                            </div>
+                            <div  class="input-field col s12 m6 m-0">    
+                              <div class="file-field upload-id">
+                                <div class="upload-btn">
+                                  <div class="btn" [class.img-upload]="document1Img">
+                                    <div class="" *ngIf="document1Img">
+                                      <img [src]="document1Img" alt="" loading="lazy">
+                                    </div>
+                                      <div class="title-sec">
+                                          <span class="upload-inner-title" *ngIf="!document1Img">upload your ID document</span>
+                                          <span class="upload-title" *ngIf="!document1Img">Click here to upload your ID document</span> 
+                                          <input type="file" accept="image/*" (change)="onSelectFile($event)" #u1file>
+                                      </div>
+                                      <a href="javascript:void(0)" class="" *ngIf="!document1Img">
+                                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 32" fill="none">
+                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.7983 3.09184C3.7171 3.09184 2.84062 3.96832 2.84062 5.04952V26.9505C2.84062 27.0745 2.85215 27.1958 2.87419 27.3134L20.606 10.4928C21.0578 10.0642 21.766 10.0642 22.2179 10.4928L28.657 16.601V5.04952C28.657 3.96832 27.7805 3.09184 26.6993 3.09184H4.7983ZM30.9991 19.2844V5.04952C30.9991 2.67482 29.074 0.749756 26.6993 0.749756H4.7983C2.4236 0.749756 0.498535 2.67482 0.498535 5.04952V26.9505C0.498535 29.3252 2.4236 31.2503 4.7983 31.2503H26.6993C29.074 31.2503 30.9991 29.3252 30.9991 26.9505V19.3695C31.0001 19.3411 31.0001 19.3128 30.9991 19.2844ZM28.657 19.8293L21.4119 12.9565L4.60598 28.8989C4.66925 28.9051 4.7334 28.9082 4.7983 28.9082H26.6993C27.7805 28.9082 28.657 28.0317 28.657 26.9505V19.8293ZM14.3014 8.17813C13.6522 8.17813 13.1259 8.70442 13.1259 9.35363C13.1259 10.0028 13.6522 10.5291 14.3014 10.5291C14.9506 10.5291 15.4769 10.0028 15.4769 9.35363C15.4769 8.70442 14.9506 8.17813 14.3014 8.17813ZM10.7838 9.35363C10.7838 7.41092 12.3587 5.83605 14.3014 5.83605C16.2441 5.83605 17.819 7.41092 17.819 9.35363C17.819 11.2963 16.2441 12.8712 14.3014 12.8712C12.3587 12.8712 10.7838 11.2963 10.7838 9.35363Z" fill="#454545"></path>
+                                          </svg>
+                                      </a>
+                                  </div>
+                                  <div class="btn upload-document" (click)="u1file.click()">upload</div>
+                                  <span  *ngIf="isRequiredDocumentCtrl"data-error="wrong" data-success="right" class="helper-text error left-align">ID
+                                    document is required</span>
+                                    <span class="helper-text error  left-align" data-error="wrong" data-success="right" *ngIf="imageError">{{imageError}}</span>
+                              </div>
+                              <div class="upload-btn">
+                                <div class="btn " [class.img-upload]="document2Img">
+                                  <div class="" *ngIf="document2Img">
+                                    <img [src]="document2Img" alt="" loading="lazy">
+                                  </div>
+                                    <div class="title-sec">
+                                        <span class="upload-inner-title" *ngIf="!document2Img">upload your ID document</span>
+                                        <span class="upload-title" *ngIf="!document2Img">Click here to upload your ID document</span> 
+                                        <input type="file" accept="image/*" (change)="onSelectFile2($event)" #u2file>
+                                    </div>
+                                    <a href="javascript:void(0)" class="" *ngIf="!document2Img">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 32" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.7983 3.09184C3.7171 3.09184 2.84062 3.96832 2.84062 5.04952V26.9505C2.84062 27.0745 2.85215 27.1958 2.87419 27.3134L20.606 10.4928C21.0578 10.0642 21.766 10.0642 22.2179 10.4928L28.657 16.601V5.04952C28.657 3.96832 27.7805 3.09184 26.6993 3.09184H4.7983ZM30.9991 19.2844V5.04952C30.9991 2.67482 29.074 0.749756 26.6993 0.749756H4.7983C2.4236 0.749756 0.498535 2.67482 0.498535 5.04952V26.9505C0.498535 29.3252 2.4236 31.2503 4.7983 31.2503H26.6993C29.074 31.2503 30.9991 29.3252 30.9991 26.9505V19.3695C31.0001 19.3411 31.0001 19.3128 30.9991 19.2844ZM28.657 19.8293L21.4119 12.9565L4.60598 28.8989C4.66925 28.9051 4.7334 28.9082 4.7983 28.9082H26.6993C27.7805 28.9082 28.657 28.0317 28.657 26.9505V19.8293ZM14.3014 8.17813C13.6522 8.17813 13.1259 8.70442 13.1259 9.35363C13.1259 10.0028 13.6522 10.5291 14.3014 10.5291C14.9506 10.5291 15.4769 10.0028 15.4769 9.35363C15.4769 8.70442 14.9506 8.17813 14.3014 8.17813ZM10.7838 9.35363C10.7838 7.41092 12.3587 5.83605 14.3014 5.83605C16.2441 5.83605 17.819 7.41092 17.819 9.35363C17.819 11.2963 16.2441 12.8712 14.3014 12.8712C12.3587 12.8712 10.7838 11.2963 10.7838 9.35363Z" fill="#454545"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div class="btn upload-document" (click)="u2file.click()">upload</div>
+                                  <span class="helper-text error  left-align" data-error="wrong" data-success="right" *ngIf="imageError2">{{imageError2}}</span>
+                                </div>
+                              </div>   
+                            </div>                            
+                          </div>
+                    </form>
+                  </ng-container>
+                  <ng-container *ngIf="!isKYCRequired || KYCStatus === 'Approved'">
+                    <form class="col s12" [formGroup]="withdrawForm" (ngSubmit)="withdrawRequest()">
+                      <div class="row bank-box">
+                        <label class="mr-1">
+                          &nbsp; &nbsp;
+                          <input name="group1" type="radio" (click)="onWithdrawMethodChange('Bank')" [checked]="withdrawModel.option === 'Bank'">
+                          <span>In bank</span>
+                        </label> &nbsp; &nbsp; &nbsp;
+                        <label class="mr-1">
+                          <input name="group1" type="radio" (click)="onWithdrawMethodChange('Upi')" [checked]="withdrawModel.option === 'Upi'">
+                          <span>in upi</span>
+                        </label>
+                      </div>
+                      <div class="row p-0 select-bank" *ngIf="isBankDetail">
+                        <div class="input-field col s12 m6 m-0" >
+                          <div class="bank-details">
+                            <ng-container *ngIf="withdrawForm.get('bankDetailId') as bankDetailCtrl">
+                            <div class="w-100">
+                              <div class="bank-dropdown" >
+                                <a class='dropdown-trigger btn' data-target='dropdown-bank'>
+                                {{selectedBank ? (withdrawModel.option == 'Upi' ? selectedBank.appAccountNo : selectedBank.appBankName) : ' Select your ' + ( withdrawModel.option == 'Upi' ? 'Upi' : 'Bank')}}<span class="arrows"> <i class="fas fa-chevron-down"></i> </span>
+                                </a>
+                                <ul id='dropdown-bank' class='dropdown-content'>
+                                  <ng-container *ngFor="let item of bankDetails;trackBy:trackByFun">
+                                    <ng-container *ngIf="withdrawModel.option == 'Upi' else bankDetailsDropDown">
+                                      <li *ngIf="item.appIsUpi" [class.active]="(selectedBank && selectedBank.appBankDetailId) == item.appBankDetailId">
+                                      <div class="bank-list" >
+                                        <div class="left-content" (click)="onChangeSelectedBank(item)">
+                                          <div class="details">
+                                            <span class="bank-name">
+                                              {{item.appAccountNo}} 
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div class="right-content">
+                                          <a href="javascript:void(0);" class="btn" (click)="removeBankFromList(item.appBankDetailId)">
+                                            Remove
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </li>
+                                    </ng-container>
+                                      <ng-template #bankDetailsDropDown>
+                                        <li *ngIf="!item.appIsUpi"  [class.active]="(selectedBank && selectedBank.appBankDetailId) == item.appBankDetailId">
+                                        <div class="bank-list" >
+                                          <div class="left-content" (click)="onChangeSelectedBank(item)">
+                                            <div class="details">
+                                              <span class="bank-name">
+                                                {{item.appBankName}} - 
+                                              </span>
+                                              <span class="ac-no">
+                                                {{item.appAccountNo}}
+                                              </span>
+                                            </div>
+                                            <div class="ac-details">
+                                              <span class="holder-name">
+                                                {{item.appAccountHolderName}} - 
+                                              </span>
+                                              <span class="ifsc-code">
+                                                [{{item.appIFSC}}]
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-content">
+                                            <a href="javascript:void(0);" class="btn" (click)="removeBankFromList(item.appBankDetailId)">
+                                              Remove
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </li>
+                                      </ng-template>
+                                  </ng-container>
+                                </ul>
+                              </div>
+                              <div *ngIf="bankDetailCtrl.errors && (bankDetailCtrl.dirty || bankDetailCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="bankDetailCtrl.errors.required">{{withdrawModel.option == 'Upi' ? 'Upi' : 'Bank detail'}}  is required</span>
+                              </div>
+                              <div *ngIf="this.withdrawForm.value.bankDetailId == 0">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right">Please select your {{withdrawModel.option == 'Upi' ? 'Upi' : 'Bank'}}</span>
+                              </div>
+                            </div>                              
+                          </ng-container>
+                            <a class="add-bank" href="javascript:void(0)" (click)="onAddBankDeatailBtnClick(isAddBankDetail)">
+                              <i class="fas fa-plus"></i> Add {{withdrawModel.option == 'Upi' ? 'Upi' : 'Bank'}}
+                            </a>
+                          </div>                          
+                        </div>                        
+                      </div>
+                      <div class="row m-0" *ngIf="!isAddBankDetail && withdrawForm.get('amount') as wamountCtrl">
+                        <div class="input-field bank-amount col s12 m6 m-0">
+                          <input placeholder="Enter amount" type="number" class="validate" formControlName="amount" maxlength="8" (keypress)="numberOnly($event)" (keyup)="WithdrawAmountCheck($event)">
+                          <label class="active">Withdrawal Amount<span class="text-danger">*</span>: </label>
+                        </div>
+                        <div *ngIf="wamountCtrl.errors && (wamountCtrl.dirty || wamountCtrl.touched)">
+                          <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                            *ngIf="wamountCtrl.errors.required">Withdrawal amount is required</span>
+                        </div>
+                        <div *ngIf="iswithdrawminmax">
+                          <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                            Withdraw amount must be between {{Amountminmax.wmin}} and {{Amountminmax.wa > Amountminmax.wmax ? Amountminmax.wmax : Amountminmax.wa}}.</span>
+                        </div>
+                      </div>
+                      <div class="row m-0 center-align mt-5" *ngIf="!isAddBankDetail">
+                        <div class="withdraw-amount">
+                          You can withdraw upto <strong>{{Amountminmax.wa > Amountminmax.wmax ? Amountminmax.wmax : Amountminmax.wa}},</strong> minimum <strong>{{Amountminmax.wmin}}</strong> is required
+                        </div>
+                      </div>
+                    </form>
+                    <!-- Add Bank Detail -->
+                    <form class="col s12" [formGroup]="addBankDetailForm" (ngSubmit)="addBankDetailRequest()" *ngIf="isAddBankDetail">
+                      <ng-container *ngIf="withdrawModel.option == 'Upi' else elseBlock">
+                        <div class="row m-0 withdraw-bank">
+                          <div  class="input-field col s12 m6 m-0 padding-0">
+                            <div class="bank-account-no" *ngIf="addBankDetailForm.get('accountNo') as bankAccountNoCtrl">
+                              <div class="input-field col s12 p-0" >
+                                <input placeholder="Enter your UPI Id" type="text" class="validate" formControlName="accountNo">
+                                <label class="active">Your UPI Id<span class="text-danger">*</span>: </label>
+                              </div>
+                              <div *ngIf="bankAccountNoCtrl.errors && (bankAccountNoCtrl.dirty || bankAccountNoCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="bankAccountNoCtrl.errors.required">UPI Id is required</span>
+                                  <span *ngIf="bankAccountNoCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                                  data-success="right">Enter a valid UPI Id</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-template #elseBlock>
+                        <div class="row m-0 withdraw-bank">
+                          <div  class="input-field col s12 m6 m-0 p-0">
+                            <ng-container  *ngIf="addBankDetailForm.get('bankName') as bankNameCtrl">
+                            <div class="bank-dropdown">
+                              <label class="active" style="position: inherit;"> Bank Details <span class="text-danger">*</span> </label>
+                              <select searchable="Search" formControlName="bankName" >
+                                <option *ngFor="let item of bankList" [ngValue]="item.bn">{{item.bn}}</option>
+                              </select>
+                            </div>
+                            <div *ngIf="bankNameCtrl.errors && (bankNameCtrl.dirty || bankNameCtrl.touched)">
+                              <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                *ngIf="bankNameCtrl.errors.required">Bank name is required</span>
+                            </div>
+                            <div *ngIf="this.addBankDetailForm.value.bankName == 0">
+                              <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                                The space contain not required</span>
+                            </div>
+                          </ng-container>
+                            <div class="bank-ifsc" *ngIf="addBankDetailForm.get('ifsc') as branchIFSCCtrl">
+                              <div class="input-field col s12 p-0" >
+                                <input placeholder="Enter branch IFSC" type="text" class="validate" formControlName="ifsc" (keyup)="checkvalueifsc($event)">
+                                <label class="active">Branch IFSC<span class="text-danger">*</span>: </label>  
+                              </div>
+                              <div *ngIf="branchIFSCCtrl.errors && (branchIFSCCtrl.dirty || branchIFSCCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="branchIFSCCtrl.errors.required">Branch IFSC is required</span>
+                              </div>
+                              <div *ngIf="this.addBankDetailForm.value.ifsc == 0">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                                  The space contain not required</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div  class="input-field col s12 m6 m-0 padding-0">
+                            <div class="bank-account-no" *ngIf="addBankDetailForm.get('accountNo') as bankAccountNoCtrl">
+                              <div class="input-field col s12 p-0" >
+                                <input placeholder="Enter bank account no" type="text" class="validate" formControlName="accountNo" (keyup)="checkvalue($event)">
+                                <label class="active">Bank Account No<span class="text-danger">*</span>: </label>
+                              </div>
+                              <div *ngIf="bankAccountNoCtrl.errors && (bankAccountNoCtrl.dirty || bankAccountNoCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="bankAccountNoCtrl.errors.required">Bank account no is required</span>
+                              </div>
+                              <div *ngIf="this.addBankDetailForm.value.accountNo == 0">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                                  The Space contain not required</span>
+                              </div>
+                            </div>
+                            <div class="bank-ac-name" *ngIf="addBankDetailForm.get('accountHolderName') as accountHolderNameCtrl">
+                              <div class="input-field col s12 p-0" >
+                                <input placeholder="Enter name" type="text" class="validate" formControlName="accountHolderName">
+                                <label class="active">Account Holder Name<span class="text-danger">*</span>: </label>
+                              </div>
+                              <div *ngIf="accountHolderNameCtrl.errors && (accountHolderNameCtrl.dirty || accountHolderNameCtrl.touched)">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                                  *ngIf="accountHolderNameCtrl.errors.required">Account holder name is required</span>
+                              </div>
+                              <div *ngIf="this.addBankDetailForm.value.accountHolderName == 0">
+                                <span class="helper-text error  left-align" data-error="wrong" data-success="right">
+                                  The space contain not required</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                      </form>
+                  </ng-container>
+                    <div class="col s12 submit-btn mt-10">
+                    <a href="javascript:void(0)" *ngIf="isAddBankDetail" (click)="addBankDetailRequest()"  class="btn mr-10 right">
+                      <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="font-size: 14px;margin-right: 2px;"></i><span class="animate-btn">Add {{withdrawModel.option == 'Upi' ? 'UPI Id' : 'Bank'}}</span>
+                    </a>
+                      <a href="javascript:void(0)" *ngIf="isUpdateKYC && KYCStatus !== 'Approved'" (click)="KYCRequest()"  class="btn mr-10 right">
+                          <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="font-size: 14px;margin-right: 2px;"></i><span class="animate-btn">Submit</span>
+                      </a>
+                      <a href="javascript:void(0)"  *ngIf="!isUpdateKYC && KYCStatus === 'Approved'" (click)="withdrawRequest()"  class="btn mr-10 right">
+                        <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm" style="font-size: 14px;margin-right: 2px;"></i><span class="animate-btn">Withdraw Request</span>
+                    </a>
+                    <a href="javascript:void(0)" *ngIf="isAddBankDetail" (click)="onAddBankDeatailBtnClick(isAddBankDetail)" class="mr-10 right can-btn">
+                      Back
+                    </a>
+                    </div>
+                </div>
+            </div>
+
+  <div id="small-deposit-modal" class="modal modal-fixed-footer" #emailVerification>
+    <a href="javascript:void(0)" class="modal-close right close-icon" (click)="emailVerificationModalInstances.close()"><i class="fa fa-times" aria-hidden="true"></i></a> 
+      <h5>
+        <span class="card-title">
+          <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+          <span class="title">
+            Email Verification
+          </span>
+        </span>
+      </h5>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="contents">
+          <div class="verification-img">
+            <img src="assets/images/verifyemail.png" alt="" loading="lazy">
+          </div>
+          Please click on the link that has just been sent to your email address to verify your email and continue the process.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row submit-btn">
+            <a href="javascript:void(0)" class="green btn" (click)="reSendEmailClick()">
+              <span class="animate-btn">Resend Email</span>
+            </a>
+            
+        </div>
+      </div>
+    </div>  
+  </div>
+  <div id="small-deposit-modal" class="modal modal-fixed-footer" #removeBank>
+    <a href="javascript:void(0)" class="modal-close right close-icon" (click)="declineRemoveBank()"><i class="fa fa-times" aria-hidden="true"></i></a> 
+      <h5>
+        <span class="card-title">
+          <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+          <span class="title">
+            Remove Bank?
+          </span>
+        </span>
+      </h5>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="contents">
+          <div class="verification-img">
+            <img src="assets/images/delete.png" alt="" loading="lazy">
+          </div>
+          Are you sure you want to remove this bank?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row submit-btn">
+            <a href="javascript:void(0)" class="green btn" (click)="DeativeBankDetail()">
+              <span class="animate-btn">Confirm</span>
+            </a>
+            
+        </div>
+      </div>
+    </div>
+  </div>

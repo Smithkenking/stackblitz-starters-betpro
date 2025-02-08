@@ -1,0 +1,21 @@
+
+<main class="full-wrap" id="minGame" [class.news-margin]="isNewsExits">
+    <div class="row m-0" id="casino-page">
+        <div class="col-center col s12 casino-fullpage" id="colCenter">
+            <div title="Back To Home" class="backBtn" [routerLink]="[ '/', 'home' ]" style="display: none;">
+                <span class="spML"> <i class="fa fa-arrow-circle-left"></i></span>
+            </div>
+            <div style="height: calc(100vh - 110px);" class="mainDiv">
+                <div class="ifmHeigh" id="cgame" class="ifmHeigh">
+                    <div (click)="toggleFullScreen()" class="fullScreenBtn hide-on-small-only" title="Full Screen" *ngIf="!isFullScreen">
+                        <img src="assets/images/svg/full-screen.svg" loading="lazy" alt="">
+                    </div>
+                    <div (click)="toggleFullScreen()" class="fullScreenBtn hide-on-small-only" title="Exit Full Screen" *ngIf="isFullScreen">
+                        <img src="assets/images/svg/exit-full-screen.svg" alt="" loading="lazy">
+                    </div>
+                    <iframe #myIframe id="livecasino" [src]="iframeUrl | safe: 'resourceUrl'" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="width:100%;height:100%;border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

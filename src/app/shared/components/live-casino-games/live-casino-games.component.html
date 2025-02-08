@@ -1,0 +1,59 @@
+<ng-container
+  *ngIf="((FilterProviderList && FilterProviderList.length > 0) || (selectedCasinoGame && selectedCasinoGame.length > 0)) else laodingEffect">
+  <div class="livecasino scroller">
+    <div class="title">
+      <a class="casino-title" [class.active]="selectedCasino == 'Providers'" href="javascript:void(0);"
+        (click)="onCasinoTabClick('Providers')"
+        *ngIf="FilterProviderList && FilterProviderList.length > 0">Providers</a>
+      <a class="casino-title" [class.active]="selectedCasino == 'Live'" href="javascript:void(0);"
+        (click)="onCasinoTabClick('Live')">Live</a>
+      <a class="casino-title no-border" [class.active]="selectedCasino == 'Virtual'" href="javascript:void(0);"
+        (click)="onCasinoTabClick('Virtual')">Virtual</a>
+    </div>
+    <div class="game-slider">
+      <div class="row mb-0">
+        <div class="col 12 m12 flex-wrap">
+          <ng-container *ngIf="selectedCasino == 'Providers'">
+            <ng-container *ngFor="let game of FilterProviderList; let i= index;trackBy:trackByFn">
+              <div class="game-item" (click)="onProviderClick(game, i)" *ngIf="game.appIsActive"
+                (mouseout)="providerMouseEvent(i,false)" (mouseover)="providerMouseEvent(i,true)">
+                <span *ngIf="game.appIsNew" class="blink-new blink_text">New</span>
+                <div class="thumb">
+                  <ng-container *ngIf="isCheckedDarkTheme; else elseConatainer">
+                    <img [src]="casinoProviderItems[i] ?  game.appProviderLogo : game.appDarkLogo" loading="lazy" alt=""
+                      (error)="errorHandler($event)" class="responsive-img" [alt]="game.appDisplayName">
+                  </ng-container>
+                  <ng-template #elseConatainer>
+                    <img [src]="casinoProviderItems[i] ?  game.appDarkLogo : game.appProviderLogo" loading="lazy" alt=""
+                      (error)="errorHandler($event)" class="responsive-img" [alt]="game.appDisplayName">
+                  </ng-template>
+                </div>
+                <div class="play-btn">
+                  <a href="javascript:void(0);">{{game.appDisplayName}}</a>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="selectedCasino == 'Live' || selectedCasino == 'Virtual'">
+            <ng-container *ngFor="let game of selectedCasinoGame;trackBy:trackByFn">
+              <div class="game-item" (click)="onCasinoGameClick(game)"
+                *ngIf="config && config[game.apiParamName] && game.isActive && game.isShowOnDashboard">
+                <span *ngIf="game.isNewGame" class="blink-new blink_text">New</span>
+                <div class="thumb">
+                  <img [src]="game.icon" loading="lazy" [alt]="game.name" (error)="errorHandler($event)"
+                    class="responsive-img">
+                </div>
+                <div class="play-btn">
+                  <a href="javascript:void(0);">{{game.name}}</a>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #laodingEffect>
+  <app-loading-effect [isrightsidebar]="true" />
+</ng-template>

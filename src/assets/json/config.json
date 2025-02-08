@@ -1,0 +1,75 @@
+{
+  "getInitDataUrl": "https://api.betpro.tv",
+  "loginPopupImage": "assets/images/login-mobile.png?v=1.3",
+  "maintenanceImage": "assets/images/maintenance.gif",
+  "commonContentPath": "https://cdn.cloudd.live/content/",
+  "commonCssPath": [
+    "assets/css/all.min.css",
+    "assets/css/new-external.min.css",
+    "assets/css/sports-icon-betpro.min.css?v=1.7"
+  ],
+  "themeCssPath": [
+    "assets/css/custom.min.css?v=16.32",
+    "assets/css/sports-icon-betpro.min.css?v=1.7"
+
+  ],
+  "casinoDefaultPath": "assets/images/casinoimg/default.jpg",
+  "loaderPath": "assets/images/loader.svg",
+  "mainloaderPath": "assets/images/main-loader.svg",
+  "oneClickStakeValue": [
+    "100",
+    "200",
+    "500",
+    "1000"
+  ],
+  "channelnoList": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "marketnames": [
+    "match odds",
+    "match result",
+    "moneyline"
+  ],
+  "ipAddApi": "https://api.ipify.org?format=json",
+  "ipAddApi64": "https://api64.ipify.org/?format=json",
+  "minScoreWidgetHeight": 0,
+  "addScoreWidgetHeight": 0,
+  "title": "Online Betting | Online Sports Betting & Odds at ",
+  "excludeSports": [
+    {
+      "name": "Horse Racing",
+      "icon": "assets/images/svg/horser-racing.svg"
+    },
+    {
+      "name": "Greyhound Racing",
+      "icon": "assets/images/svg/Greyhound Racing.svg"
+    }
+  ],
+  "isAcceptAnyPL": true,
+  "WhatsappURL": "https://wa.me/918141800792?text=Hi,I need an ID",
+  "WhatsappURLbeforeLogin": "https://wa.me/918141800792?text=Hi,I need an ID",
+  "WhatsappURLafterLogin": "https://wa.me/918141800792?text=Hi",
+  "isChatEnable": true,
+  "isMetaPixelEnable": true,
+  "isGoogleAnalyticsEnable": true,
+  "isGoogleTagManagerEnable": true,
+  "GoogleAnalyticsTrackingID": "G-62C2KFEC6F",
+  "GoogleTagManagerId": "GTM-WCZK4LQ",
+  "MetaPixelId": "1000667871247064",
+  "TawkChatId": ""
+}

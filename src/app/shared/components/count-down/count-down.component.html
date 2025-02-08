@@ -1,0 +1,44 @@
+<div class="countdownHolder" *ngIf="showCountDown">
+  <span class="count-all">
+  <span class="countDays">
+    <span class="position">
+      <span class="digit number" >
+        {{counterValue(days) && counterValue(days)[0] ? counterValue(days)[0] : 0}}{{counterValue(days) && counterValue(days)[1] ? counterValue(days)[1] : 0}}
+      </span>
+    </span>
+    <span class="position ">
+      <span class="txt"> Days </span>
+    </span>
+  </span>
+  <span class="countHours">
+    <span class="position">
+      <span class="digit number" >
+        {{counterValue(hours) && counterValue(hours)[0] ? counterValue(hours)[0] : 0}}{{counterValue(hours) && counterValue(hours)[1] ? counterValue(hours)[1] : 0}}
+      </span>
+    </span>
+    <span class="position ">
+      <span class="txt" > Hours </span>
+    </span>
+  </span>
+  <span class="countMinutes">
+    <span class="position">
+      <span class="digit number" >
+        {{counterValue(minutes) && counterValue(minutes)[0] ? counterValue(minutes)[0] : 0}}{{counterValue(minutes) && counterValue(minutes)[1] ? counterValue(minutes)[1] : 0}}
+      </span>
+    </span>
+    <span class="position ">
+      <span class="txt" > Minutes </span>
+    </span>
+  </span>
+  <span class="countSeconds">
+    <span class="position">
+      <span class="digit number" >
+        {{counterValue(seconds) && counterValue(seconds)[0] ? counterValue(seconds)[0] : 0}}{{counterValue(seconds) && counterValue(seconds)[1] ? counterValue(seconds)[1] : 0}}
+      </span>
+    </span>
+    <span class="position ">
+      <span class="txt" > Seconds </span>
+    </span>
+  </span>
+  </span>
+</div>

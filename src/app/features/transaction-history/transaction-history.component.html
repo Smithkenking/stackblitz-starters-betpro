@@ -1,0 +1,216 @@
+
+      <div class="transaction-page">
+          <div class="transaction-title">
+              <img src="assets/images/refer-earn-shape.png" class="right-shape" alt="" loading="lazy">
+              <div class="main-title">
+                  <h1>My Transactions</h1>
+                </div>
+          </div>
+          <div class="row">
+              <div class="col s12 m12 l3">
+                  <label for="From_Date">From Date</label>
+                  <input type="text" class="datepicker" #fdp>
+              </div>
+              <div class="col s12 m12 l3">
+                  <label for="To_Date">To Date</label>
+                  <input type="text" class="datepicker" #tdp>
+              </div>
+              <div class="col s12 m12 l3">
+                <label>Search</label>
+                <div>
+                  <a class="waves-light btn gold" (click)="onSearchClick()">Search</a>
+                </div>
+              </div>
+          </div>
+              <div class="transaction-info">
+                  <div id="test1" class="active">                      
+                      <div class="transaction-list">
+                        <div class="datatable ">
+                          <table id="page-length-option" class="display">
+                            <thead>
+                              <tr class="transaction-item">
+                                <th class="transaction-time">
+                                    <!-- <div class="date-check">
+                                    
+                                            <label>
+                                            <input type="checkbox" class="filled-in" />
+                                            <span></span>
+                                            </label>
+                                        
+                                    </div> -->
+                                    <label>TIME</label>
+                                </th>
+                                <th class="transaction-amount">
+                                    <label>AMOUNT</label>
+                                </th>
+                                <th class="transaction-status">
+                                    <label>STATUS</label>
+                                </th>
+                                <th class="transaction-detail">
+                                    <label>DETAIL</label>
+                                </th>
+                                <th class="transaction_id">
+                                    <label>Transaction ID</label>
+                                </th>
+                            
+                            </tr>
+                          </thead>
+                          <tbody> 
+                          <tr class="transaction-item" *ngFor="let row of depositeWithdrawReportData">
+                              <td class="transaction-time">
+                                  <!-- <div class="date-check">
+                                      
+                                  </div> -->
+                                  <div class="date">
+                                      <p>{{ row.dt | date:'dd' }}</p>
+                                      <div>
+                                          <span>{{ row.dt | date:'MMMM, yyyy' }}</span>
+                                          <h5>{{ row.dt  | istToPkt }}</h5>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="transaction-amount">
+                                  <h5>PKR {{ row.amt }}</h5>
+                              </td>
+                              <td class="transaction-status">
+                                  <div [ngClass]="getStatusClass(row.st)" class="deposit-status">
+                                  <ng-container [ngSwitch]="row.st">
+                                  <svg *ngSwitchCase="'Pending'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                      <path d="M7.99992 1.3335C4.32392 1.3335 1.33325 4.32416 1.33325 8.00016C1.33325 11.6762 4.32392 14.6668 7.99992 14.6668C11.6759 14.6668 14.6666 11.6762 14.6666 8.00016C14.6666 4.32416 11.6759 1.3335 7.99992 1.3335ZM10.1953 11.1382L7.33325 8.27616V4.00016H8.66659V7.72416L11.1379 10.1955L10.1953 11.1382Z" fill="black"></path>
+                                  </svg>
+                                  <svg *ngSwitchCase="'InProgress'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path
+                                      d="M7.99992 1.3335C4.32392 1.3335 1.33325 4.32416 1.33325 8.00016C1.33325 11.6762 4.32392 14.6668 7.99992 14.6668C11.6759 14.6668 14.6666 11.6762 14.6666 8.00016C14.6666 4.32416 11.6759 1.3335 7.99992 1.3335ZM10.1953 11.1382L7.33325 8.27616V4.00016H8.66659V7.72416L11.1379 10.1955L10.1953 11.1382Z"
+                                      fill="black" />
+                                  </svg>
+                                  <svg *ngSwitchCase="'Failed'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path
+                                      d="M7.50144 2C3.98342 2 1.01195 4.97628 1.01195 8.5C1.01195 12.0237 3.98342 15 7.50144 15C11.0195 15 13.9909 12.0237 13.9909 8.5C13.9909 4.97628 11.0195 2 7.50144 2ZM8.2225 12.1111H6.78039V10.6667H8.2225V12.1111ZM8.2225 9.22222H6.78039V4.88889H8.2225V9.22222Z"
+                                      fill="white" />
+                                  </svg>
+                                  <svg *ngSwitchDefault xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path
+                                      d="M7.99992 1.3335C4.32392 1.3335 1.33325 4.32416 1.33325 8.00016C1.33325 11.6762 4.32392 14.6668 7.99992 14.6668C11.6759 14.6668 14.6666 11.6762 14.6666 8.00016C14.6666 4.32416 11.6759 1.3335 7.99992 1.3335ZM6.66725 10.9422L4.19192 8.47216L5.13325 7.52816L6.66592 9.05816L10.1953 5.52883L11.1379 6.4715L6.66725 10.9422Z"
+                                      fill="white" />
+                                  </svg>
+                                </ng-container>
+                                      {{ row.st }}
+                                  </div>
+                              </td>
+                              <td class="transaction-detail">
+                                  <a href="javascript:void(0)">{{ row.isd ? 'Deposit' : 'Withdraw' }}</a>
+                              </td>
+                              <td class="transaction_id">                                  
+                              <ng-container *ngIf="!row.isd; else isdBlock">
+                                  <a href="javascript:void(0)" (click)="checkDetailsPopUp()" [id]="row.ti">{{ row.rm }}</a>
+                                </ng-container>
+                                <ng-template #isdBlock>
+                                  <p>{{ row.rm }}</p>
+                                </ng-template>
+                              </td>
+                              
+                              <!-- <div class="transaction-detail col s12 hide-on-med-and-up transaction-remark-box">
+                                  <ul class="collapsible">
+                                      <li [class.active]="!isCollapsible">
+                                          <div class="collapsible-header" (click)="isCollapsibleTra();">
+
+                                              <svg *ngIf="!isCollapsible" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                  <path d="M9.33667 1.60402C9.33667 1.79208 9.26738 1.98014 9.11891 2.12861L5.62492 5.62261C5.33788 5.90965 4.86277 5.90965 4.57573 5.62261L1.08174 2.12861C0.794694 1.84157 0.794694 1.36647 1.08174 1.07943C1.36878 0.792384 1.84388 0.792384 2.13092 1.07943L5.10033 4.04883L8.06973 1.07943C8.35677 0.792383 8.83187 0.792383 9.11891 1.07943C9.26738 1.218 9.33667 1.40606 9.33667 1.60402Z" fill="black"/>
+                                              </svg>
+                                              <svg *ngIf="isCollapsible" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                  <path d="M9.33667 1.60402C9.33667 1.79208 9.26738 1.98014 9.11891 2.12861L5.62492 5.62261C5.33788 5.90965 4.86277 5.90965 4.57573 5.62261L1.08174 2.12861C0.794694 1.84157 0.794694 1.36647 1.08174 1.07943C1.36878 0.792384 1.84388 0.792384 2.13092 1.07943L5.10033 4.04883L8.06973 1.07943C8.35677 0.792383 8.83187 0.792383 9.11891 1.07943C9.26738 1.218 9.33667 1.40606 9.33667 1.60402Z" fill="black"/>
+                                              </svg>
+                                              
+                                          </div>
+                                          <div class="collapsible-body" [class.active]="isCollapsible">
+                                              <div class="transaction-remark">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                                                      <path d="M8.00024 -1.125C2.48624 -1.125 -1.99976 3.361 -1.99976 8.875C-1.99976 14.389 2.48624 18.875 8.00024 18.875C13.5142 18.875 18.0002 14.389 18.0002 8.875C18.0002 3.361 13.5142 -1.125 8.00024 -1.125ZM11.2932 13.582L7.00024 9.289V2.875H9.00024V8.461L12.7072 12.168L11.2932 13.582Z" fill="black"/>
+                                                  </svg>
+                                                  <p>
+                                                      <span> Remark:</span> {{row.pm}}
+                                                  </p>
+                                              </div>
+                                          </div>
+                                      </li>
+                                  </ul>
+                              </div> -->
+                          </tr>
+                          </tbody>
+                          </table>
+                          </div>                          
+                          
+                      </div>
+                      <img src="assets/images/transaction-bg.png" class="transaction-bg" alt="" loading="lazy">
+                  </div>
+                  
+              </div>
+
+      </div>
+
+      <!-- <app-footer /> -->
+
+
+
+
+<!-- <table #dataTable class="display" width="100%"></table> -->
+<div id="bet-history-popup" class="modal modal-fixed-footer" tabindex="0" #cbh>
+  <div class="modal-content">
+    <a href="javascript:void(0)" (click)="hideModal()" class="modal-close close-icon"><i class="fa fa-times"
+        aria-hidden="true"></i></a>
+    <div class="modal-body">
+      <span class="title">
+        Client Transaction History
+      </span>
+      <div class="liability-table">
+        <table class="table highlight">
+          <tbody>
+            <ng-container *ngFor="let history of transactionHistory">
+              <tr>
+                <th>Date </th>
+                <td> {{ !history.td ? '-' : history.td}}</td>
+                <th>Status </th>
+                <td> {{ !history.sts ? '-' : history.sts}}</td>
+              </tr>
+              <tr>
+                <th>Amount </th>
+                <td> {{ !history.amt ? '-' : history.amt }}</td>
+                <th>FundTransferBy
+                <td> {{ !history.ftb ? '-' : history.ftb }}</td>
+              </tr>
+              <tr>
+                <th>WithdrawType </th>
+                <td> {{ !history.wt ? '-' : history.wt }}</td>
+                <th>TransactionID </th>
+                <td> {{ !history.ti ? '-' : history.ti }}</td>
+              </tr>
+              <tr>
+                <th>BankName </th>
+                <td> {{ !history.bn ? '-' : history.bn }}</td>
+                <th>EmailID </th>
+                <td> {{ !history.eid ? '-' : history.eid }}</td>
+              </tr>
+              <tr>
+                <th>AccountNumber </th>
+                <td> {{ !history.ano ? '-' : history.ano }}</td>
+                <th>MobileNo </th>
+                <td> {{ !history.mno ? '-' : history.mno }}</td>
+              </tr>
+              <tr>
+                <th>IFSC </th>
+                <td> {{ !history.ifsc ? '-' : history.ifsc }}</td>
+                <th>Remarks </th>
+                <td> {{ !history.rm ? '-' : history.rm }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0)" (click)="hideModal()" class="btn modal-close">
+      <span>Close</span>
+    </a>
+  </div>
+</div>

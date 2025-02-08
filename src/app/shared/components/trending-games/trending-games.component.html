@@ -1,0 +1,37 @@
+<div class="trending-games" *ngIf="trendingGames && trendingGames.length > 0">
+  <div class="collapse-bg" *ngIf="!isLP">
+    <div class="collapse-title">
+      {{ user != null ? "Recommend For You" : "Trending Games" }}
+    </div>
+  </div>
+  <div class="collapse-bg" *ngIf="isLP">
+    <div class="collapse-title">
+      {{ user != null ? "Recommend For You" : "Trending Games" }}
+    </div>
+  </div>
+  <div class="position-relative">
+    <!-- <ng-template [ngTemplateOutlet]="casinoGames"
+        [ngTemplateOutletContext]="{ casinolist: trendingGames }"></ng-template> -->
+    <div class="game-scroll">
+      <div class="slider-scroll">
+        <div class="game-slider">
+          <!-- <ng-template #casinoGames let-casinolist="casinolist"> -->
+          <div class="item_main" *ngFor="let slide of trendingGames; trackBy: trackByFun"
+            (click)="onCasinoGameClick(slide)">
+            <ng-container *ngIf="user !== null; else elseBlock">
+              <a href="javascript:void(0);">
+                <img src="{{ slide.icon }}" [alt]="slide.name" loading="lazy" (error)="errorHandler($event)" />
+              </a>
+            </ng-container>
+            <ng-template #elseBlock>
+              <a href="javascript:void(0);">
+                <img src="{{ slide.ic }}" [alt]="slide.nm" loading="lazy" (error)="errorHandler($event)" />
+              </a>
+            </ng-template>
+          </div>
+          <!-- </ng-template> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

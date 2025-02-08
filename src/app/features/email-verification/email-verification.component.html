@@ -1,0 +1,47 @@
+<body class="thank-you-page">
+  <div class="thank-you-content">
+    <div class="logo">
+      <img [src]="lightLogoUrl" alt="" loading="lazy" class="responsive-img" />
+    </div>
+
+    <ng-container *ngIf="isEmailverification;else elseBlock">
+      <div class="success-verification">
+        <div class="text text-white">Email Verification in Process..</div>
+      </div>
+    </ng-container>
+    <ng-template #elseBlock>
+      <ng-container *ngIf="isSuccess; else elseBlock1">
+        <div class="verified-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="title">
+          Thank You!
+        </div>
+        <div class="success-verification">
+          <div class="text text-white">{{verificationMsg}}</div>
+          <button class="btn btn-resend" (click)="onSignInClick()">
+            <span class="animate-btn">
+              Continue to homepage
+            </span>
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #elseBlock1>
+        <div class="verified-icon">
+          <i class="fas fa-times"></i>
+        </div>
+        <div class="title">
+          Sorry!
+        </div>
+        <div class="failed-verification">
+          <div class="text text-white">{{verificationMsg}}</div>
+          <button class="btn btn-resend" (click)="reVerifyEmailVerification()">
+            <span class="animate-btn">
+              Resend Email
+            </span>
+          </button>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</body>

@@ -1,0 +1,33 @@
+<div class="popular-games" *ngIf="popularGames && popularGames.length > 0 && router.url.indexOf('/home') == 0">
+  <div class="collapse-bg">
+    <div class="collapse-title">
+      Popular Games
+    </div>
+  </div>
+  <div class="position-relative">
+    <div class="game-scroll">
+      <div class="slider-scroll">
+        <div class="game-slider">
+          <ng-container *ngFor="
+              let slide of popularGames;
+              let i = index;
+              trackBy: trackByFun">
+            <div class="item_main" appAmIvisible (elementVisible)="onElementVisible($event)"
+              [isTargetElement]="i === popularGames.length - 1" (click)="onCasinoGameClick(slide)">
+              <ng-container *ngIf="user !== null; else elseBlock">
+                <a href="javascript:void(0);">
+                  <img src="{{ slide.icon }}" [alt]="slide.name" loading="lazy" />
+                </a>
+              </ng-container>
+              <ng-template #elseBlock>
+                <a href="javascript:void(0);">
+                  <img src="{{ slide.ic }}" [alt]="slide.nm" loading="lazy" />
+                </a>
+              </ng-template>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,229 @@
+<ng-container *ngIf="user !== null else elseBlock">
+  <main class="full-wrap " [class.full-wrap-margin]="isNewsExits" [class.mt-0]="!isNewsExits">
+    <div class="row m-0">
+      <div class="col-center col s12">
+        <div class="landingpage">
+          <ng-template [ngTemplateOutlet]="landingpage"/>
+        </div>
+      </div>
+    </div>
+    <app-footer/>
+  </main>
+</ng-container>
+<ng-template #elseBlock>
+  <div class="row m-0">
+    <div class="col-center col s12">
+      <div class="landingpage">
+        <ng-template [ngTemplateOutlet]="landingpage"/>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #landingpage>
+  <!-- <div class="landing-banner" *ngIf="topBanner && topBanner.length > 0">
+    <ngx-slick-carousel #slickModal="slick-carousel" [config]="topBannerConfig"
+      class="top-banner landing-top-banner-slider">
+      <ng-container *ngFor="let slide of topBanner;trackBy:trackByFun">
+        <div ngxSlickItem class="item" (click)="onBannerClick(slide)">
+          <img src="{{ slide.bi }}" alt="">
+        </div>
+      </ng-container>
+    </ngx-slick-carousel>
+  </div> -->
+
+  <!-- <div class="landing-banner"  *ngIf="topBanner && topBanner.length > 0">
+   <ngx-slick-carousel #slickModal="slick-carousel" [config]="topBannerConfig" class="top-banner landing-top-banner-slider">
+    <ng-container *ngFor="let slide of topBanner; trackBy: trackByFun">
+      <div ngxSlickItem class="item"  (click)="onBannerClick(slide)"> 
+        <img [src]="slide.bi" alt="" loading="lazy">
+      </div>
+    </ng-container>
+  </ngx-slick-carousel> 
+</div> -->
+<app-top-content/>
+  <app-trending-games/>
+  <!-- Top section -->
+  <!-- <div class="top-sections">
+    <div class="collapse-bg">
+      <div class="collapse-title">
+        Top Sections
+      </div>
+    </div>
+    <div class="position-relative">
+      <div class="top-section-scroll">
+        <div class="slider-scroll">
+          <div class="game-slider">
+            <div class="item_main">
+              <a href="javascript:void(0);" (click)="onAviatorClick()">
+                <img src="assets/images/lp-images/aviator new.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/live-casino/provider/Roulette']">
+                <img src="assets/images/lp-images/Roulette new.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/live-casino/Evoplay']">
+                <img src="assets/images/lp-images/SLOTS.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/live-casino/provider/Andar Bahar']">
+                <img src="assets/images/lp-images/andar bahar new.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/sports/Cricket']">
+                <img src="assets/images/lp-images/Cricket.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/live-casino/provider/Teen Patti']">
+                <img src="assets/images/lp-images/Teen patti.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" [routerLink]="['/deposit']">
+                <img src="assets/images/lp-images/Deposit new.gif" alt="">
+              </a>
+            </div>
+            <div class="item_main">
+              <a href="javascript:void(0);" (click)="affiliateClick()">
+                <img src="assets/images/lp-images/Affiliate.gif" alt="">
+              </a>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- Top section -->
+  <app-common-dashboard [allMarkets]="allMatches"/>
+  <!--play-with section-->
+  <div class="play-with">
+    <div class=" play-flex mt-10 m-0">
+      <div class="col s12 m6 l3">
+        <div class="play-with-bg">
+          <div class="left-content">
+            <h2>
+              Super fast withdrawal
+            </h2>
+          </div>
+          <div class="right-content">
+            <img src="assets/images/super-withdrawal.png" class="responsive-img" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="play-with-bg">
+          <div class="left-content">
+            <h2>
+              instant deposit
+            </h2>
+          </div>
+          <div class="right-content">
+            <img src="assets/images/instant-deposit.png" class="responsive-img" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="play-with-bg">
+          <div class="left-content">
+            <h2>
+              one click registration
+            </h2>
+          </div>
+          <div class="right-content">
+            <img src="assets/images/registration.png" class="responsive-img" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l3">
+        <div class="play-with-bg">
+          <div class="left-content">
+            <h2>
+              most trusted platform
+            </h2>
+          </div>
+          <div class="right-content">
+            <img src="assets/images/trusted-platform.png" class="responsive-img" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-popular-games/>
+  <!--quick deposit-->
+  <div class="collapse-bg">
+    <div class="collapse-title">
+      Quick Deposit
+    </div>
+  </div>
+  <div class="main-deposit-section">
+
+    <div class="quick-deposit">
+      <img src="assets/images/coin-l-2.png" alt="" class="coin-l-2" loading="lazy">
+      <h4>DEPOSIT & GET <span>100% BONUS</span>
+        <br>ON YOUR FIRST BONUS
+      </h4>
+      <img src="assets/images/coin-l-1.png" alt="" class="coin-l-1" loading="lazy">
+    </div>
+    <div class="download-app">
+      <div class="left"><img src="assets/images/lanidng-page-mockup.png" alt="" class="landing-page-mockup" loading="lazy"></div>
+      <div class="right">
+        <div class="title">DOWNLOAD OUR <span>APP</span></div>
+        <div class="content-section">
+          <div class="content">Live streaming & match score
+            <div class="yellow-content">4.6/5(97 reviews)</div>
+          </div>
+          <div class="download-btn">
+            <a href="javascript:void(0)" [routerLink]="['/app']" class="btn right">
+              <span class="animate-btn">Download</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--promotions-->
+  <div class="promotion" *ngIf="PromotionImages && PromotionImages.length > 0">
+    <div class="collapse-bg">
+      <div class="collapse-title">
+        Promotions
+      </div>
+    </div>
+    <div class="promo-slider">
+      <div class="promotions promotion-slider">
+        <div class="item" *ngFor="let slide of PromotionImages;trackBy:trackByFun">
+          <a href="javascript:void(0)" (click)="onBannerClick(slide)">
+            <img src="{{ slide.bi }}" alt="" loading="lazy">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--top-casino-providers-->
+  <div class="top-casino-providers">
+    <div class="collapse-bg">
+      <div class="collapse-title">
+        Top Casino providers
+      </div>
+    </div>
+    <div class="position-relative">
+      <div class="casino-scroll">
+        <div class="slider-scroll">
+          <div class="game-slider">
+            <div class="item_main" *ngFor="let game of ProviderList;trackBy:trackByFun">
+              <a href="javascript:void(0);" (click)="onProviderClick(game)">
+                <img [src]="game.appProviderLogo" alt="" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

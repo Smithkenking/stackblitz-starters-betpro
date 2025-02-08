@@ -1,0 +1,56 @@
+<ng-container *ngIf="getMarket() | async as market">
+  <div class="bet-semiheader is-hidden"  [class.is-show]="selectedCategory == categoryName || selectedCategory == 'All'">
+    <div class="row m-0">
+      <div class="col s12 m12 p-0">
+        <div class="match-odd" id="{{'#marketcategory_' + categoryName + '_' + matchId}}">
+          <div class="scores-event">
+            <i class="fa fa-circle allow" [ngClass]="{'allow': market.isBetAllowed, 'notallow': !market.isBetAllowed}"></i>
+            {{market.name}}
+          </div>
+        </div>
+        <div class="m-info">
+          <span *ngIf="market.isInPlay;">
+            <div class="in-play">
+              <img [src]="commonService.contentRelativePath('assets/images/in-play-new.png')" alt="" loading="lazy" 
+                    class="responsive-img" >
+            </div>
+          </span>
+          <span class="smalltext" *ngIf="market.totalAmount"> ({{market.totalAmount}}) </span>
+        </div>
+        <div class="limit-info">
+          <a href="javascript:void(0)" (click)="$event.stopPropagation();showLimitPopup=!showLimitPopup;"><i class="fa fa-info-circle"></i></a>
+          <div class="fancy_info-popup" *ngIf="showLimitPopup">
+            <div class="arrow"></div>
+            <p>Stake Limit: <span>{{market.minStake !== 'No Limit' ? (market.minStake | shortNumber) : 'No Limit'}}-{{market.maxStake !== 'No Limit' ? (market.maxStake | shortNumber) : 'No Limit'}}</span></p>
+            <p>Max Profit: <span>{{market.maxProfit !== 'No Limit' ? (market.maxProfit | shortNumber) : 'No Limit'}}</span></p>
+          </div>
+        </div>
+        <div class="close-icon">
+          <a href="javascript:void(0);" (click)="isCollapsibleMarket();"
+            class="right"><i *ngIf="!isCollapsible" class="fas fa-chevron-up"></i> <i *ngIf="isCollapsible" class="fas fa-chevron-down"></i></a>
+        </div>
+
+      </div>
+    </div>
+    <div class="match-news" *ngIf="news && news.length > 0">
+      <marquee behavior="scroll" class="marquee-style" direction="left" onmouseout="this.start();" onmouseover="this.stop();" scrolldelay="100">
+        <span class="news" *ngFor="let value of news">
+          <ng-container *ngIf="hideMarketNews(value)">
+            <i class="fas fa-circle"></i><span class=""> {{value.ns}} </span>
+          </ng-container>
+        </span>
+        <div style="clear: both;"></div>
+      </marquee>
+    </div>
+  </div>
+  <div class="bet-list is-hidden" [hidden]="isCollapsible"  [class.is-show]="selectedCategory == categoryName || selectedCategory == 'All'">
+    <div class="team-market">
+      <div class="market-runner" app-line-market-details [matchId]="matchId" [marketRunner]="marketRunner"
+        [currentMarketVolumns]="currentMarketVolumn" [betId]="betId" [marketType]="market.name">
+      </div>
+      <div class="suspend" *ngIf="market.overlayMessage !==''">
+        <div class="suspend-cont">{{market.overlayMessage}}</div>
+      </div>
+    </div>
+  </div>
+</ng-container>

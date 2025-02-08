@@ -1,0 +1,89 @@
+<pb-loading-bar *ngIf="loading" />
+<router-outlet></router-outlet>
+<!-- <div class="Scroll-top_icon">
+  <a href="javascript:void(0);" (click)="scrollToTop()" class="scrollToTop" [class.custom-scrollToTop]="isChatEnable">
+    <i class="fas fa-angle-up"></i>
+  </a>
+</div> -->
+<!-- <div class="whatsapp-id" *ngIf="!inMaintenance && isChatEnable && !loading">
+  <div class="wp-bg" *ngIf="isShowWhatsapptext"> -->
+<!-- <div class="close-btn" (click)="isShowWhatsapptext = false">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div class="description">
+      <span>
+      {{user != null ? 'Connect to customer service' : 'I NEED AN ID'}} 
+    </span> -->
+<!-- <a href="javascript:void(0)" (click)="onWhatsappClick()">
+      Click Here Now
+    </a>
+    </div>                             
+    <div class="whatsapp-icon" (click)="onWhatsappClick()"> -->
+<!-- <img src="{{user != null ? 'assets/images/customer-service.png' : 'assets/images/whatsapp.png'}}" class="responsive-img" class="responsive-img"> -->
+<!-- <img [src]="commonService.imgRelativePath('assets/images/whatsapp.png?v=1.0.3')" class="responsive-img">
+    </div>  -->
+<!-- </div> -->
+<!-- <div class="wp-icon" (click)="onWhatsappClick()">
+    <div class="icon-bg">
+      <img src="assets/images/wp-gif.gif?v=1.1">
+    </div>
+    
+  </div> -->
+<!-- </div> -->
+<div id="small-deposit-modal" class="modal modal-fixed-footer" #verifyIpAdd>
+  <h5>
+    <span class="card-title">
+      <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+      <span class="title">
+        Restricted
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="contents">
+        <div class="verification-img">
+          <img src="assets/images/restricted-area.png" alt="" loading="lazy">
+        </div>
+        <b>Access denied</b><br>
+        You do not have access to {{websiteOrigin}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row submit-btn">
+        <a href="javascript:void(0)" class="green btn" (click)="logOut()">
+          <span class="animate-btn">Ok</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cookie-content " [class.cookie-content-hide]="isShowCokkieContent" *ngIf="!inMaintenance && !loading">
+  <div class="cookie-overlay"></div>
+  <div class="contents">
+    <div class="container">
+      <div class="row mb-0 cookie-details">
+        <div class="col s12 m4">
+          <div class="left-content">
+            This Website Uses Cookies
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="cookie-contents">
+            Please, Accept these <strong> sweeties </strong> to continue enjoying our site!
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="btn accept-btn" (click)="acceptAllCookies()">
+            <span class="animate-btn"> Mmm... Sweet! </span>
+          </div>
+          <div class="btn not-accept">
+            Nope... I am on a diet
+            <img src="assets/images/smile-img.png" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

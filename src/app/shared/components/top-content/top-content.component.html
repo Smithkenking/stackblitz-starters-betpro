@@ -1,0 +1,49 @@
+<div class="landing-banner"  *ngIf="topBanner && topBanner.length > 0 && router.url.indexOf('/home') == 0"> 
+ <ngx-slick-carousel #slickModal="slick-carousel" [config]="topBannerConfig" class="top-banner landing-top-banner-slider">
+  <ng-container *ngFor="let slide of topBanner; trackBy: trackByFun">
+    <div ngxSlickItem class="item"  (click)="onBannerClick(slide)"> 
+      <img [src]="slide.bi" alt="" loading="lazy">
+    </div>
+  </ng-container>
+</ngx-slick-carousel> 
+</div>
+
+<div class="top-content" *ngIf="topBanner && topBanner.length > 0 && router.url.indexOf('/campaign') == 0">
+<ngx-slick-carousel #slickModal="slick-carousel" [config]="topBannerConfig" class="top-slider">
+  <ng-container *ngFor="let slide of topBanner; trackBy: trackByFun">
+    <a ngxSlickItem class="item"  (click)="onBannerClick(slide)"> 
+      <img [src]="slide.bi" alt="" loading="lazy">
+    </a>
+  </ng-container>
+</ngx-slick-carousel>
+</div>
+
+
+
+
+<!-- <div class="top-content valign-wrapper">
+  <ng-container *ngIf="isDCOBanner else elseBlock">
+    <div class="swiper-container slider1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let slide of bannerSlides;trackBy:trackByFun">
+          <a href="javascript:void(0);" (click)="onDCOBannerClick(slide)">
+            <img src="{{ slide.url }}" [alt]="slide.title" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </ng-container>
+  <ng-template #elseBlock>
+    <div class="swiper-container slider1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let slide of bannerSlides;trackBy:trackByFun">
+          <a href="javascript:void(0);" *ngIf="slide.ia" (click)="onBannerClick(slide)">
+            <img src="{{ slide.bi }}" [alt]="slide.bi" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </ng-template>
+</div> -->

@@ -1,0 +1,27 @@
+  <ng-container *ngIf="getMarket() | async as market">
+    <div class="row m-0">
+      <div class="col s12 m12 p-0 match-events is-hidden"
+        [class.is-show]="selectedCategory == categoryName || selectedCategory == 'All'">
+        <div class="odd-title-bg row m-0">
+          <div class="col m6 s6 p-0">
+            <div class="match-odd" id="match-odd">
+              <i class="market-name-icon">
+                <img ngSrc="assets/images/time.png" height="16" width="16" priority alt="">
+            </i>
+              <div class="scores-event">{{market.name}}</div>             
+            </div>
+          </div>
+          <div class="col m6 s6 p-0">
+            <div class="title-right">
+              <div class="market-overarround"><span></span><strong>Back</strong></div>
+              <div class="market-overarround market-overarround-lay"><strong>Lay</strong></div>
+            </div>
+          </div>
+        </div>
+        <div app-login-virtual-bet-details [matchId]="matchId" [marketRunner]="marketRunner"
+        [currentMarketVolumns]="currentMarketVolumn" [betId]="betId" [marketType]="market.name" [market]="market" (openPopup)="openLoginModel()">
+        </div>
+      </div>
+    </div>  
+  </ng-container>
+  

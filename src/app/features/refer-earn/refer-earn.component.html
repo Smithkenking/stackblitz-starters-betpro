@@ -1,0 +1,105 @@
+<main class="full-wrap ">
+  <div class="row m-0">
+    <!-- Left Content -->
+    <div class="col-center ">
+      <!-- Account Statement -->
+      <div class="card z-depth-0 ">
+        <div class="card-content">
+          <div class="user-referel">
+            <div class="outer-layer">
+              <div class="inner-layer">
+                <div class="referel-bg">
+                  <div class="invite-text d-flex align-items-center">
+                    <div>
+                      <div class="invite-heading mb-5 d-flex justify-left">INIVITE A FRIENDS TO GET:</div>
+                      <div class="invite-sub-text mb-5 justify-left"
+                        *ngFor="let item of campaignSubscriptionList;trackBy:trackByFun">
+                        {{item.cn}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="gradient-hr" />
+                <div class="pt-15 mb-5 d-flex justify-left referel-header">Referral Code</div>
+                <div class="d-flex">
+                  <input class="invite-input" [(ngModel)]="userProfile.appReferralCode" #referralCodeInput readonly />
+                  <div class="invite-copy" title="Click to Copy" (click)="onCopyToClipboardClick(referralCodeInput)">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M19.5 1.5H6.9375C6.83437 1.5 6.75 1.58437 6.75 1.6875V3C6.75 3.10312 6.83437 3.1875 6.9375 3.1875H18.5625V19.3125C18.5625 19.4156 18.6469 19.5 18.75 19.5H20.0625C20.1656 19.5 20.25 19.4156 20.25 19.3125V2.25C20.25 1.83516 19.9148 1.5 19.5 1.5ZM16.5 4.5H4.5C4.08516 4.5 3.75 4.83516 3.75 5.25V17.6883C3.75 17.8875 3.82969 18.0773 3.97031 18.218L8.03203 22.2797C8.08359 22.3312 8.14219 22.3734 8.20547 22.4086V22.4531H8.30391C8.38594 22.4836 8.47266 22.5 8.56172 22.5H16.5C16.9148 22.5 17.25 22.1648 17.25 21.75V5.25C17.25 4.83516 16.9148 4.5 16.5 4.5ZM8.20312 20.0672L6.18516 18.0469H8.20312V20.0672ZM15.5625 20.8125H9.70312V17.4844C9.70312 16.9664 9.28359 16.5469 8.76562 16.5469H5.4375V6.1875H15.5625V20.8125Z"
+                        class="copy-color" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="mb-5 d-flex justify-left referel-header">Referral Link</div>
+                <div class="d-flex">
+                  <input class="invite-input" [(ngModel)]="userProfile.appReferralUrl" #referralUrlInput readonly />
+                  <div class="invite-copy" title="Click to Copy" (click)="onCopyToClipboardClick(referralUrlInput)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M19.5 1.5H6.9375C6.83437 1.5 6.75 1.58437 6.75 1.6875V3C6.75 3.10312 6.83437 3.1875 6.9375 3.1875H18.5625V19.3125C18.5625 19.4156 18.6469 19.5 18.75 19.5H20.0625C20.1656 19.5 20.25 19.4156 20.25 19.3125V2.25C20.25 1.83516 19.9148 1.5 19.5 1.5ZM16.5 4.5H4.5C4.08516 4.5 3.75 4.83516 3.75 5.25V17.6883C3.75 17.8875 3.82969 18.0773 3.97031 18.218L8.03203 22.2797C8.08359 22.3312 8.14219 22.3734 8.20547 22.4086V22.4531H8.30391C8.38594 22.4836 8.47266 22.5 8.56172 22.5H16.5C16.9148 22.5 17.25 22.1648 17.25 21.75V5.25C17.25 4.83516 16.9148 4.5 16.5 4.5ZM8.20312 20.0672L6.18516 18.0469H8.20312V20.0672ZM15.5625 20.8125H9.70312V17.4844C9.70312 16.9664 9.28359 16.5469 8.76562 16.5469H5.4375V6.1875H15.5625V20.8125Z"
+                        class="copy-color" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="mt-20 invite-btn">
+                  <p class="inputbtntext">
+                    Share Via Social Media
+                  </p>
+                  <div class="social-media">
+                    <a href="{{facebookSharerApi}}" target="_blank">
+                      <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="41" height="40" viewBox="0 0 41 40" fill="none">
+                          <path
+                            d="M40.1003 20.0501C40.1003 8.98246 31.1178 0 20.0501 0C8.98246 0 0 8.98246 0 20.0501C0 29.7544 6.89724 37.8346 16.0401 39.6992V26.0652H12.0301V20.0501H16.0401V15.0376C16.0401 11.1679 19.188 8.02005 23.0576 8.02005H28.0702V14.0351H24.0602C22.9574 14.0351 22.0551 14.9373 22.0551 16.0401V20.0501H28.0702V26.0652H22.0551V40C32.1805 38.9975 40.1003 30.4561 40.1003 20.0501Z"
+                            fill="#F42649" />
+                        </svg>
+                      </span>
+                    </a>
+                    <a href="{{twitterShareApi}}" target="_blank">
+                      <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="35" viewBox="0 0 44 35" fill="none">
+                          <path
+                            d="M43.0704 4.14288C41.4852 4.84689 39.7823 5.32065 37.9949 5.53434C39.8204 4.44105 41.2201 2.71002 41.8794 0.646032C40.1732 1.65815 38.2815 2.39363 36.2672 2.79119C34.6554 1.07341 32.3596 0 29.8185 0C24.9385 0 20.9828 3.95736 20.9828 8.83572C20.9828 9.52814 21.0623 10.204 21.2114 10.8484C13.8681 10.4806 7.35813 6.96223 2.99825 1.61508C2.23958 2.92039 1.80392 4.43774 1.80392 6.05944C1.80392 9.12395 3.36268 11.829 5.73312 13.4126C4.28534 13.3662 2.92205 12.9687 1.73103 12.3077C1.73103 12.3458 1.73103 12.3806 1.73103 12.4187C1.73103 16.7007 4.77566 20.2721 8.81916 21.0822C8.07871 21.2843 7.29684 21.3919 6.49013 21.3919C5.92196 21.3919 5.36703 21.3356 4.82867 21.2346C5.95343 24.7447 9.21672 27.3006 13.083 27.3719C10.0599 29.7423 6.24994 31.1553 2.10871 31.1553C1.39642 31.1553 0.692413 31.1139 0 31.031C3.91098 33.5373 8.55412 35 13.5451 35C29.7986 35 38.684 21.536 38.684 9.85943C38.684 9.47678 38.6758 9.09579 38.6592 8.71646C40.3869 7.46912 41.886 5.91367 43.0704 4.14288Z"
+                            fill="#F42649" />
+                        </svg>
+                      </span>
+                    </a>
+                    <a href="javascript:void(0);" (click)="onWhatsappShareClick()">
+                      <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                          <path
+                            d="M15.7286 3.93115C13.1856 -0.000129954 7.9937 -1.16889 3.96729 1.27488C0.0468473 3.71865 -1.22465 9.03119 1.31834 12.9625L1.53026 13.2812L0.682596 16.4687L3.86134 15.6187L4.17921 15.8312C5.55666 16.575 7.04008 17 8.52349 17C10.1129 17 11.7022 16.575 13.0797 15.725C17.0001 13.175 18.1657 7.96868 15.7286 3.93115V3.93115ZM13.5035 12.1125C13.0797 12.75 12.5499 13.175 11.8082 13.2812C11.3844 13.2812 10.8546 13.4937 8.73541 12.6437C6.93412 11.7937 5.45071 10.4124 4.39113 8.81869C3.75538 8.07493 3.4375 7.11867 3.33155 6.16242C3.33155 5.31241 3.64942 4.56866 4.17921 4.0374C4.39113 3.8249 4.60304 3.71865 4.81496 3.71865H5.34475C5.55666 3.71865 5.76858 3.71865 5.87454 4.14365C6.08645 4.67491 6.61624 5.94992 6.61624 6.05617C6.7222 6.16242 6.7222 6.37492 6.61624 6.48117C6.7222 6.69367 6.61625 6.90617 6.51029 7.01242C6.40433 7.11868 6.29837 7.33118 6.19241 7.43743C5.9805 7.54368 5.87454 7.75618 5.9805 7.96868C6.40433 8.60619 6.93412 9.24369 7.46391 9.77494C8.09966 10.3062 8.7354 10.7312 9.47711 11.05C9.68903 11.1562 9.90094 11.1562 10.0069 10.9437C10.1129 10.7312 10.6426 10.1999 10.8546 9.98745C11.0665 9.77494 11.1724 9.77495 11.3844 9.8812L13.0797 10.7312C13.2916 10.8375 13.5035 10.9437 13.6095 11.05C13.7154 11.3687 13.7154 11.7937 13.5035 12.1125V12.1125Z"
+                            fill="#5DAE32"></path>
+                        </svg>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="outer-layer mt-20">
+              <div class="inner-layer">
+                <div class="row m-0">
+                  <div class="col s6">
+                    <div class="total-heading">TOTAL REWARD:</div>
+                    <div class="total-count hightlight">{{userProfile.appReferredTotalBonus}}</div>
+                  </div>
+                  <div class="col s6 vertical-hr">
+                    <div class="total-heading">TOTAL FRIEND REFERRED:</div>
+                    <div class="total-count">{{userProfile.appReferredTotalUser}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="rightsidebar scroller">
+        <app-rightsidebar/>
+     </div>                          -->
+    </div>
+  </div>
+  <app-footer />
+</main>

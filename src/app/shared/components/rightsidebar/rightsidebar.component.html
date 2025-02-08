@@ -1,0 +1,60 @@
+<div class="rightsidebar scrollbar news-margin">
+  <div class="promotion-tab">
+    <div class="promotion-tab">
+      <!-- <ul class="tabs tabs-fixed-width scroller"> -->
+        <!-- <li class="tab">
+          <a href="javascript:void(0);" [class.active]="selectedCategory == 'Betlist'"
+            (click)="onClickCategory('Betlist')" class="ripple active"> tv </a>
+        </li> -->
+        <!-- <li class="tab">
+          <a href="javascript:void(0);" [class.active]="selectedCategory == 'Scorecard'"
+            (click)="onClickCategory('Scorecard')" class="ripple"> Score card </a>
+        </li> -->
+      <!-- </ul> -->
+      <div class="tab-contents">
+        <div class="is-hidden" id="tv-tab" [class.is-show]="selectedCategory == 'Betlist'"
+          *ngIf="showTV && matchInfo && matchInfo.ei && router.url !== '/event/virtual-sports'">
+          <ng-container *ngIf="yt && !commonService.isShowLiveTvCenter">
+            <div [innerHtml]="yt | safe: 'html'"></div>
+          </ng-container>
+        </div>
+        <!-- <div id="score-tab" [class.is-show]="selectedCategory == 'Scorecard'">
+          <img src="assets/images/score-tab.PNG" alt="">
+        </div>
+      </div> -->
+      <app-bet-panel-layout *ngIf="!isShowBetSlipBelowRunner" />
+
+      <!-- <div class="tab-right match-hidden">
+        <div class="d-flex">
+          <strong>Open Bets (0)</strong>
+        </div>
+        <div class="title">
+          <a href="">Runner</a>
+          <a href="">Price</a>
+          <a href="">Size</a>
+        </div>
+      </div> -->
+      <div class="tab-right match-hidden" [class.is-show]="matchBetCount > 0 || unMatchBetCount > 0">
+        <div class="d-flex">
+          <strong>Matched Bets</strong>
+        </div>
+        <app-matchedbet />
+      </div>
+      <div class="tab-right match-hidden">
+        <div class="d-flex">
+          <strong>
+            <span>Recent Activity</span>
+          </strong>
+        </div>
+        <app-recent-activity />
+      </div>
+    </div>
+  </div>
+  
+  <!-- <app-live-casino-games/> -->
+
+</div>
+<input id="hdn_host" type="hidden" [value]="host">
+<input id="hdn_ProAppName" type="hidden" [value]="'live'">
+<input id="hdn_StreamNamePreFix" type="hidden" [value]="StreamNamePreFix">
+<input id="hdn_channelno" type="hidden" [value]="channelno">

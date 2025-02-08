@@ -1,0 +1,20 @@
+<div id="veronica" class="modal modal-fixed-footer" #veronica>
+  <a href="javascript:void(0)" (click)="hideModal()" class="modal-close right close-icon">
+    <i aria-hidden="true" class="fa fa-times"></i>
+  </a>
+  <div class="modal-content">
+    <div class="modal-body">
+      <a href="javascript:void(0)" class="popup-image hide-on-small-only" *ngIf="!deviceInfoService.isMobile()">
+        <img alt="" loading="lazy" class="img-responsive" src="assets/images/afterlogin-popup.png">
+      </a>
+      <a href="javascript:void(0)" class="popup-image mobile-popup" *ngIf="deviceInfoService.isMobile()">
+        <img alt="" loading="lazy" class="img-responsive" src="assets/images/afterlogin-popup-mobile.png">
+      </a>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0);" (click)="onPlaynowClick()" class="btn">
+      <span> <img src="assets/images/playnow-btn.svg" alt="" loading="lazy"></span>
+    </a>
+  </div>
+</div>

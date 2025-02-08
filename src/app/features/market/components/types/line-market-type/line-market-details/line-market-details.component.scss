@@ -1,0 +1,77 @@
+.position-bet {
+  color: #000;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  height: 18px;
+  display: inline-block;
+  margin-top: 2px;
+  line-height: 18px;
+  margin-left: 0px;
+}
+ .live-stream-popup {
+    width: 170px;
+    display: block;
+    background-color: #fff;
+    border: 1px solid #eee;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+   .live-stream-popup .popup-header {
+    background-color: #242424;
+    color: #fff;
+    padding: 10px;
+  }
+  
+   .live-stream-popup .popup-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+   .live-stream-popup .popup-header h4 a.close-popup {
+    display: inline-block;
+    float: right;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 400;
+  }
+  
+   .live-stream-popup .popup-body .position-data {
+    padding: 10px 0;
+  }
+  
+   .live-stream-popup .popup-body .position-data div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 60%;
+    margin: 0 auto 5px;
+  }
+  
+   .live-stream-popup .popup-body .position-data div span {
+    -ms-flex-preferred-size: 33.33%;
+        flex-basis: 33.33%;
+    text-align: center;
+  }
+  
+   .live-stream-popup .popup-body .position-data div span.red-text {
+    color: #ff4242;
+  }
+  
+   .live-stream-popup .popup-body .position-data div span.green-text {
+    color: #00B82B;
+  }

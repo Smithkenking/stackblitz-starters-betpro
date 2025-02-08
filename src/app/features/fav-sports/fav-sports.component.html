@@ -1,0 +1,309 @@
+<main class="full-wrap" [class.news-margin]="isNewsExits">
+    <div class="row m-0 fav-sports">
+      <div class="col-center col s12">
+        <app-top-content/>
+  
+        <div class="favourite-events">
+          <div class="fav-event-title">
+            favourite
+          </div>
+          <div class="fav-sports-dropdown">
+            <ul class="sports-dropdown">
+              <li class="select-sports">
+               
+                <a href="javascript:void(0);"  class="dropdown-trigger fav-dropdown" data-target="fav-dropdown">
+                  <span>
+                    {{ selectedType === 'sports' ? 'Sports' : selectedType === 'casino' ? 'Casino' : 'All' }}  <i class="fas fa-chevron-down"></i> 
+                  </span>
+                </a>
+                <ul id="fav-dropdown" class="dropdown-content collection scroller">
+                  <li class="collection-item" (click)="showContent('All')">
+                    <a class="title" >
+                       All 
+                    </a>
+                  </li>
+                  <li class="collection-item" (click)="showContent('sports')">
+                    <a class="title" >
+                       Sports 
+                    </a>
+                  </li>
+                  <li class="collection-item" (click)="showContent('casino')">
+                    <a class="title" >
+                      Casino
+                    </a>
+                  </li>
+                  
+                  
+                </ul>
+                
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+        <div class="event-content" *ngIf="selectedType === 'sports' || selectedType === 'All'">
+            <div class="events events-web" *ngFor="let matches of markets;let i = index;trackBy: trackByFn">
+              <div class="top-event">
+                <div class="date-time" [class.live_events]="markets | checkIsInPlay: matches.eid">
+                  <span class="live-title" *ngIf="(markets | checkIsInPlay: matches.eid)">
+                    <span class="live-blink">Live</span>
+                  </span>
+                  <span class="date" *ngIf="!(markets | checkIsInPlay: matches.eid)">
+                    {{matches.ed | ordinalDate}}
+                  </span>
+                  <span class="time" *ngIf="!(markets | checkIsInPlay: matches.eid)">
+                    {{matches.ed | istToPkt}}
+                  </span>
+                </div>
+                <div class="valign-wrapper right live-tv">
+                  <div class="market-count">
+                    <div class="right badge-right">
+                      <a href="javascript:void(0);" class="badge-border" title="LineMarket: {{lineMarketCount}}"
+                      *ngIf="(allMarkets | checkFancyType: matches.eid : 9); let lineMarketCount">
+                      <span class="">
+                        <span class="icon-design">
+                          L
+                          <span class="badge">{{lineMarketCount}}</span>
+                        </span>
+                      </span>
+                    </a>
+                      <a href="javascript:void(0);" class="badge-border" title="ManualODD: {{manualOddsCount}}"
+                        *ngIf="(allMarkets | checkFancyType: matches.eid : 10); let manualOddsCount">
+                        <span class="">
+                          <span class="icon-design">
+                            MO
+                            <span class="badge">{{manualOddsCount}}</span>
+                          </span>
+                        </span>
+                      </a>
+                      <a href="javascript:void(0);" class="badge-border" title="Fancy: {{sessionCount}}"
+                        *ngIf="(allMarkets | checkFancyType: matches.eid : 6); let sessionCount">
+                        <span class="">
+                          <span class="icon-design">
+                            F
+                            <span class="badge">{{sessionCount}}</span>
+                          </span>
+                        </span>
+                      </a>
+                      <a href="javascript:void(0);" class="badge-border" title="bookMaker: {{bookMakerCount}}"
+                        *ngIf="(allMarkets | checkFancyType: matches.eid : 7); let bookMakerCount">
+                        <span class="">
+                          <span class="icon-design">
+                            BM
+                            <span class="badge">{{bookMakerCount}}</span>
+                          </span>
+                        </span>
+                      </a>
+                      <a href="javascript:void(0);" class="badge-border" title="Premium ODDS: {{PremiumODDS}}"
+                        *ngIf="(allMarkets | checkFancyType: matches.eid : 14); let PremiumODDS">
+                        <span class="">
+                          <span class="icon-design">
+                            P
+                            <span class="badge">{{PremiumODDS}}</span>
+                          </span>
+                        </span>
+                      </a>
+                      <a href="javascript:void(0);" class="badge-border" title="Market: {{marketCount}}"
+                        *ngIf="(allMarkets | checkFancyType: matches.eid : 0); let marketCount">
+                        <span class="">
+                          <span class="icon-design">
+                            M
+                            <span class="badge">{{marketCount}}</span>
+                          </span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  <a class="icons" (click)="onMarketClick(matches)" href="javascript:void(0);" *ngIf="matches.isl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
+                      <g clip-path="url(#clip0_937_10)">
+                      <path d="M16 0C7.164 0 0 7.164 0 16C0 24.836 7.164 32 16 32C24.836 32 32 24.836 32 16C32 7.164 24.836 0 16 0ZM13.5602 21.6181C12.8787 22.0034 12.0388 21.4915 12.0689 20.7092L12.4356 11.1755C12.4647 10.4188 13.2916 9.96777 13.9435 10.353L22.0105 15.1198C22.6729 15.5112 22.6636 16.4727 21.9938 16.8513L13.5602 21.6181Z" fill="#FF0043"></path>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0_937_10">
+                      <rect width="32" height="32" fill="white"></rect>
+                      </clipPath>
+                      </defs>
+                    </svg>
+                  </a>
+                  <a href="javascript:void(0);" class="icons favourite-icon" (click)="onPinClick(matches)" id="multipin{{matches.mid}}"
+                    pbMultiPin [matchId]="matches.eid">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M11.4795 2.43911L13.0042 5.48856C13.2097 5.9103 13.7612 6.3104 14.2261 6.39691L16.9837 6.85108C18.7463 7.14305 19.1572 8.41907 17.892 9.69509L15.7401 11.847C15.3832 12.2039 15.1778 12.9068 15.2967 13.415L15.9131 16.0752C16.3997 18.173 15.2751 18.9949 13.4259 17.8919L10.8415 16.3563C10.3765 16.0752 9.5979 16.0752 9.13291 16.3563L6.54842 17.8919C4.69928 18.984 3.57467 18.173 4.06129 16.0752L4.67768 13.415C4.79663 12.9176 4.59116 12.2147 4.23431 11.847L2.0824 9.69509C0.817196 8.42989 1.22811 7.15387 2.99074 6.85108L5.74822 6.39691C6.21321 6.32121 6.76471 5.9103 6.97017 5.48856L8.49491 2.43911C9.30593 0.784619 10.6468 0.784619 11.4795 2.43911Z"
+                        stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+    
+                </div>
+
+              </div>
+              <a href="javascript:void(0);" (click)="onMarketClick(matches)"
+                class="valign-wrapper team-details ">
+                <div class="team-1">
+                  <div class="team-bg">
+                    <span class="no-icon">
+                      <span class="title">{{matches.en | splitVSPipe : true | eventShortname}}</span>
+                    </span>
+                  </div>
+                  <div class="team-title" [ngClass]="(matches.en | splitVSPipe : false).length > 0 ? '' : 'single-tm'">
+                    <div class="marquee">
+                      <span class="marquee-inner">
+                        {{matches.en | splitVSPipe : true}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vs-img" *ngIf="(matches.en | splitVSPipe : false).length > 0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="65.141" height="65.34" viewBox="0 0 65.141 65.34">
+                    <g id="Group_8" data-name="Group 8" transform="translate(-547.532 -1139.426)">
+                      <circle id="Ellipse_1" data-name="Ellipse 1" cx="27" cy="27" r="27" transform="translate(553 1145)" fill="#ccff00"></circle>
+                      <text id="VS" transform="translate(563 1181)" fill="#000" font-size="24" font-family="Montserrat-Bold, Montserrat" font-weight="700" letter-spacing="0.05em"><tspan x="0" y="0">VS</tspan></text>
+                      <path id="Path_2" data-name="Path 2" d="M768.4,489.5l2.639,2.463-9.473,9.438h0s-1.527,1.734-3.042.172a1.77,1.77,0,0,1,.2-2.8Z" transform="translate(1370.574 1641.646) rotate(180)" fill="#ccff00"></path>
+                      <path id="Path_3" data-name="Path 3" d="M768.4,489.5l2.639,2.463-9.473,9.438h0s-1.527,1.734-3.042.172a1.77,1.77,0,0,1,.2-2.8Z" transform="translate(-210.369 702.545)" fill="#ccff00"></path>
+                    </g>
+                  </svg>
+                </div>
+                <div class="team-2" *ngIf="(matches.en | splitVSPipe : false).length > 0">
+                  <div class="team-bg">
+                    <span class="no-icon">
+                      <span class="title">{{matches.en | splitVSPipe : false | eventShortname}}</span>
+                    </span>
+                  </div>
+    
+                  <div class="team-title" *ngIf="(matches.en | splitVSPipe : false).length > 0">
+                    <div class="marquee">
+                      <span class="marquee-inner">
+                        {{matches.en | splitVSPipe : false}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="sub-games" (click)="onMarketClick(matches)">
+                <div class="sub-game">
+                  <span class="title">
+                    <div class="icon-holder-verysmall">
+                      <div class="sports-icon sports-icon-dark" [ngClass]="matches.st | sportsIcon"></div>
+                    </div>
+                    {{matches.tn}}
+                  </span>
+                </div>
+              </div>
+              <div class="match-odds" *ngIf="!deviceInfoService.isMobile()" (click)="onMarketClick(matches)">
+                <div class="matchrate">
+    
+                  <div class="left-side">
+                    <div class="back-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].backRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].backRate1 : ''}}
+                    </div>
+                  </div>
+                  <div class="right-side">
+                    <div class="lay-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].layRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[0] ? matches.marketDetail[0].layRate1 : ''}}
+                    </div>
+                  </div>
+                </div>
+                <div class="matchrate">
+                  <div class="left-side">
+                    <div class="back-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].backRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].backRate1 : ''}}
+                    </div>
+                  </div>
+                  <div class="right-side">
+                    <div class="lay-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].layRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[2] ? matches.marketDetail[2].layRate1 : ''}}
+                    </div>
+                  </div>
+                </div>
+                <div class="matchrate">
+                  <div class="left-side">
+                    <div class="back-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].backRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].backRate1 : ''}}
+                    </div>
+                  </div>
+                  <div class="right-side">
+                    <div class="lay-rate" pbHighlight
+                      [value]="matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].layRate1 : '-'">
+                      {{matches.marketDetail && matches.marketDetail[1] ? matches.marketDetail[1].layRate1 : ''}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="row portfolio m-0" *ngIf="selectedType === 'sports' && markets && markets.length == 0">
+            <p class="lead">
+              <strong>There are currently no favourite sports.</strong>
+            </p>
+        </div>
+        </div>
+        <!-- event-content div over here -->
+  
+        <div class="all-casinos" *ngIf="selectedType === 'casino' || selectedType === 'All'">
+  
+          <ng-container *ngIf="filterCasinoMenuData && filterCasinoMenuData.length > 0">
+            <div class="row portfolio"  infiniteScroll [infiniteScrollDistance]="2"  [infiniteScrollUpDistance]="2" 
+            [infiniteScrollThrottle]="50" (scrolled)="onScroll()" (scrolledUp)="onScrollUp()" [scrollWindow]="true">  
+                <ng-container *ngFor="let games of filterCasinoMenuData | slice:0:showAllCasinoGames; let i= index;trackBy:trackByFn">
+              <div class="port-content" *ngIf="config && config[games.apiParamName] && games.isActive" >
+                <a class="favourite-icon addfavorites{{games.angularCasinoGameId}}" (click)="AllFavoriteChanges(games)"   appFavouritecasino [casinoId]="games.angularCasinoGameId">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M11.4795 2.43911L13.0042 5.48856C13.2097 5.9103 13.7612 6.3104 14.2261 6.39691L16.9837 6.85108C18.7463 7.14305 19.1572 8.41907 17.892 9.69509L15.7401 11.847C15.3832 12.2039 15.1778 12.9068 15.2967 13.415L15.9131 16.0752C16.3997 18.173 15.2751 18.9949 13.4259 17.8919L10.8415 16.3563C10.3765 16.0752 9.5979 16.0752 9.13291 16.3563L6.54842 17.8919C4.69928 18.984 3.57467 18.173 4.06129 16.0752L4.67768 13.415C4.79663 12.9176 4.59116 12.2147 4.23431 11.847L2.0824 9.69509C0.817196 8.42989 1.22811 7.15387 2.99074 6.85108L5.74822 6.39691C6.21321 6.32121 6.76471 5.9103 6.97017 5.48856L8.49491 2.43911C9.30593 0.784619 10.6468 0.784619 11.4795 2.43911Z" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="fill: none;"></path>
+                  </svg>
+                </a>
+                <div class="port-inner" (click)="onCasinoGameClick(games)">
+                  <div class="thumb">
+                    <img [src]="games.icon" (error)="errorHandler($event)" class="img-fluid" loading="lazy" [alt]="games.name">
+                  </div>
+    
+                    <div class="port-btn content">
+                      <h4>
+                        <a href="javascript:void(0);">{{games.name}}</a>
+                        <div class="sub-title">
+                          {{getProviderName(games.appProviderID)}}
+                        </div>
+                      </h4>
+                    </div>
+                </div>
+              </div>
+              </ng-container>
+            </div>
+          </ng-container>
+            <div class="row portfolio" *ngIf="selectedType === 'casino' && filterCasinoMenuData && filterCasinoMenuData.length == 0">
+                <p class="lead">
+                  <strong>There are currently no favourite casino games.</strong>
+                </p>
+            </div>
+          
+        </div>
+        <div class="row portfolio m-0" *ngIf="selectedType === 'All' && (markets && markets.length == 0) && (filterCasinoMenuData && filterCasinoMenuData.length == 0)">
+          <p class="lead">
+            <strong>There are currently no favourite sports and casino games.</strong>
+          </p>
+      </div>
+        <div class="celebrities" *ngIf="PromotionImages && PromotionImages.length > 0">
+          <span class="title-line">
+            <h2>
+              <span class="line"> FEATURED PROMOTIONS </span>
+            </h2>
+          </span>
+          <div class="swiper-container promo-carousel" id="promo-carousel">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" *ngFor="let slide of PromotionImages;trackBy:trackByFun" (click)="onBannerClick(slide)">
+                <a>
+                  <img src="{{ slide.bi }}" class="responsive-img" [alt]="slide.bti" loading="lazy">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-rightsidebar/>
+        <app-footer/>        
+      </div>
+    </div>    
+  </main>

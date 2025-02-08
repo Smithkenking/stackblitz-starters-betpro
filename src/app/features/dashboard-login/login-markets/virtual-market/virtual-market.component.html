@@ -1,0 +1,116 @@
+<div class=""  >
+    <div class="select-category" *ngIf="marketCategory.length > 1">
+      <div class="cat-scroll">
+        <ul class="tabs scroller">
+          <li class="tab"><a class="ripple" href="javascript:void(0)" (click)="setIndex(-1,'All')"
+              [class.active]="selectedIndex === -1"> All </a></li>
+          <li class="tab" *ngFor="let category of marketCategory;trackBy:trackByFun; let i= index">
+              <a (click)="setIndex(i,category.cn)" [class.blinker3]="category.mt === 14" [class.active]="selectedIndex === i"  href="javascript:void(0)"  class="ripple">
+                {{category.cn}} 
+                </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  <ng-container *ngIf="(getCurrentMarket() | async) else loading">
+    <div class="bet-semiheader">
+      <div class="row m-0">
+        <ng-container *ngFor="let market of matches; trackBy:identify; let i = index" [ngSwitch]="market.mt">
+          
+          <app-login-market-type *ngSwitchDefault [matchId]="market.eid" [betId]="market.mid"
+          [categoryName]="market.categoryName" [selectedCategory]="selectedCategory" [marketRunner]="marketRunner"
+          [currentMarketVolumn]="currentMarketVolumn" (openPopup)="openLoginModel()" [sport]="market.sn"/>
+
+        <app-login-sport-book-type *ngSwitchCase="15" [matchId]="market.eid" [betId]="market.mid"
+          [categoryName]="market.categoryName" [selectedCategory]="selectedCategory" [marketRunner]="marketRunner"
+          [currentMarketVolumn]="currentMarketVolumn" (openPopup)="openLoginModel()"/>
+
+        <app-login-advance-session-type *ngSwitchCase="6" [matchId]="market.eid" [betId]="market.mid"
+          [marketRunner]="marketRunner" [marketCount]="market.marketCount" [categoryName]="market.categoryName"
+          [selectedCategory]="selectedCategory" [isShowFancyTitle]="market.isShowFancyTitle"
+          [categoryName]="market.categoryName" [currentMarketVolumn]="currentMarketVolumn" (openPopup)="openLoginModel()"/>
+
+            <app-login-virtual-type *ngSwitchCase="14" [matchId]="market.eid" [betId]="market.mid" [categoryName]="market.categoryName"
+              [selectedCategory]="selectedCategory" [marketRunner]="marketRunner"
+              [currentMarketVolumn]="currentMarketVolumn" (openPopup)="openLoginModel()" [tournamentNm]="tournamentNm" />
+      
+        </ng-container>
+        </div>
+        </div>
+  </ng-container>
+  <ng-template #loading>
+    <div class="ph-bet-semiheader">
+    </div>
+    <div class="bet-list">
+      <div class="team-market">
+        <div class="team1 cteam">
+          <div class="team-name ">
+            <p></p>
+          </div>
+          <div class="bet-value l-blue hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value m-blue hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value v-blue">
+            <a href="javascript:void(0);" class="back-bet-btn">
+            </a>
+          </div>
+          <div class="bet-value v-pink">
+            <a href="javascript:void(0);" class="lay-bet-btn">
+            </a>
+          </div>
+          <div class="bet-value m-pink hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value l-pink hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+        </div>
+        <div class="suspend">
+          <div class="suspend-cont"></div>
+        </div>
+      </div>
+      <div class="team-market">
+        <div class="team1 cteam">
+          <div class="team-name ">
+            <p></p>
+          </div>
+          <div class="bet-value l-blue hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value m-blue hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value v-blue">
+            <a href="javascript:void(0);" class="back-bet-btn">
+            </a>
+          </div>
+          <div class="bet-value v-pink">
+            <a href="javascript:void(0);" class="lay-bet-btn">
+            </a>
+          </div>
+          <div class="bet-value m-pink hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+          <div class="bet-value l-pink hide-on-med-and-down">
+            <a href="javascript:void(0)">
+            </a>
+          </div>
+        </div>
+        <div class="suspend">
+          <div class="suspend-cont"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

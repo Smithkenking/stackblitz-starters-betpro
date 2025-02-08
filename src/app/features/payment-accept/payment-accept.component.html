@@ -1,0 +1,38 @@
+<main class="full-wrap ">
+    <div class="row m-0">
+        <!-- Left Content -->
+        <div class="col-center">
+            <!-- Account Statement -->
+            <div class="card z-depth-0 ">
+                <div class="card-content">
+                    <!-- <div class="user-deposit"> -->
+                        <!-- <div class="payment-accept center-align"> -->
+                            <form>
+                                <!-- <div class="bank-transfer"> -->
+                                    <!--payment accept -->
+                                    <div class="payment-accept center-align">
+                                        <img src="assets/images/payment-accept.png" alt="Payment Accept"
+                                            class="payment-img" loading="lazy">
+                                        <h2 class="mt-10 mb-0">PKR{{amount}}</h2>
+                                        <button class="mt-30">Payment Accepted</button>
+                                        <div class="mt-30 pt-20">
+                                            <p class="m-0">UTR: {{transactionId}}</p>
+                                            <p class="m-0">All Done! Your payment has accepted.</p>
+
+                                            <div class="d-flex align-items-center justify-content-center mt-30 transaction-btn">
+                                                <button class="mr-10" [routerLink]="['/home']"><span class="animate-btn">Home</span></button>
+                                                <button [routerLink]="['/transaction-history']"><span class="animate-btn">Transactions</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </div> -->
+                            </form>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+            <app-rightsidebar />
+            <app-footer/>
+        </div>
+    </div>
+</main>

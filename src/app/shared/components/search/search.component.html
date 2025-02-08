@@ -1,0 +1,98 @@
+<div id="search" class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #search>
+    <a href="javascript:void(0)" (click)="hideSearchModal()" class="modal-close close-icon"><i class="fa fa-times"
+            aria-hidden="true"></i></a>
+    <div class="modal-content">
+        <div class="modal-body web-search">
+            <span class="title"> Search </span>
+            <form>
+                <div class="click-input">
+                    <div class="input-field col s12">
+                        <input id="searchstr" placeholder="Search.." type="text" name="search" [(ngModel)]="searchStr"
+                            (keyup)="searchMatch(searchStr)" autofocus autocomplete="off">
+                    </div>
+                </div>
+                <div class=" scroller" *ngIf="groupedMarketsList && groupedMarketsList.length > 0">
+                    <div class="row p-0 m-0">
+                        <div class="col s12 p-0">
+                            <ul class="search-box">
+                                <ng-container *ngFor="let match of groupedMarketsList;">
+                                    <li class="searchLi" *ngIf="!match.angularCasinoGameId && !match.cgi" (mousedown)="$event.preventDefault()"
+                                        (click)="onMarketClick(match);">
+                                        <a href="javascript:void(0)" class="searchA">
+                                            <div>
+                                                <span class="search_title">{{match.tn}}</span>
+                                                <div class="search-match pr-10">{{match.en}}</div>
+                                            </div>
+                                            <div class="web-search-match">
+                                                <div class="search-date">{{match.ed | dateFormate}}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="searchLi" *ngIf="match.angularCasinoGameId || match.cgi"
+                                        (click)="onCasinoClick(match);">
+                                        <a href="javascript:void(0)" class="searchA">
+                                            <div>
+                                                <span class="search_title"
+                                                    *ngIf="match.angularCasinoGameId">{{match.name}}</span>
+                                                <span class="search_title" *ngIf="match.cgi">{{match.nm}}</span>
+                                            </div>
+                                            <div class="search-match pr-10">Casino</div>
+                                            <div class="web-search-match">
+                                                <div class="search-date" *ngIf="match.angularCasinoGameId">
+                                                    {{match.providerName}}</div>
+                                                <div class="search-date" *ngIf="match.cgi">{{match.pn}}</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="submit-btn center-align">
+            <a href="javascript:void(0)" class="submit-button">
+                <span class="submit-title" (click)="searchMatch(searchStr)">Search</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div *ngIf="searchString && searchString.length > 0" class="web-search">
+    <div class="web-search-box" *ngIf="groupedMarketsList && groupedMarketsList.length > 0">
+        <div class="row p-0 m-0">
+            <div class="input-field col s12 p-0">
+                <ul class="search-box">
+                    <ng-container *ngFor="let match of groupedMarketsList;">
+                        <li class="searchLi" (click)="onMarketClick(match);" (mousedown)="$event.preventDefault()"
+                            *ngIf="!match.angularCasinoGameId && !match.cgi">
+                            <a href="javascript:void(0)" class="searchA">
+                                <span class="title">{{match.tn}}</span>
+                                <div class="web-search-match">
+                                    <div class="search-match pr-10">{{match.en}}</div>
+                                    <div class="search-date">{{match.ed | dateFormate}}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="searchLi" (mousedown)="$event.preventDefault()"
+                            *ngIf="match.angularCasinoGameId || match.cgi">
+                            <a href="javascript:void(0)" class="searchA" (click)="onCasinoClick(match)">
+                                <span class="title" *ngIf="match.angularCasinoGameId"> {{match.name}}</span>
+                                <span class="title" *ngIf="match.cgi"> {{match.nm}}</span>
+                                <div class="web-search-match">
+                                    <div class="search-match pr-10">Casino |</div>
+                                    <div class="search-date" *ngIf="match.angularCasinoGameId">{{match.providerName}}
+                                    </div>
+                                    <div class="search-date" *ngIf="match.cgi">{{match.pn}}</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

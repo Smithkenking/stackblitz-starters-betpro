@@ -1,0 +1,78 @@
+<ng-container *ngFor="let marketDetail of marketDetails; trackBy:identify">
+   <div class="team1 cteam">
+      <div class="team-name">
+         <p>{{marketDetail.betTitle}}</p>
+         <div *ngIf="marketDetail.position" (click)="showPosition=!showPosition;">
+            <a href="javascript:void(0)" class="position-bet live-tv-click">
+               <i class="fas fa-chart-line"></i>
+             </a>
+         </div>
+         <div ngDraggable [preventDefaultEvent]="preventDefaultEvent" [position]="position" (started)="onStart($event)" (stopped)="onStop($event)"
+         *ngIf="showPosition" class="live-stream-popup ui-widget-content z-depth-4">
+         <div class="popup-header">
+           <h4>{{marketDetail.betTitle ? marketDetail.betTitle : 'Position' }} <a href="javascript:void(0);"
+               class="close-popup" (click)="showPosition=!showPosition;"><i class="fa fa-times"></i></a></h4>
+         </div>
+         <div class="popup-body">
+           <div class="position-data">
+             <div *ngFor="let position of marketDetail.position; trackBy:identify">
+               <span>{{position.appRate}}</span>
+               <span>:</span>
+               <span [ngClass]="{'red-text': position.appPL < 0,
+                                 'green-text': position.appPL > 0,
+                                 'black-text': position.appPL === 0}">{{position.appPL}}</span>
+             </div>
+           </div>
+         </div>
+       </div>
+      </div>
+      <div class="bet-value l-pink hide-on-med-and-down lay-3"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.layRate3">
+         <a href="javascript:void(0)">
+            <p>{{marketDetail?.layRate3 != null && marketDetail?.layRate3 != 0 ? marketDetail.layRate3 : ''}}</p>
+            <span>{{marketDetail?.totalLayAmount3 != null && marketDetail?.totalLayAmount3 != 0 ? (marketDetail.totalLayAmount3 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+      <div class="bet-value m-pink hide-on-med-and-down lay-2"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.layRate2">
+         <a href="javascript:void(0)">
+            <p>{{marketDetail?.layRate2 != null && marketDetail?.layRate2 != 0 ? marketDetail.layRate2 : ''}}</p>
+            <span>{{marketDetail?.totalLayAmount2 != null && marketDetail?.totalLayAmount2 != 0 ? (marketDetail.totalLayAmount2 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+      <div class="bet-value v-pink lay-1"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.layRate1" (click)="placeBet(marketDetail,marketDetail.layRate1,false,'item5')">
+         <a href="javascript:void(0)" class="lay-bet-btn">
+            <p>{{marketDetail?.layRate1 != null && marketDetail?.layRate1 != 0 ? marketDetail.layRate1 : ''}}</p>
+            <span>{{marketDetail?.totalLayAmount1 != null && marketDetail?.totalLayAmount1 != 0 ? (marketDetail.totalLayAmount1 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+      <div class="bet-value v-blue back-1"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.backRate1" (click)="placeBet(marketDetail,marketDetail.backRate1,true,'item4')">
+         <a href="javascript:void(0)" class="back-bet-btn">
+            <p>{{marketDetail?.backRate1 != null && marketDetail?.backRate1 != 0 ? marketDetail.backRate1 : ''}}</p>
+            <span>{{marketDetail?.totalBackAmount1 != null && marketDetail?.totalBackAmount1 != 0 ? (marketDetail.totalBackAmount1 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+      <div class="bet-value m-blue hide-on-med-and-down back-2"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.backRate2">
+         <a href="javascript:void(0)">
+            <p>{{marketDetail?.backRate2 != null && marketDetail?.backRate2 != 0 ? marketDetail.backRate2 : ''}}</p>
+            <span>{{marketDetail?.totalBackAmount2 != null && marketDetail?.totalBackAmount2 != 0 ? (marketDetail.totalBackAmount2 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+      <div class="bet-value l-blue hide-on-med-and-down back-3"
+         [class.betting-disabled]="currentMarketVolumn && !currentMarketVolumn.mip" pbHighlight
+         [value]="marketDetail.backRate3">
+         <a href="javascript:void(0);">
+            <p>{{marketDetail?.backRate3 != null && marketDetail?.backRate3 != 0 ? marketDetail.backRate3 : ''}}</p>
+            <span>{{marketDetail?.totalBackAmount3 != null && marketDetail?.totalBackAmount3 != 0 ? (marketDetail.totalBackAmount3 | shortNumber) : ''}}</span>
+         </a>
+      </div>
+   </div>
+</ng-container>

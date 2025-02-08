@@ -1,0 +1,15 @@
+<main class="full-wrap " [class.full-wrap-margin]="isNewsExits">
+  <div class="row m-0">
+    <div class="col-center col s12">
+      <!-- <app-top-content></app-top-content> -->
+      <ng-container  *ngIf="router.url !== '/home'">
+      <!-- <app-trending-games></app-trending-games> -->
+      </ng-container>
+        <app-common-dashboard [allMarkets]="allMarkets"/>
+      <div class="rightsidebar scroller" *ngIf="!deviceInfoService.isMobile() || !CheckDevice">
+        <!-- <app-rightsidebar></app-rightsidebar> -->
+      </div>      
+    </div>
+  </div>
+  <app-footer/>  
+</main>

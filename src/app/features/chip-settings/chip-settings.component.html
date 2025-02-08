@@ -1,0 +1,62 @@
+<!-- chip-setting -->
+<div id="chip-setting" class="modal modal-fixed-footer" #chipsSetting>
+  <div class="chip-setting-content">
+      <a href="javascript:void(0)" (click)="onReset()" class="modal-close right close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <h5>
+        <span class="card-title">
+          <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+          <span class="title">
+            Chip Settings
+          </span>
+        </span>
+      </h5>
+      <div class="modal-content">
+      <ng-container *ngIf="chipsSettingForm">
+        <form class="col s12" formGroup="chipsSettingForm" novalidate (keydown.enter)="$event.preventDefault()"
+          (ngSubmit)="onSubmit()">
+          <ng-container formArrayName="items"
+            *ngFor="let item of chipsSettingForm.get('items')['controls']; let i = index;">
+            <div class="row p-0 mb-15" formGroupName="i">
+              <div class="col s6">
+                <div class="input-field" *ngIf="item.get('chipsName') as chipsNameCtrl">
+                  <input placeholder="Enter Chip Name" type="text" class="validate" formControlName="chipsName"
+                    ngClass="{'invalid': chipsNameCtrl.invalid && chipsNameCtrl.dirty}">
+                  <label class="active">Chips Name</label>
+                  <div *ngIf="chipsNameCtrl.errors && (chipsNameCtrl.dirty || chipsNameCtrl.touched)">
+                    <span *ngIf="chipsNameCtrl.errors.required" class="helper-text error txt-red" data-error="wrong"
+                      data-success="right">Chip name is required.</span>
+                    <span *ngIf="chipsNameCtrl.errors.pattern" class="helper-text error txt-red" data-error="wrong"
+                      data-success="right">Chip name must be alpha-numeric & Maximum Length is {{maxLen}}.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col s6">
+                <div class="input-field" *ngIf="item.get('chipsValue') as chipsValueCtrl">
+                  <input placeholder="Enter Chip Value" type="text" class="validate" formControlName="chipsValue"
+                    ngClass="{'invalid': chipsValueCtrl.invalid && chipsValueCtrl.dirty}">
+                  <label class="active">Your Chips</label>
+                  <div *ngIf="chipsValueCtrl.errors && (chipsValueCtrl.dirty || chipsValueCtrl.touched)">
+                    <span *ngIf="chipsValueCtrl.errors.required" class="helper-text error txt-red" data-error="wrong"
+                      data-success="right">Chip value is required.</span>
+                    <span *ngIf="chipsValueCtrl.errors?.pattern" class="helper-text error txt-red" data-error="wrong"
+                      data-success="right">Chip value must have numeric
+                      value.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </form>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <div class="submit-btn center-align">
+        <div class="submit-button btn" (click)="onSubmit()">
+          <span class="submit-title">Submit</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+</div>

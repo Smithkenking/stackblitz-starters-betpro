@@ -1,0 +1,32 @@
+<body class="bg-img bg-gray" [class.bg-gray]="router.url.indexOf('/login') !== 0" [class.dark]="isCheckedDarkTheme" *ngIf="!inMaintenance"
+  [class.landing-page]="router.url.indexOf('/home') === 0">
+  <pb-header/>
+  <main class="full-wrap"  [class.full-wrap]="router.url.indexOf('/signup') !== 0 && router.url.indexOf('/login') !== 0 && router.url.indexOf('/campaign') !== 0" [class.mt-0]="router.url.indexOf('/home') === 0" [class.mb-0]="router.url.indexOf('/home') === 0"
+    [class.main-content]="router.url.indexOf('/home') === 0">
+    <div class="" [id]="router.url.indexOf('/live-casino') === 0 ? 'casino-page' : 'main'" [class.login-page]=" router.url.indexOf('/sport') === 0
+      " [class.market-page]="router.url.indexOf('/event') === 0">
+      <div class="" [class.p-0]="router.url.indexOf('/home') === 0">
+        <ng-container *ngIf="
+            router.url.indexOf('/event') !== 0 &&
+            router.url.indexOf('/signup') !== 0 &&
+            router.url.indexOf('/login') !== 0 &&
+            router.url.indexOf('/home') !== 0 &&
+            router.url.indexOf('/blog') !== 0
+          ">
+          <!-- <app-top-content/> -->
+          <ng-container *ngIf="router.url.indexOf('/live-casino') == 0">
+            <!-- <app-trending-games/> -->
+            <!-- <app-popular-games/> -->
+          </ng-container>
+        </ng-container>
+        <router-outlet></router-outlet>
+        <!-- <app-login-rightsidebar *ngIf="router.url.indexOf('/home') !== 0" /> -->
+      </div>
+      <app-footer *ngIf="router.url.indexOf('/login') !== 0 &&  router.url.indexOf('/signup') !== 0 &&  router.url.indexOf('/campaign') !== 0"/>
+    </div>
+  </main>
+
+  <app-bottom-menu/>
+</body>
+<app-maintenance *ngIf="inMaintenance" />
+<!-- <app-login #loginPopup/> -->

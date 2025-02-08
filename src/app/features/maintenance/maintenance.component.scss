@@ -1,0 +1,794 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-weight: 400;
+  }
+.maintenance {
+    background-color: #464646;
+    background-color: #464646;
+    // background-image: url("../images/background-img-dark.png") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  
+  .maintenance header nav {
+    height: 50px !important;
+  }
+  
+  .maintenance main.full-wrap {
+    padding-top: 30px;
+    margin: 0;
+  }
+  
+  .maintenance #content {
+    text-align: center;
+    /*gear-system-1*/
+    /*gear-system-2*/
+    /*gear-system-3*/
+    /*gear-system-4*/
+    /*gear-system-5*/
+    /*gear1*/
+    /*gear-system-6*/
+    /*weight*/
+    /*chain*/
+    /*ANIMATIONS*/
+    /*rotate*/
+    /*rotate-back*/
+    /*weight up*/
+    /*chain up and down*/
+  }
+  
+  .maintenance #content #gears {
+    width: 478px;
+    height: 655px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .maintenance #content #gears #gears-static {
+    background: url('/assets/images/gears.png') no-repeat -363px -903px;
+    width: 329px;
+    height: 602px;
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+    opacity: 0.4;
+  }
+  
+  .maintenance #content #title {
+    vertical-align: middle;
+    color: #fff;
+    width: 43%;
+    display: inline-block;
+  }
+  
+  .maintenance #content #title .site-title {
+    color: #dfdb2b;
+    margin: 0;
+  }
+  
+  .maintenance #content #title h1 {
+    font-size: 3.6em;
+    font-weight: 700;
+    text-shadow: rgba(0, 0, 0, 0.36) 7px 7px 10px;
+    margin-top: 15px;
+  }
+  
+  .maintenance #content #title p {
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 148%;
+    text-shadow: rgba(0, 0, 0, 0.36) 1px 1px 0px;
+  }
+  
+  .maintenance #content .shadow {
+    -webkit-box-shadow: 4px 7px 25px 10px rgba(43, 36, 0, 0.36);
+            box-shadow: 4px 7px 25px 10px rgba(43, 36, 0, 0.36);
+  }
+  
+  .maintenance #content #gear15 {
+    background: url('/assets/images/gears.png') no-repeat 0 -993px;
+    width: 321px;
+    height: 321px;
+    position: absolute;
+    left: 45px;
+    top: 179px;
+    -webkit-animation: rotate-back 24000ms linear infinite;
+            animation: rotate-back 24000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow15 {
+    width: 306px;
+    height: 306px;
+    border-radius: 153px;
+    position: absolute;
+    left: 52px;
+    top: 186px;
+  }
+  
+  .maintenance #content #gear14 {
+    background: url('/assets/images/gears.png') no-repeat 0 -856px;
+    width: 87px;
+    height: 87px;
+    position: absolute;
+    left: 162px;
+    top: 296px;
+  }
+  
+  .maintenance #content #shadow14 {
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    position: absolute;
+    left: 171px;
+    top: 304px;
+  }
+  
+  .maintenance #content #gear13 {
+    background: url('/assets/images/gears.png') no-repeat 0 -744px;
+    width: 62px;
+    height: 62px;
+    position: absolute;
+    left: 174px;
+    top: 309px;
+    -webkit-animation: rotate 8000ms linear infinite;
+            animation: rotate 8000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow13 {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    position: absolute;
+    left: 187px;
+    top: 322px;
+  }
+  
+  .maintenance #content #gear10 {
+    background: url('/assets/images/gears.png') no-repeat 0 -184px;
+    width: 122px;
+    height: 122px;
+    position: absolute;
+    left: 175px;
+    top: 0;
+    -webkit-animation: rotate-back 8000ms linear infinite;
+            animation: rotate-back 8000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow10 {
+    width: 86px;
+    height: 86px;
+    border-radius: 43px;
+    position: absolute;
+    left: 193px;
+    top: 18px;
+  }
+  
+  .maintenance #content #gear3 {
+    background: url('/assets/images/gears.png') no-repeat 0 -1493px;
+    width: 85px;
+    height: 84px;
+    position: absolute;
+    left: 194px;
+    top: 19px;
+    -webkit-animation: rotate 10000ms linear infinite;
+            animation: rotate 10000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow3 {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    position: absolute;
+    left: 206px;
+    top: 31px;
+  }
+  
+  .maintenance #content #gear9 {
+    background: url('/assets/images/gears.png') no-repeat -371px -280px;
+    width: 234px;
+    height: 234px;
+    position: absolute;
+    left: 197px;
+    top: 96px;
+    -webkit-animation: rotate 12000ms linear infinite;
+            animation: rotate 12000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow9 {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    position: absolute;
+    left: 214px;
+    top: 113px;
+  }
+  
+  .maintenance #content #gear7 {
+    background: url('/assets/images/gears.png') no-repeat -371px 0;
+    width: 108px;
+    height: 108px;
+    position: absolute;
+    left: 260px;
+    top: 159px;
+    -webkit-animation: rotate-back 10000ms linear infinite;
+            animation: rotate-back 10000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow7 {
+    width: 76px;
+    height: 76px;
+    border-radius: 38px;
+    position: absolute;
+    left: 276px;
+    top: 175px;
+  }
+  
+  .maintenance #content #gear6 {
+    background: url('/assets/images/gears.png') no-repeat 0 -1931px;
+    width: 134px;
+    height: 134px;
+    position: absolute;
+    left: 305px;
+    bottom: 212px;
+    -webkit-animation: rotate-back 10000ms linear infinite;
+            animation: rotate-back 10000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow6 {
+    width: 98px;
+    height: 98px;
+    border-radius: 49px;
+    position: absolute;
+    left: 323px;
+    bottom: 230px;
+  }
+  
+  .maintenance #content #gear4 {
+    background: url('/assets/images/gears.png') no-repeat 0 -1627px;
+    width: 69px;
+    height: 69px;
+    position: absolute;
+    left: 337px;
+    bottom: 245px;
+    -webkit-animation: rotate-back 10000ms linear infinite;
+            animation: rotate-back 10000ms linear infinite;
+  }
+  
+  .maintenance #content #gear12 {
+    background: url('/assets/images/gears.png') no-repeat 0 -530px;
+    width: 164px;
+    height: 164px;
+    position: absolute;
+    left: 208px;
+    bottom: 85px;
+    -webkit-animation: rotate 8000ms linear infinite;
+            animation: rotate 8000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow12 {
+    width: 124px;
+    height: 124px;
+    border-radius: 62px;
+    position: absolute;
+    left: 225px;
+    bottom: 107px;
+  }
+  
+  .maintenance #content #gear11 {
+    background: url('/assets/images/gears.png') no-repeat 0 -356px;
+    width: 125px;
+    height: 124px;
+    position: absolute;
+    left: 228px;
+    bottom: 105px;
+    -webkit-animation: rotate-back 10000ms linear infinite;
+            animation: rotate-back 10000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow11 {
+    width: 88px;
+    height: 88px;
+    border-radius: 44px;
+    position: absolute;
+    left: 247px;
+    bottom: 123px;
+  }
+  
+  .maintenance #content #gear8 {
+    background: url('/assets/images/gears.png') no-repeat -371px -158px;
+    width: 72px;
+    height: 72px;
+    position: absolute;
+    left: 254px;
+    bottom: 131px;
+    -webkit-animation: rotate 6000ms linear infinite;
+            animation: rotate 6000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow8 {
+    width: 42px;
+    height: 42px;
+    border-radius: 21px;
+    position: absolute;
+    left: 269px;
+    bottom: 146px;
+  }
+  
+  .maintenance #content #gear1 {
+    background: url('/assets/images/gears.png') no-repeat 0 0;
+    width: 135px;
+    height: 134px;
+    position: absolute;
+    left: 83px;
+    bottom: 111px;
+    -webkit-animation: rotate-back 10000ms linear infinite;
+            animation: rotate-back 10000ms linear infinite;
+  }
+  
+  .maintenance #content #shadow1 {
+    width: 96px;
+    height: 96px;
+    border-radius: 48px;
+    position: absolute;
+    left: 103px;
+    bottom: 130px;
+  }
+  
+  .maintenance #content #gear5 {
+    background: url('/assets/images/gears.png') no-repeat 0 -1746px;
+    width: 134px;
+    height: 135px;
+    position: absolute;
+    left: 22px;
+    top: 108px;
+    -webkit-animation: rotate 10000ms linear infinite alternate;
+            animation: rotate 10000ms linear infinite alternate;
+  }
+  
+  .maintenance #content #shadow5 {
+    width: 96px;
+    height: 96px;
+    border-radius: 48px;
+    position: absolute;
+    left: 41px;
+    top: 127px;
+  }
+  
+  .maintenance #content #gear2 {
+    background: url('/assets/images/gears.png') no-repeat 0 -1364px;
+    width: 80px;
+    height: 79px;
+    position: absolute;
+    left: 49px;
+    top: 136px;
+    -webkit-animation: rotate-back 10000ms linear infinite alternate;
+            animation: rotate-back 10000ms linear infinite alternate;
+  }
+  
+  .maintenance #content #weight {
+    background: url('/assets/images/gears.png') no-repeat -371px -564px;
+    width: 34px;
+    height: 92px;
+    position: absolute;
+    left: 1px;
+    bottom: 0;
+    -webkit-animation: up 10000ms linear infinite alternate;
+            animation: up 10000ms linear infinite alternate;
+  }
+  
+  .maintenance #content #shadowweight {
+    width: 10px;
+    height: 80px;
+    position: absolute;
+    left: 12px;
+    bottom: 0px;
+    -webkit-animation: up 10000ms linear infinite alternate;
+            animation: up 10000ms linear infinite alternate;
+  }
+  
+  .maintenance #content #chain-circle {
+    background: url('/assets/images/gears.png') no-repeat -371px -706px;
+    width: 146px;
+    height: 147px;
+    position: absolute;
+    left: 17px;
+    top: 102px;
+    -webkit-animation: rotate 10000ms linear infinite alternate;
+            animation: rotate 10000ms linear infinite alternate;
+  }
+  
+  .maintenance #content #chain {
+    width: 1px;
+    height: 380px;
+    border-left: 2px dotted #C8D94A;
+    position: absolute;
+    left: 17px;
+    top: 175px;
+    opacity: 0.7;
+    -webkit-animation: collapse 10000ms linear infinite alternate;
+            animation: collapse 10000ms linear infinite alternate;
+  }
+  
+  @keyframes rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes rotate {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotate-back {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(-360deg);
+              transform: rotate(-360deg);
+    }
+  }
+  
+  @-webkit-keyframes rotate-back {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(-360deg);
+              transform: rotate(-360deg);
+    }
+  }
+  
+  @keyframes up {
+    from {
+      bottom: 0px;
+    }
+    to {
+      bottom: 340px;
+    }
+  }
+  
+  @-webkit-keyframes up {
+    from {
+      bottom: 0px;
+    }
+    to {
+      bottom: 340px;
+    }
+  }
+  
+  @keyframes collapse {
+    from {
+      height: 387px;
+    }
+    to {
+      height: 48px;
+    }
+  }
+  
+  @-webkit-keyframes collapse {
+    from {
+      height: 387px;
+    }
+    to {
+      height: 48px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .maintenance header nav .top-header .brand-logo {
+      left: 50px;
+    }
+    .maintenance #content #gears {
+      opacity: 0.5;
+    }
+    .maintenance #content #title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 96%;
+      top: 16%;
+      margin: auto;
+    }
+    .maintenance #content {
+      text-align: center;
+      /*gear-system-1*/
+      /*gear-system-2*/
+      /*gear-system-3*/
+      /*gear-system-4*/
+      /*gear-system-5*/
+      /*gear1*/
+      /*gear-system-6*/
+      /*weight*/
+      /*chain*/
+      /*chain up and down*/
+      /*weight up*/
+    }
+    .maintenance #content #gears {
+      width: 320px;
+      height: 520px;
+    }
+    .maintenance #content #gears #gears-static {
+      background: url('/assets/images/gears-mobile.png') no-repeat -191px -511px;
+      width: 250px;
+      height: 490px;
+    }
+    .maintenance #content #gear15 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 3px -616px;
+      width: 210px;
+      height: 210px;
+      left: 45px;
+      top: 165px;
+    }
+    .maintenance #content #shadow15 {
+      width: 196px;
+      height: 196px;
+      left: 52px;
+      top: 170px;
+    }
+    .maintenance #content #gear14 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 5px -531px;
+      width: 60px;
+      height: 60px;
+      left: 117px;
+      top: 238px;
+    }
+    .maintenance #content #shadow14 {
+      width: 60px;
+      height: 60px;
+      left: 121px;
+      top: 242px;
+    }
+    .maintenance #content #gear13 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 5px -462px;
+      width: 50px;
+      height: 50px;
+      left: 126px;
+      top: 245px;
+    }
+    .maintenance #content #shadow13 {
+      width: 30px;
+      height: 30px;
+      left: 135px;
+      top: 255px;
+    }
+    .maintenance #content #gear10 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 2px -329px;
+      width: 108px;
+      height: 108px;
+      left: 103px;
+      top: 22px;
+    }
+    .maintenance #content #shadow10 {
+      width: 75px;
+      height: 75px;
+      left: 115px;
+      top: 34px;
+    }
+    .maintenance #content #gear3 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 5px -927px;
+      width: 65px;
+      height: 65px;
+      left: 125px;
+      top: 43px;
+    }
+    .maintenance #content #shadow3 {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      position: absolute;
+      left: 127px;
+      top: 47px;
+    }
+    .maintenance #content #gear9 {
+      background: url('/assets/images/gears-mobile.png') no-repeat -230px -172px;
+      width: 150px;
+      height: 150px;
+      left: 136px;
+      top: 106px;
+    }
+    .maintenance #content #shadow9 {
+      width: 150px;
+      height: 150px;
+      left: 134px;
+      top: 107px;
+    }
+    .maintenance #content #gear7 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 2px -223px;
+      width: 78px;
+      height: 78px;
+      left: 173px;
+      top: 145px;
+    }
+    .maintenance #content #shadow7 {
+      width: 55px;
+      height: 55px;
+      left: 183px;
+      top: 154px;
+    }
+    .maintenance #content #gear6 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0px -1207px;
+      width: 85px;
+      height: 85px;
+      left: 190px;
+      bottom: 189px;
+    }
+    .maintenance #content #shadow6 {
+      width: 75px;
+      height: 75px;
+      left: 197px;
+      bottom: 195px;
+    }
+    .maintenance #content #gear4 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0px -1017px;
+      width: 45px;
+      height: 45px;
+      left: 211px;
+      bottom: 209px;
+    }
+    .maintenance #content #gear12 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0 -331px;
+      width: 105px;
+      height: 104px;
+      left: 122px;
+      bottom: 117px;
+    }
+    .maintenance #content #shadow12 {
+      width: 90px;
+      height: 90px;
+      left: 130px;
+      bottom: 126px;
+    }
+    .maintenance #content #gear11 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0 -222px;
+      width: 79px;
+      height: 79px;
+      left: 134px;
+      bottom: 128px;
+    }
+    .maintenance #content #shadow11 {
+      width: 75px;
+      height: 75px;
+      border-radius: 44px;
+      position: absolute;
+      left: 136px;
+      bottom: 131px;
+    }
+    .maintenance #content #gear8 {
+      background: url('/assets/images/gears-mobile.png') no-repeat -230px -98px;
+      width: 48px;
+      height: 48px;
+      left: 147px;
+      bottom: 143px;
+    }
+    .maintenance #content #shadow8 {
+      width: 28px;
+      height: 28px;
+      left: 156px;
+      bottom: 155px;
+    }
+    .maintenance #content #gear1 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0 0;
+      width: 86px;
+      height: 86px;
+      left: 45px;
+      bottom: 138px;
+    }
+    .maintenance #content #shadow1 {
+      width: 70px;
+      height: 70px;
+      left: 52px;
+      bottom: 147px;
+    }
+    .maintenance #content #gear5 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0 -1091px;
+      width: 85px;
+      height: 85px;
+      left: 30px;
+      top: 119px;
+    }
+    .maintenance #content #shadow5 {
+      width: 95px;
+      height: 95px;
+      left: 23px;
+      top: 113px;
+    }
+    .maintenance #content #gear2 {
+      background: url('/assets/images/gears-mobile.png') no-repeat 0 -853px;
+      width: 50px;
+      height: 50px;
+      left: 49px;
+      top: 136px;
+    }
+    .maintenance #content #weight {
+      background: url('/assets/images/gears-mobile.png') no-repeat -231px -352px;
+      width: 24px;
+      height: 60px;
+      left: 14px;
+      bottom: 0;
+    }
+    .maintenance #content #shadowweight {
+      width: 10px;
+      height: 50px;
+      left: 22px;
+      bottom: 10px;
+    }
+    .maintenance #content #chain-circle {
+      background: url('/assets/images/gears-mobile.png') no-repeat -231px -440px;
+      width: 96px;
+      height: 96px;
+      left: 23px;
+      top: 113px;
+    }
+    .maintenance #content #chain {
+      left: 26px;
+      top: 175px;
+    }
+    @-webkit-keyframes collapse {
+      from {
+        height: 250px;
+      }
+      to {
+        height: 50px;
+      }
+    }
+    @keyframes collapse {
+      from {
+        height: 250px;
+      }
+      to {
+        height: 50px;
+      }
+    }
+    @-webkit-keyframes up {
+      from {
+        bottom: 50px;
+      }
+      to {
+        bottom: 250px;
+      }
+    }
+    @keyframes up {
+      from {
+        bottom: 50px;
+      }
+      to {
+        bottom: 250px;
+      }
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 992px) {
+    .maintenance header nav .brand-logo {
+      left: 10px !important;
+    }
+    .maintenance #content #gears {
+      opacity: 0.5;
+    }
+    .maintenance #content #title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      top: 16%;
+    }
+  }

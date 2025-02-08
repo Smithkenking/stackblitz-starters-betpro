@@ -1,0 +1,122 @@
+<body class="bg-games">
+  <main class="full-wrap full-wrap-margin">
+    <div class="row m-0">
+      <div class="col s12">
+        <div class="star-casino">
+          <div class="live-games">
+            <div class="row">
+              <div class="col s12 ac_slider">
+                <ul class="tabs">
+                  <li class="tab col s3"><a class="active "
+                      [class.active]="selectedCategory == 'All' || selectedCategory == 'all'" href="javascript:void(0);"
+                      (click)="filterCasinoMenu('All')">All</a></li>
+                  <li class="tab col s3"><a [class.active]="selectedCategory == 'New' || selectedCategory == 'new'"
+                      href="javascript:void(0);" (click)="filterCasinoMenu('New')">New</a></li>
+                  <li class="tab col s3"><a
+                      [class.active]="selectedCategory == 'Popular' || selectedCategory == 'popular'"
+                      href="javascript:void(0);" (click)="filterCasinoMenu('Popular')">Popular</a></li>
+
+                  <li class="tab col s3"><a [class.active]="selectedCategory == 'Live' || selectedCategory == 'live'"
+                      href="javascript:void(0);" (click)="filterCasinoMenu('Live')">Live</a></li>
+                  <li class="tab col s3"><a
+                      [class.active]="selectedCategory == 'Virtual' || selectedCategory == 'virtual'"
+                      href="javascript:void(0);" (click)="filterCasinoMenu('Virtual')">Virtual</a></li>
+                </ul>
+              </div>
+              <div class="open-bets">
+                <ul class="right d-flex game-providers">
+                  <li class="all_providers all-games" *ngIf="casinoGameList && casinoGameList.length > 1">
+                    <a href="javascript:void(0);" class="dropdown-trigger game-dropdown"
+                      data-target="providers-dropdown1">
+                      {{selectedGame}} <span class="arrows"> <i class="fas fa-chevron-up"></i> <i
+                          class="fas fa-chevron-down"></i> </span>
+                    </a>
+                    <ul id="providers-dropdown1" class="dropdown-content collection scroller">
+                      <li class="collection-item" tabindex="0">
+                        <a class="title providers" (click)="Allgames('All Games');">
+                          <img src="assets/images/all.png" class="responsive-img" loading="lazy">
+                          All Games </a>
+                      </li>
+                      <li class="collection-item" tabindex="0"
+                        *ngFor="let casioGame of casinoGameList; let i= index;let even = even;trackBy:trackByFn">
+                        <a class="title providers" (click)="Allgames(casioGame.appGameName);">
+                          <img [src]="casioGame.appIcon" [alt]="casioGame.appDisplayName" loading="lazy"
+                            class="responsive-img">
+                          {{casioGame.appDisplayName}} </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="all_providers" *ngIf="providerList && providerList.length > 1">
+                    <a href="javascript:void(0);" (click)="Allprovider('All Provider');"
+                      class="dropdown-trigger game-dropdown" data-target="providers-dropdown">
+                      {{selectedProvider}} <span class="arrows"> <i class="fas fa-chevron-up"></i> <i
+                          class="fas fa-chevron-down"></i> </span>
+                    </a>
+                    <ul id="providers-dropdown" class="dropdown-content collection scroller">
+                      <li class="collection-item">
+                        <a class="title providers" (click)="Allprovider('All Provider');"> All Provider </a>
+                      </li>
+                      <ng-container *ngFor="let provider of providerList; let i= index;trackBy:trackByFn">
+                        <li class="collection-item" *ngIf="provider.appIsActive">
+                          <a class="title providers" (click)="Allprovider(provider.appProviderName);">
+                            <!-- <img [src]="provider.appIcon" alt="" > -->
+                            {{provider.appProviderName}} </a>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="game-providers2 row mb-0">
+                  <div class="main-title">All Games</div>
+                  <div class="col 12 m12 flex-wrap">
+                    <ul class="collection">
+                      <li class="collection-item">
+                        <a class="title" (click)="Allgames('All Games');">
+                          <img [src]="commonService.contentRelativePath('CasinoGameType/all.webp')" alt="All Games"
+                            class="responsive-img" > All Games</a>
+                      </li>
+                      <li class="collection-item"
+                        *ngFor="let casioGame of casinoGameList; let i= index;let even = even;trackBy:trackByFn">
+                        <a class="title" (click)="Allgames(casioGame.appGameName);">
+                          <img [ngSrc]="casioGame.appIcon" [alt]="casioGame.appDisplayName" class="responsive-img"
+                            height="20" width="20" priority>
+                          {{casioGame.appDisplayName}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12" *ngIf="filterCasinoMenuData && filterCasinoMenuData.length > 0">
+                <div class="live-list" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2"
+                  [infiniteScrollThrottle]="50" (scrolled)="onScroll()" (scrolledUp)="onScrollUp()"
+                  [scrollWindow]="true">
+                  <a *ngFor="let games of filterCasinoMenuData | slice:0; let i= index;trackBy:trackByFn">
+                    <img [src]="games.icon" (error)="errorHandler($event)" class="img-fluid" loading="lazy"
+                      [alt]="games.name" (click)="onCasinoGameClick(games)">
+                  </a>
+                </div>
+              </div>
+              <div class="row portfolio"
+                *ngIf="filterCasinoMenuData && filterCasinoMenuData.length == 0 && router.url.indexOf('/Favourite') == -1">
+                <p class="lead">
+                  <strong>This game is not available at the moment. It will be back soon.</strong>
+                </p>
+              </div>
+              <div class="row portfolio"
+                *ngIf="filterCasinoMenuData && filterCasinoMenuData.length == 0 && router.url.indexOf('/Favourite') !== -1">
+                <p class="lead">
+                  <strong>There are currently no favourite casino games.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="rightsidebar scrollbar news-margin">
+            <app-live-casino-games />
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <app-footer />
+  </main>
+</body>

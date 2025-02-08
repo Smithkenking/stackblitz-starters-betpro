@@ -1,0 +1,130 @@
+<main class="full-wrap full-wrap-margin">
+<div class="row m-0">
+  <!-- Center Content -->
+  <div class="col-center">
+
+    <!-- <div class="top-content" *ngIf="topBanner && topBanner.length > 0">
+       <div class="top-slider" *ngFor="let slide of topBanner;trackBy:trackByFun">
+        <a (click)="onBannerClick(slide)">
+          <img src="{{ slide.bi }}" alt="" loading="lazy">
+        </a>
+      </div> 
+    </div> -->
+    <app-top-content/>
+
+    <div class="col s12 p-0 main-tabs" *ngIf="CampaignList && CampaignList.length >0;else elseBlock">
+      <div class="promo-tab" *ngIf="!isShowDetailPage">
+        <div class="sports-btn">
+          <a href="javascript:void(0)" [class.active]="activeCampaign == 'All'" (click)="onCampaignClick('All')">
+            <span class="txt">All</span>
+          </a>
+          <a href="javascript:void(0)" [class.active]="activeCampaign == 'Sports'" (click)="onCampaignClick('Sports')">
+            <span class="txt">Sports</span>
+          </a>
+          <a href="javascript:void(0)" [class.active]="activeCampaign == 'Casino'" (click)="onCampaignClick('Casino')">
+            <span class="txt">Casino</span>
+          </a>
+        </div>
+        <div class="promo-details" *ngIf="filterCampaignList && filterCampaignList.length >0;else elsePromoBlock">
+          <ng-container *ngFor="let item of filterCampaignList;trackBy:trackByFun">
+            <div class="coupens active">
+              <div class="coupens-position" [style.background-image]="'url('+item.ci+')'">
+                <div class="coupens-top-part">
+                  <div class="coupens-text">
+                    <div class="title2">
+                      {{item.t1}}
+                    </div>
+                    <div class="cash">
+                      {{item.t2}}
+                    </div>
+                  </div>
+                  <div class="coupens-img">
+                    <!-- <img src="{{item.ci}}" alt=""> -->
+                  </div>
+                </div>
+              </div>
+              <div class="coupens-bottom-text">
+                <div>
+                  <div class="coupens-bets"> {{item.cn}}</div>
+                  <div class="timer">
+                    <div class="time" *ngIf="(item.ced | countdown | async) !== null else cdelseBlock">
+                      <div class="days">
+                        Ends in {{item.ced | countdown | async}}
+                      </div>
+                    </div>
+                    <ng-template #cdelseBlock>
+                      <div class="end-in"></div>
+                      <div class="days">
+                        Expired
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="read-more">
+                  <a href="javascript:void(0)" (click)="onDetailClick(item.cid)">
+                    Read More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <ng-template #elsePromoBlock>
+          <div class="center mt-10"> No data available in campaign</div>
+        </ng-template>
+      </div>
+      <div class="promo-details-tab" *ngIf="isShowDetailPage">
+        <div class="pdetails">
+          <div class="top-details">
+            <div class="bonus-detail col s12">
+              <div class="bonus-details">
+                <div class="offer-details">
+                  <div class="title">
+                    {{CampaignDetailList.cn}}
+                  </div>
+                  <div class="team-title">
+                  </div>
+                </div>
+                <div class="back-button right">
+                  <a href="javascript:void(0)" class="btn" (click)="backToPromo()">
+                    <span class="animate-btn">
+                      <i class="fas fa-chevron-left"></i> Back to Promo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="promo-tabs">
+            <ul class="tabs">
+              <li class="tab">
+                <a class="active" href="#test1">Rules</a>
+              </li>
+              <li class="tab">
+                <a href="#test2">Terms and Conditions</a>
+              </li>
+            </ul>
+            <div class="tab-contents">
+              <div id="test1" class="">
+                <div class="details" [innerHTML]="CampaignDetailList.tnc"></div>
+              </div>
+              <div id="test2" class="">
+                <div class="details" [innerHTML]="CampaignDetailList.desc"></div>
+              </div>
+            </div>
+            <div class="play-now-btn">
+              <a (click)="onPlayNowClick()" class="btn" href="javascript:void(0)">
+                <span class="animate-btn">Play Now</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="center mt-10"> No data available in campaign</div>
+    </ng-template>
+  </div>
+</div>
+<app-footer/>
+</main>

@@ -1,0 +1,63 @@
+<div id="one-click"  class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #oneclick>
+  <a href="javascript:void(0)" (click)="hideModal()" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+     <div class="modal-content">    
+    <div class="modal-body one-click-bet">
+      <span class="title">
+            One Click Bet
+          </span>
+      <div class="d-flex bet-title">
+        <h5 class="one-title">
+          One Click Bet
+        </h5>
+
+        <div class="switch">
+          <label>
+            <input type="checkbox" [(ngModel)]="isCheckedOneClickBet" (ngModelChange)="onChange($event)">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="row m-0" *ngIf="isCheckedOneClickBet">
+        <div class="col s12 one-click-setting">          
+          <div class="mt-0 mb-10 bet-value" *ngIf="!isEditStakeValue">
+            <a href="javascript:void(0)" *ngFor="let chip of oneClickStakeData; let i= index" 
+            [class.active]="selectedStakeValue == chip" (click)="setChipValue(chip,i)">{{chip}}</a>
+          </div>
+          <div class="mt-15 mb-5">
+            <form class="click-form">
+              <div class="row m-0">
+                <div class="d-flex">
+                  <h5 class="one-title">
+                    Add custom stake
+                  </h5>
+      
+                  <div class="switch">
+                    <label>
+                      <input type="checkbox"  [(ngModel)]="Addcustomstake" (ngModelChange)="onChangeAddCustomStake($event)" [ngModelOptions]="{standalone: true}">
+                      <span class="lever"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="click-input" *ngIf="Addcustomstake">
+                  <div class="input-field col s12">
+                    <input placeholder="Your Amount" id="" type="number" [(ngModel)]="selectedStakeValue"
+                    [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="isCheckedOneClickBet && Addcustomstake">
+    <div class="submit-btn center-align">
+         <a href="javascript:void(0)" class="submit-button" (click)="setChipValue(selectedStakeValue,0)">
+            <span class="submit-title">Save</span>
+          </a>
+    </div>
+  </div>
+</div>

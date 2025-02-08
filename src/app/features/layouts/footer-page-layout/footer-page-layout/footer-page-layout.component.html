@@ -1,0 +1,26 @@
+<ng-container *ngIf="user != null else elseBlock">
+  <main class="full-wrap " [class.full-wrap-margin]="isNewsExits">
+    <div class="row m-0">
+      <div class="col-center col s12">
+        <div class="col s12 p-0 main-tabs footer-page-bg-color mt-10">
+          <div class="content-page pl-15 pr-15">
+            <h4 class="center-align">{{pageName}}</h4>
+            <div class="center-content" [innerHTML]="PageContent | safe: 'html'"></div>
+          </div>
+        </div>
+        <div class="rightsidebar scrollbar" [class.news-margin]="isNewsExits">
+          <!-- <app-rightsidebar /> -->
+        </div>
+      </div>
+    </div>
+    <app-footer />
+  </main>
+</ng-container>
+<ng-template #elseBlock>
+  <div class="col s12 p-0 main-tabs footer-page-bg-color mt-10">
+    <div class="content-page pl-15 pr-15">
+      <h4 class="center-align">{{pageName}}</h4>
+      <div class="center-content" [innerHTML]="PageContent | safe: 'html'"></div>
+    </div>
+  </div>
+</ng-template>

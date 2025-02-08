@@ -1,0 +1,114 @@
+<ng-container *ngIf="((FilterProviderList && FilterProviderList.length > 0) ||
+    (casinoGameMenu && casinoGameMenu.length > 0)) else laodingEffect">
+        <div class="rightsidebar  scroller" [class.marketBets]="clsmarketBets" id="casinoBar" *ngIf="!deviceInfoService.isMobile() || !CheckDevice">
+          <div [class.marketBetsData]="clsmarketBets">
+            <ng-template [ngTemplateOutlet]="rightSideBar"></ng-template>
+          </div>
+          
+        </div> <!-- rightside -->
+      </ng-container>
+      <ng-template #laodingEffect>
+        <div class="rightsidebar scroller">
+          <app-loading-effect [isrightsidebar]="true"/>
+        </div> 
+      </ng-template>
+      <ng-template #rightSideBar>
+        <div class="promotion-tab" *ngIf="promotionSlides && promotionSlides.length > 0">
+            <ul class="tabs">
+            <li class="tab">
+              <a href="javascript:void(0);" class="ripple no-border active"> Promotion </a>
+            </li>
+            </ul>
+            <div class="tab-contents">
+            <div  id="tab1">
+              <ng-container *ngIf="isDCOBanner else elseBlock">
+                <ng-container *ngIf="promotionSlides && promotionSlides.length > 1; else elsePromotionBlock">
+                  <div class="swiper-container promo-slider">
+                    <div class="swiper-wrapper">
+                      <ng-container *ngFor="let slide of promotionSlides;trackBy:trackByFun">
+                      <div class="swiper-slide"  (click)="onDCOBannerClick(slide)">
+                        <img src="{{ slide.url }}" alt="" loading="lazy" class="responsive-img">
+                      </div>
+                    </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #elsePromotionBlock>
+                  <ng-container *ngFor="let slide of promotionSlides;trackBy:trackByFun">
+                    <img  src="{{ slide.url }}" alt="" loading="lazy" class="responsive-img" (click)="onDCOBannerClick(slide)">
+                  </ng-container>
+                </ng-template>
+              </ng-container>
+              <ng-template #elseBlock>
+                <ng-container *ngIf="promotionSlides && promotionSlides.length > 1; else elsePromotionBlock">
+                  <div class="swiper-container promo-slider">
+                    <div class="swiper-wrapper">
+                      <ng-container *ngFor="let slide of promotionSlides;trackBy:trackByFun">
+                      <div class="swiper-slide" *ngIf="slide.ia" (click)="onBannerClick(slide)">
+                        <img src="{{ slide.bi }}" alt="" loading="lazy" class="responsive-img">
+                      </div>
+                    </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #elsePromotionBlock>
+                  <ng-container *ngFor="let slide of promotionSlides;trackBy:trackByFun">
+                    <img *ngIf="slide.ia" src="{{ slide.bi }}" alt="" loading="lazy" class="responsive-img" (click)="onBannerClick(slide)">
+                  </ng-container>
+                </ng-template>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="livecasino scroller">
+            <div class="title">
+                <a class="casino-title" [class.active]="selectedCasino == 'Providers'" href="javascript:void(0);"
+                  (click)="onCasinoTabClick('Providers')" *ngIf="FilterProviderList && FilterProviderList.length > 0">Providers</a>
+                <a class="casino-title" [class.active]="selectedCasino == 'Live'" href="javascript:void(0);"
+                  (click)="onCasinoTabClick('Live')">Live</a>
+                <a class="casino-title no-border" [class.active]="selectedCasino == 'Virtual'" href="javascript:void(0);"
+                  (click)="onCasinoTabClick('Virtual')">Virtual</a>
+              </div>
+              <div class="game-slider">
+                <div class="row mb-0">
+                  <div class="col 12 m12 flex-wrap">
+                    <ng-container *ngIf="selectedCasino == 'Providers'">
+                      <ng-container *ngFor="let game of FilterProviderList; let i= index;trackBy:trackByFn">
+                        <div class="game-item" (click)="onProviderClick(game)" *ngIf="game.appIsActive" (mouseout)="providerMouseEvent(i,false)" (mouseover)="providerMouseEvent(i,true)">
+                          <span *ngIf="game.appIsNew" class="blink-new blink_text">New</span>
+                          <div class="thumb">
+                            <ng-container *ngIf="isCheckedDarkTheme; else elseConatainer">
+                              <img  [src]="casinoProviderItems[i] ?  game.appProviderLogo : game.appDarkLogo" loading="lazy" [alt]="game.appDisplayName" (error)="errorHandler($event)"
+                              class="responsive-img">
+                            </ng-container>
+                            <ng-template #elseConatainer>
+                              <img  [src]="casinoProviderItems[i] ?  game.appDarkLogo : game.appProviderLogo" loading="lazy" [alt]="game.appDisplayName" (error)="errorHandler($event)"
+                              class="responsive-img">
+                            </ng-template>
+                          </div>
+                          <div class="play-btn">
+                            <a href="javascript:void(0);">{{game.appDisplayName}}</a>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="selectedCasino == 'Live' || selectedCasino == 'Virtual'">
+                      <ng-container *ngFor="let game of selectedCasinoGame;trackBy:trackByFn">
+                        <div class="game-item" (click)="onCasinoGameClick(game)"
+                          *ngIf="game.ia && game.isd">
+                          <span *ngIf="game.ing" class="blink-new blink_text">New</span>
+                          <div class="thumb">
+                            <img [src]="game.ic" loading="lazy" (error)="errorHandler($event)"
+                              class="responsive-img" [alt]="game.nm">
+                          </div>
+                          <div class="play-btn">
+                            <a href="javascript:void(0);">{{game.nm}}</a>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </ng-template>

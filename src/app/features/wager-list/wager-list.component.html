@@ -1,0 +1,370 @@
+<div class="wallet-page">
+  <div class="top-header">
+    <div class="title">
+      your wallets
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path
+          d="M10.2537 19.7227L12.8589 12.6824L19.8991 10.0773L12.8589 7.4722L10.2537 0.431982L7.64862 7.4722L0.608398 10.0773L7.64862 12.6824L10.2537 19.7227Z"
+          fill="#142FA5"></path>
+      </svg>
+    </div>
+    <p>
+      Checkout your Basic information saved as per you.
+    </p>
+  </div>
+  <div class="row m-0 balance-tabs">
+    <div class="col s12 p-0">
+      <div class="col s12 m4 bal-cols">
+        <span class="left left-bal-content">
+          <img src="assets/images/real-balance.png" alt="" loading="lazy">
+        </span>
+        <span class="right-bal-content">
+          <div class="value real-balance">
+            {{!clientBalance?.balance ? '0.00' : clientBalance?.balance | number : '1.2-2'}}
+          </div>
+          Real Balance
+        </span>
+
+      </div>
+      <div class="col s12 m4 bal-cols">
+        <span class="left left-bal-content">
+          <img src="assets/images/withdraw-balance.png" alt="" loading="lazy">
+        </span>
+        <span class="right-bal-content">
+          <div class="value withdraw-balance">
+            {{!clientBalance?.withdrawableAmount ? '0' : clientBalance?.withdrawableAmount | number : '1.2-2'}}
+          </div>
+          Withdrawal Balance
+        </span>
+
+      </div>
+      <div class="col s12 m4 bal-cols">
+        <span class="left left-bal-content">
+          <img src="assets/images/current-balance.png" alt="" loading="lazy">
+        </span>
+        <span class="right-bal-content">
+          <div class="value current-balance">
+            {{!clientBalance?.liability ? '0' : clientBalance?.liability | number : '1.2-2'}}
+          </div>
+          Current Exposure
+        </span>
+
+      </div>
+    </div>
+    <ng-container *ngIf="bonusList && bonusList.length > 0">
+      <div class="col s12 bonus-wallets">
+        <div class="campaign">
+          <div class="wager-title">
+            Bonus Wallets
+          </div>
+
+          <ng-template [ngTemplateOutlet]="normalWalletList"
+            [ngTemplateOutletContext]="{normalWalletList:bonusList}"></ng-template>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="demoBonusList && demoBonusList.length > 0">
+      <div class="col s12 bonus-wallets">
+        <div class="campaign">
+          <div class="wager-title">
+            Demo Bonus List
+          </div>
+
+          <ng-template [ngTemplateOutlet]="WagerWalletList"
+            [ngTemplateOutletContext]="{wagerlist:demoBonusList}"></ng-template>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="activeWagerList && activeWagerList.length > 0">
+      <div class="col s12 bonus-wallets">
+        <div class="campaign">
+          <div class="wager-title">
+            Active Wager Wallet
+          </div>
+
+          <ng-template [ngTemplateOutlet]="WagerWalletList"
+            [ngTemplateOutletContext]="{wagerlist:activeWagerList}"></ng-template>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="inActiveWagerList && inActiveWagerList.length > 0">
+      <div class="col s12 bonus-wallets">
+        <div class="campaign">
+          <div class="wager-title">
+            In-Active/Achieved Wager Wallet
+          </div>
+
+          <ng-template [ngTemplateOutlet]="WagerWalletList"
+            [ngTemplateOutletContext]="{wagerlist:inActiveWagerList}"></ng-template>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #WagerWalletList let-wagerlist='wagerlist'>
+      <div class="col s12 p-0">
+        <div class="coupen-details">
+          <ng-container *ngFor="let item of wagerlist">
+            <div class="coupens" [class.expired]="!item.rdm && item.isexp">
+              <div class="coupens-bottom-text">
+                <div class="d-flex align-items-center">
+                  <div class="left-content">
+                    <div class="redeem-content" *ngIf="item.iswager && item.rdm else cdelseBlock">
+
+                      <a class="claim-title">
+                        Redeemed
+                        <span *ngIf="item.expdt">{{item.expdt | date: 'dd/MM/yyyy'}}</span>
+                      </a>
+                    </div>
+                    <ng-template #cdelseBlock>
+                      <a class="coupens-bets" *ngIf="!item.rdm && item.isexp else elseBlock">
+                        Expired:
+                        <span *ngIf="item.expdt">{{item.expdt | date: 'dd/MM/yyyy'}}</span>
+                      </a>
+                      <ng-template #elseBlock>
+                        <ng-container
+                          *ngIf="item.iswager && !item.rdm && !item.isexp && WalletType.DemoBonus !== item.wteid">
+                          <a *ngIf="item.achamt >= item.wagamt && item.st == 0 " class="btn w-50 claim-btn"
+                            (click)="RedeemRequest(item.wid)">Redeem</a>
+                        </ng-container>
+                      </ng-template>
+                    </ng-template>
+                    <ng-container *ngIf="item.iswager && !item.rdm && !item.isexp && !(item.achamt >= item.wagamt)">
+                      <div class="timer" *ngIf="(item.duedt | countdown | async) !== null">
+                        {{item.duedt | countdown | async }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="read-more">
+                    <a href="javascript:void(0)" (click)="SlideToggle(item)" class="check-btn">
+                      check details
+                    </a>
+                  </div>
+                </div>
+                <div class="bets-details" *ngIf="item.isSlideToggle" style="display: block;">
+                  <div class="bet-content d-flex">
+                    <div class="bets-values" *ngIf="WalletType.DemoBonus !== item.wteid">
+                      <div class="name">Bonus amount</div>
+                      <div class="value">{{item.bonus}}</div>
+                    </div>
+                    <ng-container *ngIf="WalletType.Wager == item.wteid else demoBonusBlock">
+                      <div class="bets-values">
+                        <div class="name">Wager to achieve</div>
+                        <div class="value">{{item.wagamt}}</div>
+                      </div>
+
+                      <div class="bets-values" (click)="GetWagerBetListDetails(item)">
+                        <div class="name">Wager achieved</div>
+                        <div class="value">{{item.achamt}}</div>
+                      </div>
+                    </ng-container>
+                    <ng-template #demoBonusBlock>
+                      <div class="bets-values" (click)="GetWagerBetListDetails(item)">
+                        <div class="name">Wallet Amount</div>
+                        <div class="value">{{item.wam}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-container *ngIf="item.iswager && !item.rdm && !item.isexp && !(item.achamt >= item.wagamt)">
+                      <div class="bets-values">
+                        <div class="name">Remaining wager</div>
+                        <div class="value">{{(item.wagamt - item.achamt) > 0 ? item.wagamt - item.achamt : 0}}</div>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <div class="bets-bottom">
+                    <div class="left">
+                      <div class="exposure" (click)="GetWagerBetLiabilityDetails(item)">
+                        exposure: <span> PKR {{item.lb != 0 ? transformtValue(item.lb) : item.lb}} </span>
+                      </div>
+                      <div class="exposure"
+                        *ngIf="item.iswager && !item.rdm && !item.isexp && !(item.achamt >= item.wagamt)">
+                        balance: <span> PKR {{item.wam}} </span>
+                      </div>
+                    </div>
+                    <div class="open-bets" *ngIf="!item.rdm && !item.isexp">
+                      <a href="javascript:void(0)" class="btn" (click)="GetAllBetListWalletWise(item)">
+                        Open bet
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #normalWalletList let-normalWalletList='normalWalletList'>
+      <div class="col s12 p-0">
+        <div class="coupen-details">
+          <ng-container *ngFor="let item of normalWalletList">
+            <div class="coupens" [class.expired]="item.isexp">
+              <div class="coupens-bottom-text">
+                <div class="d-flex align-items-center">
+                  <div class="left-content">
+                    <div class="coupens-bets">
+                      <div *ngIf="item.isexp" class="coupens-bets">
+                        Expired
+                      </div>
+                      <div class="timer" *ngIf="item.expdt">
+                        {{item.expdt | date: 'dd/MM/yyyy'}}
+                      </div>
+                      <a *ngIf="!item.iseub && (item.brab != item.tbp)" class="btn w-50 claim-btn">Lock</a>
+                      <a *ngIf="!item.iseub && (item.brab == item.tbp)" class="btn w-50 claim-btn"
+                        (click)="RedeemRequest(item.wid)">Redeem</a>
+                    </div>
+                  </div>
+                  <div class="redeem-content" *ngIf="item.iseub">
+                    <a class="claim-title">redeemed</a>
+                  </div>
+                  <div class="read-more">
+                    <a href="javascript:void(0)" (click)="SlideToggle(item)" class="check-btn">
+                      check details
+                    </a>
+
+                  </div>
+                </div>
+                <div class="bets-details" *ngIf="item.isSlideToggle" style="display: block;">
+                  <div class="bet-content d-flex">
+                    <div class="bets-values" *ngIf="item.brab">
+                      <div class="name">{{item.cao == 1 ? 'Sports' : (item.cao == 2 ? 'Casino' : 'Sports/Casino')}} Bets
+                        Required</div>
+                      <div class="value">{{item.brab }}</div>
+                    </div>
+                    <div class="bets-values">
+                      <div class="name">Bet Placed</div>
+                      <div class="value">10</div>
+                    </div>
+                    <div class="bets-values" *ngIf="item.tbp">
+                      <div class="name">Bet Placed</div>
+                      <div class="value">{{item.tbp }}</div>
+                    </div>
+                    <div class="bets-values">
+                      <div class="name">Bonus Amount</div>
+                      <div class="value">{{item.bonus}}</div>
+                    </div>
+                    <div class="bets-values" (click)="GetWagerBetListDetails(item)">
+                      <div class="name">Wallet Amount</div>
+                      <div class="value">{{item.wam}}</div>
+                    </div>
+                  </div>
+                  <div class="bets-bottom">
+                    <div class="open-bets" *ngIf="!item.rdm && !item.isexp">
+                      <a href="javascript:void(0)" class="btn" (click)="GetAllBetListWalletWise(item)">
+                        Open bet
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+    <div class="center mt-10"
+      *ngIf="bonusList.length == 0 && activeWagerList.length == 0 && inActiveWagerList.length == 0 && demoBonusList.length == 0">
+      No wager bonus available at this time.
+    </div>
+  </div>
+</div>
+<div id="wbl" class="modal modal-fixed-footer" #wbl>
+  <a href="javascript:void(0)" (click)="wblModalInstances.close()" class="modal-close right close-icon"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+      <span class="title">
+        {{iswager ? 'Bet' : 'Bonus' }} {{isLiabilityBetDetails ? 'Exposure' : 'List' }} Details
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="liability-table">
+        <div class="liability-table">
+          <table class="table highlight" *ngIf="WagerBetListDetails && WagerBetListDetails.length > 0 else elseBlock">
+            <thead *ngFor="let history of WagerBetListDetails;let first=first;">
+              <ng-container>
+                <tr *ngIf="first">
+                  <th>Date</th>
+                  <ng-container *ngIf="iswager else thelseBlockk">
+                    <th class="right-align" *ngIf="history.wao === 2">Stake</th>
+                    <th class="right-align" *ngIf="history.wao === 1">PL</th>
+                  </ng-container>
+                  <ng-template #thelseBlockk>
+                    <th class="right-align">Amount</th>
+                  </ng-template>
+                  <th>Remark</th>
+                </tr>
+              </ng-container>
+            </thead>
+            <tbody>
+              <tr *ngFor="let history of WagerBetListDetails">
+                <td>{{history.dt | date: 'dd/MM/yyyy, h:mm a'}}</td>
+                <ng-container *ngIf="iswager else elseBlockk">
+                  <td class="right-align" *ngIf="history.wao === 2">{{history.st}}</td>
+                  <td class="right-align" *ngIf="history.wao === 1">{{history.pl}}</td>
+                </ng-container>
+                <ng-template #elseBlockk>
+                  <td class="right-align" [style.color]="history.amt >= 0 ? 'green': 'red'">{{history.amt}}</td>
+                </ng-template>
+                <td>{{history.rm}} {{history.pn !== null ? history.pn : ''}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #elseBlock>
+            <div class="center mt-10"> No data available. </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="bet-history-popup" class="modal modal-fixed-footer" tabindex="0" #allBetListWalletWise>
+  <div class="modal-content">
+    <a href="javascript:void(0)" (click)="allBetListWalletWiseInstances.close()" class="modal-close close-icon"><i
+        class="fa fa-times" aria-hidden="true"></i></a>
+    <div class="modal-body">
+      <span class="title">
+        Open Bet List
+      </span>
+      <div class="liability-table">
+        <ng-container *ngIf="allBetListWalletWiseData && allBetListWalletWiseData.length > 0 else elseBlock">
+          <table class="table highlight">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Market</th>
+                <th>Selection</th>
+                <th>Type</th>
+                <th class="right-align">Rate</th>
+                <th class="right-align">Stake</th>
+                <th class="right-align">P/L</th>
+                <th>Matched/UnMatched</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let history of allBetListWalletWiseData">
+                <td>{{history.appMarketDate | date: 'dd/MM/yyyy, h:mm a'}}</td>
+                <td>{{history.appSport}}/{{history.appTournament}}/{{history.appMatch}}</td>
+                <td>{{history.appBetName}}</td>
+                <td>{{history.appRunner}}</td>
+                <td>{{history.appIsBack ? 'Back': 'Lay'}}</td>
+                <td class="right-align">{{history.appRate}}</td>
+                <td class="right-align">{{history.appStake}}</td>
+                <td class="right-align">{{history.appProfit}}</td>
+                <td>{{history.appIsMatched ? 'Matched' : 'UnMatched'}}</td>
+              </tr><!---->
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #elseBlock>
+          <div class="center mt-10"> No data available. </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

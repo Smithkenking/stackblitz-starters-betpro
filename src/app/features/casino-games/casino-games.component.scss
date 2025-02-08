@@ -1,0 +1,36 @@
+.ifmHeigh {
+    height: 100%;
+}
+
+.backBtn {
+    width        : 35px !important;
+    height       : 19px;
+    margin-top   : 5px;
+    position     : absolute;
+    background   : #FFDF00 !important;
+    z-index      : 99999;
+    color        : #000 !important;
+    border-radius: inherit;
+    cursor       : pointer;
+}
+
+.spML {
+    margin-left: 9px;
+}
+.fullScreenBtn {
+    width: 35px!important;
+    height: 24px;
+    line-height: 27px;
+    margin-top: 5px;
+    position: absolute;
+    background: var(--primary-color)!important;
+    color: var(--secondary-color)!important;
+    border-radius: inherit;
+    cursor: pointer;
+    margin-left: 5px;
+    text-align: center;
+    z-index: 999;
+}
+.fullScreenBtn img {
+    height: 15px;
+}

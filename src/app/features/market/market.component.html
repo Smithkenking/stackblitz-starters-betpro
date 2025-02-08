@@ -1,0 +1,282 @@
+<main class="full-wrap " [class.full-wrap-margin]="isNewsExits">
+  <div class="market-page">
+    <!-- Center Content -->
+    <div class="row m-0">
+      <div class="col-center  market-right">
+        <div class="row mb-0">
+          <div class="tabGroup">
+            <div class="market-main">
+              <!--  -->
+              
+              <div class="virtual-league mb-10" *ngIf="router.url.indexOf('/event/virtual-sports') == 0">
+                <div class="slider-scroll">
+                  <div class="scroll-slider">
+                    <div class="item_main" *ngFor="let tournament of sportTournamentList;let i = index;trackBy: trackByFn">
+                      <a href="javascript:void(0);" [class.active]="sportTournamentId == tournament.tid"
+                        (click)="onTournamentClick(tournament)">
+                        <img *ngIf="tournament.t1i" src="{{tournament.t1i}}" alt="tournament"> {{tournament.tn}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="slider-arrows">
+                  <a href="javascript:void(0);" class="previous-arrow active">
+                      <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <a href="javascript:void(0);" class="next-arrow active">
+                      <i class="fas fa-chevron-right"></i>
+                  </a>
+              </div>
+              </div>
+              <!--  -->
+              <div class="main-events" *ngIf=" openpage !== 4 && previousMarket && router.url.indexOf('/event/virtual-sports') == 0">
+                 
+                <ng-container *ngIf="(openpage == 3) else elseblock">
+                  <div class="left-title" style="line-height: 3.3;">
+                    <ng-container *ngFor="let market of markets;let first=first;">
+                      <span class="team-name" *ngIf="first">
+                        {{market.en}}
+                      </span>
+                    </ng-container>
+                  </div>          
+                  <div class="live-content">
+                    live
+                  </div>
+                </ng-container>
+                <ng-template #elseblock>
+                  <div class="left-title" style="line-height: 3.3;">
+                    <ng-container *ngFor="let market of markets;">
+                      <span class="team-name" *ngIf="market.isLive">
+                        {{market.en}}
+                      </span>
+                    </ng-container>
+                  </div>          
+                  <div class="live-content">
+                    live
+                  </div>
+                </ng-template>
+                
+              </div>
+              <div class="main-events" *ngIf="openpage == 4 && markets && markets.length > 0 && (getMarket() | async)" >
+                <div class="left-title" style="line-height: 3.3;">
+                    <span class="team-name">
+                      {{markets[selectedIndex].en}}
+                    </span>
+                </div> 
+              </div>
+              <div id="live-tv" class="live-match mb-20" *ngIf="router.url.indexOf('/event/virtual-sports') == 0">
+                <div id="live-tv" class="live-match" *ngIf="(getMarket() | async) &&  videoUrl">
+                  <iframe class="w-100" [src]="videoUrl | safe: 'resourceUrl'" frameborder="0" *ngIf="deviceInfoService.isMobile()"
+                  allow="autoplay; encrypted-media"  scrolling="no" width="100%" height="220" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                <iframe class="w-100" [src]="videoUrl | safe: 'resourceUrl'" frameborder="0" *ngIf="!deviceInfoService.isMobile()"
+                  allow="autoplay; encrypted-media"  scrolling="no" width="100%" height="400" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+              </div>   
+              <!-- <ng-template #nomatch>
+              <div class="no-match">
+                match not started 
+              </div>
+            </ng-template> -->
+                 
+              </div>
+              <!--  -->
+              <ng-container *ngIf="router.url.indexOf('/event/virtual-sports') == 0 else marketBlock">
+                <div class="select-bet" *ngIf="getMarket() | async else loading">
+                  <!-- <div> {{markets | json}}</div> -->
+                <!-- <app-virtual-sports *ngFor="let market of markets;let i = index;trackBy: trackByFn" [market]="market" [matchIndex]="i"></app-virtual-sports> -->
+                <div class="" id="new-events">
+                  <div class="select-events">
+                    <div class="cat-scroll">
+                      <ul class="tabs" *ngIf="markets && markets.length > 0">
+                       
+                        <li class="tab" *ngFor="let market of markets;let i = index;let first=first;trackBy: trackByFn" (click)="eventClick(market,i);">
+                          <ng-container *ngIf="(openpage == 3) else elseBlockk">
+                            <a href="javascript:void(0);" class="ripple active" *ngIf="first" >
+                            <span class="countdown" *ngIf="market.isShowTimer && (market.ed | countdown : true | async) !== null">{{market.ed  | countdown : true | async}}</span>
+                            <span class="time" *ngIf="!market.isLive"> {{market.ed | date: 'h:mm'}} </span> 
+                            <span class="live" *ngIf="market.isLive"> live</span>
+                            <span class="lock-icon" *ngIf="market.isLive">
+                              <i class="fas fa-lock"></i>
+                            </span>
+                            <span class="lock-icon" *ngIf="!market.isLive && market.isUnlockbet">
+                              <i class="fas fa-lock-open"></i>
+                            </span>
+                             {{market.en}} 
+                          </a>
+                        </ng-container>
+                          <ng-template #elseBlockk>
+                            <a href="javascript:void(0);" class="ripple" [class.active]="selectedIndex == i">
+                              <span class="countdown" *ngIf="market.isShowTimer && (market.ed | countdown : true | async) !== null">{{market.ed  | countdown : true | async}}</span>
+                              <span class="time" *ngIf="!market.isLive"> {{market.ed | date: 'h:mm'}} </span> 
+                              <span class="live" *ngIf="market.isLive"> live</span>
+                              <span class="lock-icon" *ngIf="market.isLive">
+                                <i class="fas fa-lock"></i>
+                              </span>
+                              <span class="lock-icon" *ngIf="!market.isLive && market.isUnlockbet">
+                                <i class="fas fa-lock-open"></i>
+                              </span>
+                               {{market.en}} 
+                            </a>
+                          </ng-template>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-contents" id="events-tabs" *ngIf="markets && markets.length > 0">
+                  <ng-container *ngFor="let market of markets;index as m;let first = first;trackBy: trackByFn">
+                    <div class="swichtab-panel is-hidden" [class.is-show]="openpage == 3 && first"  > 
+                      <app-virtual-sports  [market]="market" [matchIndex]="m" [tournamentId]="sportTournamentId"></app-virtual-sports>
+                    </div>
+                    <div class="swichtab-panel is-hidden" [class.is-show]="selectedIndex == m && openpage != 3"  > 
+                      <app-virtual-sports  [market]="market" [matchIndex]="m" [tournamentId]="sportTournamentId"></app-virtual-sports>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <ng-template #loading>
+                <div class="market-main">
+                  <div class="select-bet">
+                <div class="ph-bet-semiheader">
+                </div>
+                <div class="bet-list">
+                    <div class="team-market">
+                      <div class="team1 cteam">
+                        <div class="team-name ">
+                          <p></p>
+                        </div>
+                        <div class="bet-value l-blue hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value m-blue hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value v-blue">
+                          <a href="javascript:void(0);" class="back-bet-btn">
+                          </a>
+                        </div>
+                        <div class="bet-value v-pink">
+                          <a href="javascript:void(0);" class="lay-bet-btn">
+                          </a>
+                        </div>
+                        <div class="bet-value m-pink hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value l-pink hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="suspend">
+                        <div class="suspend-cont"></div>
+                      </div>
+                    </div>
+                    <div class="team-market">
+                      <div class="team1 cteam">
+                        <div class="team-name ">
+                          <p></p>
+                        </div>
+                        <div class="bet-value l-blue hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value m-blue hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value v-blue">
+                          <a href="javascript:void(0);" class="back-bet-btn">
+                          </a>
+                        </div>
+                        <div class="bet-value v-pink">
+                          <a href="javascript:void(0);" class="lay-bet-btn">
+                          </a>
+                        </div>
+                        <div class="bet-value m-pink hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                        <div class="bet-value l-pink hide-on-med-and-down">
+                          <a href="javascript:void(0)">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="suspend">
+                        <div class="suspend-cont"></div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+            </ng-template>
+            </ng-container>
+              <ng-template #marketBlock>
+                <app-match *ngFor="let market of markets;let i = index;trackBy: trackByFn" [market]="market"
+                  [matchIndex]="i" />
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-match *ngFor="let market of markets;let i = index;trackBy: trackByFn" [market]="market" [matchIndex]="i"></app-match> -->
+    <!-- <app-rightsidebar></app-rightsidebar> -->
+    <!-- <app-bet-panel-layout *ngIf="!isShowBetSlipBelowRunner"></app-bet-panel-layout> -->
+    <app-footer />
+  </div>
+  <!-- </div>  -->
+</main>
+
+
+
+<div class="hide-on-large-only is-hidden" [class.is-show]="(unMatchBetCount &&  unMatchBetCount> 0) || (matchBetCount && matchBetCount > 0)">
+  <div class="match-unmatch" [class.left-16]="isChatEnable">
+    <a href="javascript:void(0);" (click)="openMatchedUnmatchedModal()">
+      <div id="nav-icon1">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="badge">{{matchBetCount}}/{{unMatchBetCount}}</span>
+    </a>
+  </div>
+</div>
+<div id="matched-unmatched" class="modal modal-fixed-footer animated animatedFadeInLeft fadeInLeft" #matchedunmatched>
+  <a href="javascript:void(0);" (click)="hideModal()" class="modal-close close-icon"><i class="fa fa-times"
+      aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-body">
+      <span class="title">
+        Betlist
+      </span>
+      <div class="match-tabGroup">
+        <ul class="tabs scroller">
+          <li class="tab">
+            <a href="#tab-match" class="active">
+              <span class="tab-badge"> Matched <span class="badge">{{matchBetCount}}</span></span>
+            </a>
+          </li>
+          <li class="tab">
+            <a href="#tab-unmatch"><span class="tab-badge">UnMatched <span class="badge">{{unMatchBetCount}}</span>
+              </span></a>
+          </li>
+        </ul>
+        <div class="tab-contents">
+          <div id="tab-match" class="active">
+            <div class="my-bets">
+              <app-matchedbet />
+            </div>
+          </div>
+          <div id="tab-unmatch">
+            <div class="my-bets">
+              <app-unmatchedbet />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

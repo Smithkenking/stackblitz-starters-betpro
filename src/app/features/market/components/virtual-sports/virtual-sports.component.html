@@ -1,0 +1,286 @@
+<div class="category-content">
+  <div class="select-category" *ngIf="marketCategory.length > 1">
+    <div class="cat-scroll">
+      <ul class="tabs">
+        <li class="tab"><a class="ripple" href="javascript:void(0)" (click)="setIndex(-1,'All')"
+            [class.active]="selectedIndex === -1"> All </a></li>
+        <li class="tab" *ngFor="let category of marketCategory;trackBy:trackByFun; let i= index">
+          <a (click)="setIndex(i,category.cn)" [class.blinker3]="category.mt === 14"
+            [class.active]="selectedIndex === i" href="javascript:void(0)" class="ripple">
+            {{category.cn}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+  <ng-container *ngIf="(getCurrentMarket() | async) else loading">
+    <div class="bet-semiheader">
+      <div class="row m-0">
+        <div *ngFor="let market of matches; trackBy:identify; let i = index" [ngSwitch]="market.mt">
+          <app-virtual-type *ngSwitchCase="14" [matchId]="market.eid" [betId]="market.mid"
+              [marketCount]="market.marketCount" [marketIndex]="i" [marketRunner]="marketRunner"
+              [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex" 
+               [categoryName]="market.categoryName" [selectedCategory]="selectedCategory">
+          </app-virtual-type>
+          <app-market-type *ngSwitchDefault [matchId]="market.eid" [betId]="market.mid" [marketCount]="market.marketCount"
+          [marketIndex]="i" [marketRunner]="marketRunner" [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex"
+          [sport]="market.st" [categoryName]="market.categoryName" [selectedCategory]="selectedCategory" ></app-market-type>
+        
+        <app-sportbook-type *ngSwitchCase="15" [matchId]="market.eid" [betId]="market.mid" [marketCount]="market.marketCount"
+          [marketIndex]="i" [marketRunner]="marketRunner" [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex"
+          [categoryName]="market.categoryName" [selectedCategory]="selectedCategory" ></app-sportbook-type>
+        
+        <app-advance-session-type *ngSwitchCase="6" [matchId]="market.eid" [betId]="market.mid"
+          [marketCount]="market.marketCount" [marketRunner]="marketRunner" [currentMarketVolumn]="currentMarketVolumn"
+          [isShowFancyTitle]="market.isShowFancyTitle" [categoryName]="market.categoryName"
+          [selectedCategory]="selectedCategory" > </app-advance-session-type>
+      </div>
+      </div>
+    </div>
+  </ng-container>
+
+<ng-template #loading>
+  <div class="ph-bet-semiheader">
+  </div>
+  <div class="bet-list">
+    <div class="team-market">
+      <div class="team1 cteam">
+        <div class="team-name ">
+          <p></p>
+        </div>
+        <div class="bet-value l-blue hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value m-blue hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value v-blue">
+          <a href="javascript:void(0);" class="back-bet-btn">
+          </a>
+        </div>
+        <div class="bet-value v-pink">
+          <a href="javascript:void(0);" class="lay-bet-btn">
+          </a>
+        </div>
+        <div class="bet-value m-pink hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value l-pink hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+      </div>
+      <div class="suspend">
+        <div class="suspend-cont"></div>
+      </div>
+    </div>
+    <div class="team-market">
+      <div class="team1 cteam">
+        <div class="team-name ">
+          <p></p>
+        </div>
+        <div class="bet-value l-blue hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value m-blue hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value v-blue">
+          <a href="javascript:void(0);" class="back-bet-btn">
+          </a>
+        </div>
+        <div class="bet-value v-pink">
+          <a href="javascript:void(0);" class="lay-bet-btn">
+          </a>
+        </div>
+        <div class="bet-value m-pink hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+        <div class="bet-value l-pink hide-on-med-and-down">
+          <a href="javascript:void(0)">
+          </a>
+        </div>
+      </div>
+      <div class="suspend">
+        <div class="suspend-cont"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<app-rightsidebar/>
+<!-- <div class="select-bet bottom-radious">
+        <div class="selectbet-header" *ngIf="matches && matches.length > 0">
+         
+            <div class="col s12 m12 bet-teamname">
+                <div class="top-header-module">
+                  <div class="top-row row m-0">
+                    <div class="text-counter">
+                    <ng-container *ngIf="getMatchInfo$() | async as matchinfo">
+                      {{matchinfo.er}}
+                        <ng-container *ngIf="matchinfo?.er && matchinfo.er > 0;else eventTitle">
+                            <pb-count-down [remaingTime]="matchinfo.er ? matchinfo.er : 0"></pb-count-down>
+                        </ng-container>
+                        <ng-template #eventTitle>
+                            <div class="evt-title countdownHolder">
+                              <div class="live-title">
+                              <div>
+                                {{tournamentName  ? tournamentName : ''}} 
+                              </div>
+                                <div class="live-match">
+                                  <i class="fa fa-circle allow"></i> Live
+                                </div> 
+                              </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                    <div class="bottom-row">
+              
+                        <div class="event-name">
+                          <div class="">
+                            <h4 class="d-flex">
+                              <div class="width-50">
+                                <div class="left-team-title">
+                                  <div class="team-bg">
+                                    <span class="title">{{team1 | eventShortname}}</span>
+                                  </div>
+                                  <div class="team-title-full">{{team1 | nameHR}}</div>  
+                                </div>
+                              </div> 
+                              <div class="vs-image-content" *ngIf="team2 && team2.length > 0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="42.334" height="126.473" viewBox="0 0 142.334 226.473">
+                                  <g id="Group_1" data-name="Group 1" transform="translate(-770.844 -434.5)">
+                                    <path id="Path_1" data-name="Path 1" d="M731.479,686.973l26.934-72.1H736.406l-29.561-81.129h27.262l17.435,53.691,16.725-53.691h19.708L815.236,460.5h8.211L740.183,686.973Z" transform="translate(64 -26)" fill="#628af1"/>
+                                    <path id="Path_2" data-name="Path 2" d="M834.658,588.507l12.536-16.229s-9.149-9.4-27.09-11.489-28.4,5.27-28.4,5.27L781.4,594.24a25.212,25.212,0,0,0,10.667,12.073c7.774,4.261,13.672,4.44,18.987,5.382s13.455.673,13.3,6.645-8.439,5.539-16.886,3.6-17.806-9.135-17.806-9.135a85.64,85.64,0,0,1-5.367,8.761c-3.158,4.494-7.266,9.217-7.266,9.217s9.232,6.608,16.423,9.329,21.865,4.859,32.555,2.235,20.116-6.8,22.837-24-12.05-22.254-16.423-23.711-16.078-3.956-22.545-5.053-5.214-5.379-3.8-6.865,7.488-2.659,15.554-.326A42.842,42.842,0,0,1,834.658,588.507Z" transform="translate(64 -26)" fill="#628af1"/>
+                                  </g>
+                                </svg>                         
+                               </div> 
+                                <div class="width-50" *ngIf="team2 && team2.length > 0">
+                                  <div class="right-team-title">
+                                    <div class="team-title-full">{{team2 | nameHR}}</div>  
+                                    <div class="team-bg">
+                                      <span class="title">{{team2 | eventShortname}}</span>
+                                    </div> 
+                                  </div>
+                                </div>
+                            </h4>
+                          </div>
+                          
+                        </div>
+                        
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m12 xl7 p-0">                  
+                </div>
+              </div>
+        </div>
+
+
+        <div class="" id="categories" *ngIf="marketCategory.length > 1">
+            <div class="select-category">
+              <div class="cat-scroll">
+                <ul class="tabs">
+                    <li class="tab"><a  class="ripple" href="javascript:void(0)" (click)="setIndex(-1,'All')" [class.active]="selectedIndex === -1"> All </a></li>
+                    <li class="tab" *ngFor="let category of marketCategory;trackBy:trackByFun; let i= index">
+                        <a (click)="setIndex(i,category.cn)" [class.blinker3]="category.mt === 14" [class.active]="selectedIndex === i"  href="javascript:void(0)"  class="ripple">
+                          {{category.cn}} 
+                          </a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <ng-container *ngIf="(getCurrentMarket() | async) else loading">
+            <div class="tab-contents" id="category-tab">
+                    <div *ngFor="let market of matches; trackBy:identify; let i = index" >
+                        <app-sportbook-type [matchId]="market.eid" [betId]="market.mid"
+                            [marketCount]="market.marketCount" [marketIndex]="i" [marketRunner]="marketRunner"
+                            [currentMarketVolumn]="currentMarketVolumn" [matchIndex]="matchIndex" 
+                             [categoryName]="market.categoryName" [selectedCategory]="selectedCategory">
+                        </app-sportbook-type>
+                    </div>
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <div class="ph-bet-semiheader">
+            </div>
+            <div class="bet-list">
+                <div class="team-market">
+                  <div class="team1 cteam">
+                    <div class="team-name ">
+                      <p></p>
+                    </div>
+                    <div class="bet-value l-blue hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value m-blue hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value v-blue">
+                      <a href="javascript:void(0);" class="back-bet-btn">
+                      </a>
+                    </div>
+                    <div class="bet-value v-pink">
+                      <a href="javascript:void(0);" class="lay-bet-btn">
+                      </a>
+                    </div>
+                    <div class="bet-value m-pink hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value l-pink hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="suspend">
+                    <div class="suspend-cont"></div>
+                  </div>
+                </div>
+                <div class="team-market">
+                  <div class="team1 cteam">
+                    <div class="team-name ">
+                      <p></p>
+                    </div>
+                    <div class="bet-value l-blue hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value m-blue hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value v-blue">
+                      <a href="javascript:void(0);" class="back-bet-btn">
+                      </a>
+                    </div>
+                    <div class="bet-value v-pink">
+                      <a href="javascript:void(0);" class="lay-bet-btn">
+                      </a>
+                    </div>
+                    <div class="bet-value m-pink hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                    <div class="bet-value l-pink hide-on-med-and-down">
+                      <a href="javascript:void(0)">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="suspend">
+                    <div class="suspend-cont"></div>
+                  </div>
+                </div>
+              </div>
+        </ng-template>
+    </div> -->

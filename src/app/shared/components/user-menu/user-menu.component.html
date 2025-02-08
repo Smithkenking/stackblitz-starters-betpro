@@ -1,0 +1,15 @@
+<ul id='dropdown1' class='dropdown-content'>
+  <li *ngIf="isB2C"><a href="javascript:void(0);" (click)="onUserMenuClick()">User Profile</a></li>
+  <li><a href="javascript:void(0);" (click)="redirectTo('/account-statement')">Statement</a></li>
+  <li><a href="javascript:void(0);" (click)="redirectTo('/withdraw')">Withdraw</a></li>
+  <li><a href="javascript:void(0);" (click)="redirectTo('/open-bets')">Bet History</a></li>
+  <li><a href="javascript:void(0);" (click)="redirectTo('/bonus-list')">Wallets</a></li>
+  <li><a href="javascript:void(0);" (click)="redirectTo('/transaction-history')">Transaction</a></li>
+  <!-- <li><a href="javascript:void(0);" (click)="offerClick()" class="modal-trigger">Offer</a></li>
+  <li><a href="javascript:void(0);" (click)="changePswdClick()" class="modal-trigger">Change password</a></li>
+  <li><a href="javascript:void(0);" (click)="openliability()" class="modal-trigger">Liability</a></li> -->
+  <li><a href="javascript:void(0);" class="logout-btn" (click)="onLogOut()">Logout</a></li>
+</ul>
+<app-change-password #changePassw />
+<app-deposit #ConfirmModal />
+<pb-liability #liability />

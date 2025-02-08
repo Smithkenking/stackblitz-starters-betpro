@@ -1,0 +1,431 @@
+<div class="market-result">
+  <div class="marketresult-header">
+    <span>Profile</span>
+  </div>
+  <div class="marketresult-body">
+    <div class="row p-0 user-top-content">
+      <div class="col s12 m4">
+        <div class="user-bg users-details">
+          <div class="profile-upload">
+            <div class="file-field upload-id">
+              <div class="btn">
+                <img src="assets/images/new-user.png" alt="" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="user-profile-details">
+            <div class="user-title">
+              {{userProfile.appUserName}}
+            </div>
+            <div class="bottom-content">
+              <div class="user-left">
+                <div class="number">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                    <path
+                      d="M14.4368 16.2188H14.3359C2.66868 15.5478 1.01212 5.70344 0.780558 2.69906C0.761899 2.46547 0.789517 2.23049 0.861827 2.00759C0.934138 1.78469 1.04972 1.57824 1.20195 1.40009C1.35418 1.22193 1.54007 1.07556 1.74897 0.969373C1.95787 0.863182 2.18566 0.799254 2.41931 0.781251H5.69087C5.9287 0.78102 6.16112 0.852209 6.35803 0.985597C6.55493 1.11898 6.70725 1.30842 6.79525 1.52938L7.69775 3.75C7.78464 3.96586 7.80621 4.20248 7.75976 4.43049C7.71331 4.6585 7.6009 4.86784 7.4365 5.0325L6.17181 6.30906C6.36936 7.43169 6.90698 8.46655 7.71193 9.27363C8.51689 10.0807 9.55033 10.6211 10.6724 10.8216L11.9609 9.545C12.128 9.38241 12.3393 9.27262 12.5684 9.22933C12.7976 9.18604 13.0344 9.21116 13.2493 9.30156L15.4877 10.1981C15.7054 10.2889 15.891 10.4424 16.0211 10.6391C16.1512 10.8358 16.2197 11.0667 16.2181 11.3025V14.4375C16.2181 14.9099 16.0304 15.363 15.6963 15.697C15.3623 16.0311 14.9092 16.2188 14.4368 16.2188ZM2.56181 1.96875C2.40434 1.96875 2.25331 2.03131 2.14196 2.14266C2.03061 2.25401 1.96806 2.40503 1.96806 2.5625V2.61C2.24118 6.125 3.99275 14.4375 14.4012 15.0312C14.4792 15.0361 14.5574 15.0254 14.6313 15C14.7051 14.9745 14.7733 14.9347 14.8318 14.8829C14.8902 14.831 14.9379 14.7681 14.972 14.6978C15.0061 14.6275 15.026 14.5511 15.0306 14.4731V11.3025L12.7921 10.4059L11.0881 12.0981L10.8031 12.0625C5.63743 11.4153 4.93681 6.24969 4.93681 6.19625L4.90118 5.91125L6.58743 4.20719L5.69681 1.96875H2.56181Z"
+                      fill="black" />
+                  </svg>
+                  {{userProfile.appMobileNo ? userProfile.appMobileNo : 'Nill'}}
+                  <span class="v-status not-verified" *ngIf="!userProfile.appIsMobileVerified"> <i
+                      class="fa fa-times"></i> </span>
+                  <span class="v-status verified" *ngIf="userProfile.appIsMobileVerified"> <i class="fa fa-check"></i>
+                  </span>
+                  <!-- <div class="edit-button">
+                    <a href="javascript:void(0)" class="edit-btn" (click)="onEditMobileClick()">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                  </div> -->
+                </div>
+                <div class="gender " (click)="changePswdClick()">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M6 6.92308C5.40523 6.92308 4.92308 7.40523 4.92308 8C4.92308 8.59477 5.40523 9.07692 6 9.07692C6.59477 9.07692 7.07692 8.59477 7.07692 8C7.07692 7.40523 6.59477 6.92308 6 6.92308ZM4 8C4 6.89543 4.89543 6 6 6C7.10457 6 8 6.89543 8 8C8 9.10457 7.10457 10 6 10C4.89543 10 4 9.10457 4 8Z"
+                      fill="#012984"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M3.45723 2.19523C3.03722 2.84356 2.88889 3.78727 2.88889 4.97368V6.44737C2.88889 6.75258 2.6899 7 2.44444 7C2.19898 7 2 6.75258 2 6.44737V4.97368C2 3.72115 2.14797 2.45433 2.76499 1.50188C3.39874 0.523611 4.44245 0 6 0C7.55755 0 8.60126 0.523611 9.23501 1.50188C9.85203 2.45433 10 3.72115 10 4.97368V6.44737C10 6.75258 9.80102 7 9.55556 7C9.3101 7 9.11111 6.75258 9.11111 6.44737V4.97368C9.11111 3.78727 8.96278 2.84356 8.54277 2.19523C8.13948 1.57271 7.40541 1.10526 6 1.10526C4.59459 1.10526 3.86052 1.57271 3.45723 2.19523Z"
+                      fill="#012984"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M1.27274 5.35131C0.987257 5.65441 0.837209 6.21905 0.837209 7.40741V8.59259C0.837209 9.78095 0.987257 10.3456 1.27274 10.6487C1.55823 10.9518 2.09003 11.1111 3.2093 11.1111H8.7907C9.90997 11.1111 10.4418 10.9518 10.7273 10.6487C11.0127 10.3456 11.1628 9.78095 11.1628 8.59259V7.40741C11.1628 6.21905 11.0127 5.65441 10.7273 5.35131C10.4418 5.0482 9.90997 4.88889 8.7907 4.88889H3.2093C2.09003 4.88889 1.55823 5.0482 1.27274 5.35131ZM0.680746 4.72277C1.23247 4.13699 2.09602 4 3.2093 4H8.7907C9.90399 4 10.7675 4.13699 11.3193 4.72277C11.871 5.30855 12 6.2254 12 7.40741V8.59259C12 9.7746 11.871 10.6915 11.3193 11.2772C10.7675 11.863 9.90399 12 8.7907 12H3.2093C2.09602 12 1.23247 11.863 0.680746 11.2772C0.129022 10.6915 0 9.7746 0 8.59259V7.40741C0 6.2254 0.129022 5.30855 0.680746 4.72277Z"
+                      fill="#012984"></path>
+                  </svg>
+                  Change Password
+                </div>
+              </div>
+              <div class="user-right">
+                <div class="email">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="15" viewBox="0 0 21 15" fill="none">
+                    <path
+                      d="M19.1245 0.3125H1.87451C1.49326 0.3125 1.12763 0.46395 0.858046 0.733534C0.588462 1.00312 0.437012 1.36875 0.437012 1.75V13.25C0.437012 13.6312 0.588462 13.9969 0.858046 14.2665C1.12763 14.536 1.49326 14.6875 1.87451 14.6875H19.1245C19.5058 14.6875 19.8714 14.536 20.141 14.2665C20.4106 13.9969 20.562 13.6312 20.562 13.25V1.75C20.562 1.36875 20.4106 1.00312 20.141 0.733534C19.8714 0.46395 19.5058 0.3125 19.1245 0.3125ZM17.5433 1.75L10.4995 6.62312L3.45576 1.75H17.5433ZM1.87451 13.25V2.40406L10.0898 8.08937C10.2101 8.17284 10.3531 8.21757 10.4995 8.21757C10.6459 8.21757 10.7889 8.17284 10.9092 8.08937L19.1245 2.40406V13.25H1.87451Z"
+                      fill="black" />
+                  </svg>
+                  {{userProfile.appEmailID ? userProfile.appEmailID : 'Nill'}}
+                  <span class="v-status not-verified" *ngIf="!userProfile.appIsEmailVerified"> <i
+                      class="fa fa-times"></i> </span>
+                  <span class="v-status verified" *ngIf="userProfile.appIsEmailVerified"> <i class="fa fa-check"></i>
+                  </span>
+                </div>
+                <div class="gender" (click)="referEarnClick()">
+                  <a class=" referel-title" href="javascript:void(0)">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="50" height="50"
+                      viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                      <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#A3A3A3"
+                        stroke="none">
+                        <path
+                          d="M3566 5088 c-46 -44 -377 -553 -390 -599 -7 -29 -6 -47 8 -83 23 -59 64 -88 130 -93 92 -7 89 -11 413 491 72 112 83 135 83 173 0 51 -19 93 -56 122 -21 16 -41 21 -90 21 -59 0 -67 -3 -98 -32z" />
+                        <path
+                          d="M4895 5101 c-16 -10 -215 -205 -442 -432 -351 -354 -413 -420 -422 -454 -30 -113 72 -214 184 -184 34 9 104 74 444 412 222 221 416 420 432 441 52 70 36 180 -31 220 -39 22 -127 21 -165 -3z" />
+                        <path
+                          d="M2045 4451 c-87 -31 -133 -60 -191 -118 -133 -133 -173 -334 -101 -512 l26 -64 -556 -1061 c-305 -584 -559 -1068 -564 -1078 -8 -15 -13 -15 -55 -2 -62 19 -187 18 -252 -1 -119 -36 -234 -131 -289 -238 -52 -103 -64 -245 -30 -352 35 -112 58 -139 456 -536 262 -262 402 -395 436 -413 267 -147 589 -24 684 261 25 74 28 196 7 266 l-14 46 103 55 102 55 49 -46 c120 -113 257 -192 411 -240 81 -24 102 -27 258 -27 157 0 177 2 260 28 385 118 642 424 687 819 9 79 9 124 -1 200 -7 54 -14 104 -17 112 -4 8 46 40 150 94 150 79 157 81 183 67 55 -28 146 -48 218 -48 129 1 241 48 331 139 149 152 176 359 74 563 -16 32 -296 319 -983 1007 -1013 1012 -990 990 -1116 1029 -65 19 -204 17 -266 -5z m236 -310 c58 -38 1852 -1837 1873 -1878 19 -37 21 -114 5 -146 -17 -33 -51 -67 -83 -84 -35 -18 -114 -20 -147 -3 -32 16 -1864 1846 -1891 1888 -38 62 -23 157 34 208 38 35 60 43 114 44 39 0 60 -7 95 -29z m484 -1381 c417 -417 757 -762 754 -764 -6 -6 -1982 -1042 -2057 -1079 l-43 -21 -259 259 c-143 143 -260 264 -260 269 0 13 1092 2096 1099 2096 3 0 348 -342 766 -760z m412 -1392 c-10 -170 -65 -303 -175 -420 -80 -84 -151 -131 -255 -170 -108 -40 -247 -49 -361 -24 -83 19 -211 78 -264 123 l-34 28 539 282 c296 156 542 283 547 283 5 0 6 -44 3 -102z m-2624 -52 c18 -8 193 -176 399 -382 397 -399 388 -388 375 -484 -14 -103 -133 -168 -230 -126 -18 8 -195 178 -404 387 -324 326 -372 379 -378 412 -26 141 108 249 238 193z" />
+                        <path
+                          d="M4819 3737 c-351 -226 -470 -309 -490 -339 -26 -43 -22 -122 9 -166 31 -42 99 -68 149 -55 47 12 555 341 601 389 29 31 32 39 32 98 0 49 -5 69 -21 90 -29 37 -71 56 -122 56 -38 0 -61 -10 -158 -73z" />
+                      </g>
+                    </svg>
+                    Refer & Earn
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m8 statistics-content">
+        <div class="sub-statistics user-bg ">
+          <div class="top-content">
+            <div class="left-content">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M5.82062 14.1784H3.0332V7.21583H5.81954V14.1795L5.82062 14.1784ZM11.3922 14.1784H8.60587V0.25H11.3922V14.1784ZM16.9627 14.1784H14.1775V4.42842H16.9627V14.1784Z"
+                  fill="#666666" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.75 19.4401H0.25V17.2734H19.75V19.4401Z"
+                  fill="#666666" />
+              </svg>
+              Statistics
+            </div>
+          </div>
+          <!-- top-content div over -->
+          <div class="bottom-content">
+            <div class="box">
+              <div class="title">
+                Today Profit
+              </div>
+              <div class="discription">
+                {{(userProfile.appTodaySportPL + userProfile.appTodayCasinoPL) | number:'1.0-2'}}
+              </div>
+            </div>
+            <!-- box div over -->
+            <div class="box">
+              <div class="title">
+                Today profit in sport
+              </div>
+              <div class="discription">
+                {{userProfile.appTodaySportPL | number:'1.0-2'}}
+              </div>
+            </div>
+            <!-- box div over -->
+            <div class="box">
+              <div class="title">
+                Today profit in casino
+              </div>
+              <div class="discription">
+                {{userProfile.appTodayCasinoPL | number:'1.0-2'}}
+              </div>
+            </div>
+            <!-- box div over -->
+          </div>
+          <!-- bottom-content div over -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row p-0 statistics-content">
+      <div class="col s12 m4">
+        <div class="bonus-subscription user-bg">
+          <h4>
+            Bonus subscription
+            <ng-container *ngIf="userProfile && userProfile.wagerList && userProfile.wagerList.length > 1">
+              ({{userProfile.wagerList.length}})
+            </ng-container>
+          </h4>
+          <div class="bonus-slider"
+            *ngIf="userProfile && userProfile.wagerList && userProfile.wagerList.length > 0 else elseBlock">
+            <ng-container *ngFor="let item of userProfile.wagerList;trackBy:trackByFun;let i= index">
+              <div class="item" *ngIf="selectedBonusIndex == i">
+                <div class="bottomhead">{{item.wn}}</div>
+                <div class="subsciptions" *ngIf="item.iswager else bonusBlock">
+                  <div class="left-sub">
+                    <div class="achieved">Achieved</div>
+                    <div class="achieved-amount">{{item.achamt | number:'1.0-2'}}</div>
+                  </div>
+                  <div class="right-sub">
+                    <div class="top">
+                      <div class="totalwagerhead">Total Wager</div>
+                      <div class="totalwageramount">{{item.wagamt | number:'1.0-2'}}</div>
+                    </div>
+                    <div class="bottom">
+                      <div class="remainwagerhead">Remain Wager</div>
+                      <div class="remainwageramount">{{(item.wagamt - item.achamt) > 0 ? transformDecimal(item.wagamt -
+                        item.achamt) : 0}}</div>
+                    </div>
+                  </div>
+                </div>
+                <ng-template #bonusBlock>
+                  <div class="subsciptions">
+                    <div class="left-sub">
+                      <div class="achieved">Total Bonus</div>
+                      <div class="achieved-amount">{{item.bonus | number:'1.0-2'}}</div>
+                    </div>
+                    <div class="right-sub">
+                      <div class="top">
+                        <div class="totalwagerhead">Used Bonus</div>
+                        <div class="totalwageramount">{{(item.bonus - item.wam) > 0 ? transformDecimal(item.bonus -
+                          item.wam) : 0}}</div>
+                      </div>
+                      <div class="bottom">
+                        <div class="remainwagerhead">Remain Bonus</div>
+                        <div class="remainwageramount">{{item.wam | number:'1.0-2'}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </ng-container>
+          </div>
+          <ng-template #elseBlock>
+            <span
+              style="color: var(--profile-sub-title);font-size: 13px;font-weight: 500;text-align: center;display: block;">Bonus
+              subscription not available.</span>
+          </ng-template>
+          <div class="slide-arrow" *ngIf="userProfile && userProfile.wagerList && userProfile.wagerList.length > 1">
+            <div class="left-arrow" (click)="onPreviousClick()">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="right-arrow" (click)="onNextClick()">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m8 user-top-content">
+        <div class="user-bg turnover-details">
+          <div class="top-content">
+            <div class="turnover-image">
+              <img src="assets/images/turnover-img.png" alt="" loading="lazy">
+            </div>
+            <div class="turnover">
+              <div class="turnover-date">
+                Today total deposit
+              </div>
+              <div class="center-align total-turnover">
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                  viewBox="0 0 64.000000 64.000000" preserveAspectRatio="xMidYMid meet">
+
+                  <g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                    <path d="M98 564 c-5 -4 -8 -29 -8 -56 0 -47 0 -48 -32 -48 -42 0 -63 -13 -55
+-34 4 -11 19 -16 46 -16 l40 0 3 -157 3 -158 38 -3 37 -3 0 101 0 101 48 -3
+47 -3 35 -97 35 -98 38 0 c20 0 37 1 37 3 0 1 -18 49 -40 106 l-39 104 24 29
+c14 16 28 40 31 54 5 19 13 24 38 24 18 0 37 5 44 12 18 18 -5 38 -42 38 -25
+0 -35 6 -49 33 -29 53 -67 70 -176 75 -53 2 -99 1 -103 -4z m177 -68 c55 -23
+43 -36 -35 -36 -68 0 -70 1 -70 25 0 22 4 25 35 25 20 0 51 -7 70 -14z m35
+-106 c-15 -28 -42 -40 -94 -40 -44 0 -46 1 -46 30 l0 30 75 0 c72 0 75 -1 65
+-20z" />
+                    <path d="M500 399 c-37 -15 -58 -38 -65 -71 -10 -43 11 -76 65 -103 54 -28 73
+-47 64 -68 -8 -23 -42 -28 -86 -12 -38 13 -39 12 -49 -13 -6 -15 -6 -29 -1
+-34 17 -17 86 -27 125 -18 49 11 75 34 83 75 9 49 -16 87 -75 114 -55 26 -69
+47 -47 69 12 12 23 13 56 4 39 -10 42 -9 51 15 12 32 13 30 -22 42 -38 13 -65
+13 -99 0z" />
+                  </g>
+                </svg>
+
+                {{userProfile.appDeposit ? (userProfile.appDeposit | number:'1.0-2') : 0 }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <!-- <form>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Stake1</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="5000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Stake2</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="10000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Stake3</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="20000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Stake4</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="50000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Plus1</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="75000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Plus2</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="100000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Plus3</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="200000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="UserProfile_Stake1">Plus4</label>
+        <div class="stake-input">
+          <input class="form-control" type="number" data-val="true" data-val-required="The Stake1 field is required."
+            id="UserProfile_Stake1" name="UserProfile.Stake1" value="300000"><input name="__Invariant" type="hidden"
+            value="UserProfile.Stake1">
+          <span class="field-validation-valid" data-valmsg-for="UserProfile.Stake1" data-valmsg-replace="true"></span>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn submit-btn" type="submit">Save changes</button>
+        <button class="btn cancel-btn" type="button">Cancel</button>
+      </div>
+    </form> -->
+    <!--  -->
+  </div>
+</div>
+<app-change-password #changepassword />
+
+<div id="otp-page" class="modal modal-fixed-footer" #updateMobilePage>
+  <a href="javascript:void(0)" class="modal-close close-icon" (click)="updateMobilePageInstances.close()"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-body">
+      <span class="title">
+        Update Mobile
+      </span>
+      <div class="otp-page">
+        <div class="otp-details">
+          <form [formGroup]="UpdateMobileNoForm">
+            <div class="row enter-number">
+              <div class="input-field" *ngIf="UpdateMobileNoForm.get('mobileNo') as mobilenumCtrl">
+                <ngx-intl-tel-input [cssClass]="'validate mobile-input'" [onlyCountries]="onlyCountries"
+                  [enableAutoCountrySelect]="true" [customPlaceholder]="PhonePacleHolder" [searchCountryFlag]="false"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="selectedCountryISO" [maxLength]="10" [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="mobile"
+                  formControlName="mobileNo" (keyup)="mobilekeyup($event)">
+                </ngx-intl-tel-input>
+                <label for="user_mobile" class="active">Mobile No</label>
+                <div *ngIf="mobilenumCtrl.errors && (mobilenumCtrl.dirty || mobilenumCtrl.touched)">
+                  <span class="helper-text error  left-align" data-error="wrong" data-success="right"
+                    *ngIf="numberrequiredvalidation">Mobile number is required</span>
+                </div>
+                <div class="helper-text error  left-align" data-error="wrong" data-success="right"
+                  *ngIf="numbervalidation">
+                  Enter valid mobile number.</div>
+              </div>
+              <div class="edit-button">
+                <a href="javascript:void(0)" class="edit-btn">
+                  <i class="fas fa-pencil-alt"></i>
+                </a>
+              </div>
+              <div class="confirm-btn">
+                <a href="javascript:void(0)" class="v-status verified"
+                  [ngClass]="loading || !UpdateMobileNoForm.valid ?'login-disable':''" (click)="onResendOtpClick()">
+                  Update
+                </a>
+                <a href="javascript:void(0)" class="v-status not-verified">
+                  <i *ngIf="loading && UpdateMobileNoForm.valid" class="fas fa-times"></i>
+                </a>
+              </div>
+
+            </div>
+          </form>
+
+          <div class="wrap" [class.is-show]="isShowOTPBox">
+            <div class="text">We sent a 6-digit code to your mobile number </div>
+          </div>
+          <div class="bottom-border is-hidden" [class.is-show]="isShowOTPBox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="740" height="1" viewBox="0 0 740 1" fill="none">
+              <line y1="0.5" x2="740" y2="0.5" stroke="url(#paint0_radial_1123_2933)" />
+              <defs>
+                <radialGradient id="paint0_radial_1123_2933" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(345.501 -3.99881) rotate(58.742) scale(166.697 123356)">
+                  <stop stop-color="#E4E1E1" />
+                  <stop offset="1" stop-color="#F5F4F4" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="otp-verify is-hidden" [class.is-show]="isShowOTPBox">
+            <div class="enter-otp">
+              Enter Your OTP code here
+            </div>
+            <form>
+              <div class="mt-10 mb-10">
+                <ng-otp-input *ngIf="showOtpComponent" #ngOtpInput (onInputChange)="onOtpChange($event)"
+                  [config]="config"></ng-otp-input>
+              </div>
+              <div *ngIf="isOtpCheck">
+                <span class="helper-text error  left-align" data-error="wrong" data-success="right">Only 1 Number can
+                  Add</span>
+              </div>
+              <div *ngIf="!isValidOTP">
+                <span class="helper-text error  center-align" data-error="wrong" data-success="right">Please enter
+                  OTP</span>
+              </div>
+              <div class="otp-expire" *ngIf="!isResendOtp">
+                Resend OTP in :<span class="timer" id="timer"> {{displayotptimer}} </span>
+              </div>
+              <div class="send-code" *ngIf="isResendOtp">
+                <div class="text"> Didn't receive the code? </div>
+                <a href="javascript:void(0)" class="resend-code" (click)="onResendOtpClick()">Resend code</a>
+              </div>
+              <button class="btn btn-verify" [disabled]="loading" (click)="UpdateMobile()">
+                <i *ngIf="loading" class="fa fa-circle-notch fa-spin fa-sm"
+                  style="font-size: 14px;margin-right: 2px;"></i>
+                <span class="animate-btn">
+                  Update
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<pb-loading-bar *ngIf="loading"/>
+<div  style="visibility: hidden;">
+    <re-captcha size="invisible" #captchaRef="reCaptcha" (resolved)="resolved($event)" [siteKey]="sitekey"></re-captcha>
+  </div>

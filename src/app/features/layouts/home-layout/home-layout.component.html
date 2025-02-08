@@ -1,0 +1,192 @@
+<body class="bg-img bg-gray" [class.dark]="isDarkTheme" *ngIf="!inMaintenance"
+  [class.landing-page]="router.url.indexOf('/home') === 0">
+  <pb-header />
+  <router-outlet></router-outlet>
+  <app-bottom-menu/>
+</body>
+<div id="betlist" class="modal modal-fixed-footer" #matchedunmatched>
+  <a href="javascript:void(0);" class="modal-close right close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+  <h5>
+    <span class="card-title">
+      <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+      <span class="title">
+        Betlist
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="change-password-content">
+      <div class="my-bets is-hidden" [class.is-show]="matchBetCount > 0 || unMatchBetCount > 0">
+        <div class="title">
+          <h3>
+            <span class="icons">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="path-1-inside-1_2163_368" fill="white">
+                  <path
+                    d="M14.9518 15.9783C15.5776 16.6041 16.7787 16.8362 17.5156 16.0691C15.8602 15.9783 14.7398 14.5854 15.083 12.9502C14.1544 13.788 14.1342 15.1607 14.9518 15.9783Z" />
+                </mask>
+                <path
+                  d="M17.5156 16.0691L18.5974 17.1082L20.862 14.7505L17.5977 14.5714L17.5156 16.0691ZM15.083 12.9502L16.551 13.2583L17.4967 8.75239L14.0782 11.8365L15.083 12.9502ZM13.8911 17.0389C14.4593 17.6071 15.2485 17.9706 16.0638 18.0406C16.9075 18.1129 17.8644 17.8713 18.5974 17.1082L16.4338 15.03C16.4218 15.0425 16.4171 15.0438 16.4121 15.0454C16.4023 15.0487 16.3729 15.0561 16.3202 15.0515C16.2666 15.0469 16.2033 15.031 16.1407 15.0021C16.0775 14.973 16.0346 14.9397 16.0124 14.9176L13.8911 17.0389ZM17.5977 14.5714C16.8214 14.5288 16.4044 13.9567 16.551 13.2583L13.615 12.6421C13.0752 15.214 14.899 17.4278 17.4334 17.5669L17.5977 14.5714ZM14.0782 11.8365C12.5309 13.2324 12.4486 15.5964 13.8911 17.0389L16.0124 14.9176C15.8198 14.725 15.7779 14.3435 16.0878 14.0639L14.0782 11.8365Z"
+                  fill="#A1A0A2" mask="url(#path-1-inside-1_2163_368)" />
+                <path
+                  d="M17.5942 14.7687L17.5942 14.7687L17.5918 14.7769C17.5625 14.8768 17.5381 14.9422 17.5185 14.985C17.4813 14.9832 17.4248 14.977 17.3441 14.9602L17.3441 14.9602L17.3416 14.9597C17.1276 14.9158 16.8253 14.7396 16.549 14.4368C16.2742 14.1358 16.1183 13.8115 16.088 13.5808C16.0692 13.4307 16.062 13.3281 16.0625 13.2556C16.0877 13.2487 16.1189 13.2414 16.1572 13.234C16.159 13.2338 16.1616 13.2335 16.1648 13.2331C16.1726 13.2323 16.1832 13.2313 16.1965 13.2305C16.2234 13.2288 16.2587 13.2279 16.3006 13.229C16.3851 13.2313 16.4895 13.2418 16.602 13.2681C16.8259 13.3203 17.0649 13.4296 17.2634 13.6468L17.2706 13.6547L17.278 13.6623C17.4583 13.8487 17.5545 14.075 17.5952 14.2976C17.6382 14.5327 17.6105 14.7154 17.5942 14.7687Z"
+                  stroke="#A1A0A2" stroke-width="1.5" />
+                <path
+                  d="M16.1387 1.47038L16.15 1.47274L16.1613 1.47476C17.6589 1.7425 18.8402 2.92374 19.1079 4.4214L19.1093 4.42897L19.1108 4.43651C19.1263 4.51401 19.1332 4.57128 19.1343 4.61452C19.135 4.64262 19.133 4.65854 19.1318 4.66538C19.0833 4.79135 18.9604 4.93209 18.7102 5.18229L18.7069 5.18569C16.9131 7.00254 15.1083 8.80405 13.2998 10.6092C11.9414 11.9652 10.5808 13.3232 9.2214 14.6913C9.13575 14.7769 9.07022 14.8378 9.01978 14.8809C8.97465 14.8418 8.91667 14.7877 8.84204 14.7132C8.33062 14.1917 7.8171 13.6782 7.30784 13.1689L7.30654 13.1676C6.79512 12.6562 6.28802 12.1491 5.78637 11.6374L5.78082 11.6317L5.77515 11.6262C5.75108 11.6026 5.73075 11.5816 5.71366 11.5629C5.73196 11.5423 5.75398 11.5188 5.78039 11.4924C7.96207 9.32417 10.1357 7.14605 12.305 4.97221C13.3882 3.88682 14.4703 2.8025 15.5518 1.72101C15.7026 1.57017 15.8141 1.49131 15.9138 1.45226C15.926 1.44989 15.9458 1.44765 15.9757 1.44838C16.0178 1.44942 16.0709 1.4561 16.1387 1.47038Z"
+                  stroke="#292D32" stroke-width="1.5" />
+                <path
+                  d="M5.08499 15.0847L5.08503 15.0848L5.09183 15.0778C5.23414 14.9317 5.35347 14.7773 5.45165 14.6163C5.64106 14.8098 5.83062 15.003 6.02028 15.1956C5.68949 15.4018 5.41508 15.6614 5.18641 15.8901C4.3898 16.6792 3.58976 17.4387 2.77749 18.2098C2.50114 18.4721 2.22337 18.7358 1.94384 19.0025C1.87306 19.0621 1.80468 19.118 1.74283 19.1651C1.67258 19.1309 1.57482 19.0688 1.47717 18.9828C1.40212 18.9167 1.35249 18.8589 1.32276 18.8184C1.78111 18.3399 2.59149 17.5436 3.43344 16.7163C4.00253 16.157 4.58603 15.5837 5.08499 15.0847Z"
+                  stroke="#292D32" stroke-width="1.5" />
+              </svg>
+            </span>
+            Matched Bet
+          </h3>
+        </div>
+        <app-matchedbet />
+        <div class="title">
+          <h3>
+            <span class="icons">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="path-1-inside-1_2163_368" fill="white">
+                  <path
+                    d="M14.9518 15.9783C15.5776 16.6041 16.7787 16.8362 17.5156 16.0691C15.8602 15.9783 14.7398 14.5854 15.083 12.9502C14.1544 13.788 14.1342 15.1607 14.9518 15.9783Z" />
+                </mask>
+                <path
+                  d="M17.5156 16.0691L18.5974 17.1082L20.862 14.7505L17.5977 14.5714L17.5156 16.0691ZM15.083 12.9502L16.551 13.2583L17.4967 8.75239L14.0782 11.8365L15.083 12.9502ZM13.8911 17.0389C14.4593 17.6071 15.2485 17.9706 16.0638 18.0406C16.9075 18.1129 17.8644 17.8713 18.5974 17.1082L16.4338 15.03C16.4218 15.0425 16.4171 15.0438 16.4121 15.0454C16.4023 15.0487 16.3729 15.0561 16.3202 15.0515C16.2666 15.0469 16.2033 15.031 16.1407 15.0021C16.0775 14.973 16.0346 14.9397 16.0124 14.9176L13.8911 17.0389ZM17.5977 14.5714C16.8214 14.5288 16.4044 13.9567 16.551 13.2583L13.615 12.6421C13.0752 15.214 14.899 17.4278 17.4334 17.5669L17.5977 14.5714ZM14.0782 11.8365C12.5309 13.2324 12.4486 15.5964 13.8911 17.0389L16.0124 14.9176C15.8198 14.725 15.7779 14.3435 16.0878 14.0639L14.0782 11.8365Z"
+                  fill="#A1A0A2" mask="url(#path-1-inside-1_2163_368)" />
+                <path
+                  d="M17.5942 14.7687L17.5942 14.7687L17.5918 14.7769C17.5625 14.8768 17.5381 14.9422 17.5185 14.985C17.4813 14.9832 17.4248 14.977 17.3441 14.9602L17.3441 14.9602L17.3416 14.9597C17.1276 14.9158 16.8253 14.7396 16.549 14.4368C16.2742 14.1358 16.1183 13.8115 16.088 13.5808C16.0692 13.4307 16.062 13.3281 16.0625 13.2556C16.0877 13.2487 16.1189 13.2414 16.1572 13.234C16.159 13.2338 16.1616 13.2335 16.1648 13.2331C16.1726 13.2323 16.1832 13.2313 16.1965 13.2305C16.2234 13.2288 16.2587 13.2279 16.3006 13.229C16.3851 13.2313 16.4895 13.2418 16.602 13.2681C16.8259 13.3203 17.0649 13.4296 17.2634 13.6468L17.2706 13.6547L17.278 13.6623C17.4583 13.8487 17.5545 14.075 17.5952 14.2976C17.6382 14.5327 17.6105 14.7154 17.5942 14.7687Z"
+                  stroke="#A1A0A2" stroke-width="1.5" />
+                <path
+                  d="M16.1387 1.47038L16.15 1.47274L16.1613 1.47476C17.6589 1.7425 18.8402 2.92374 19.1079 4.4214L19.1093 4.42897L19.1108 4.43651C19.1263 4.51401 19.1332 4.57128 19.1343 4.61452C19.135 4.64262 19.133 4.65854 19.1318 4.66538C19.0833 4.79135 18.9604 4.93209 18.7102 5.18229L18.7069 5.18569C16.9131 7.00254 15.1083 8.80405 13.2998 10.6092C11.9414 11.9652 10.5808 13.3232 9.2214 14.6913C9.13575 14.7769 9.07022 14.8378 9.01978 14.8809C8.97465 14.8418 8.91667 14.7877 8.84204 14.7132C8.33062 14.1917 7.8171 13.6782 7.30784 13.1689L7.30654 13.1676C6.79512 12.6562 6.28802 12.1491 5.78637 11.6374L5.78082 11.6317L5.77515 11.6262C5.75108 11.6026 5.73075 11.5816 5.71366 11.5629C5.73196 11.5423 5.75398 11.5188 5.78039 11.4924C7.96207 9.32417 10.1357 7.14605 12.305 4.97221C13.3882 3.88682 14.4703 2.8025 15.5518 1.72101C15.7026 1.57017 15.8141 1.49131 15.9138 1.45226C15.926 1.44989 15.9458 1.44765 15.9757 1.44838C16.0178 1.44942 16.0709 1.4561 16.1387 1.47038Z"
+                  stroke="#292D32" stroke-width="1.5" />
+                <path
+                  d="M5.08499 15.0847L5.08503 15.0848L5.09183 15.0778C5.23414 14.9317 5.35347 14.7773 5.45165 14.6163C5.64106 14.8098 5.83062 15.003 6.02028 15.1956C5.68949 15.4018 5.41508 15.6614 5.18641 15.8901C4.3898 16.6792 3.58976 17.4387 2.77749 18.2098C2.50114 18.4721 2.22337 18.7358 1.94384 19.0025C1.87306 19.0621 1.80468 19.118 1.74283 19.1651C1.67258 19.1309 1.57482 19.0688 1.47717 18.9828C1.40212 18.9167 1.35249 18.8589 1.32276 18.8184C1.78111 18.3399 2.59149 17.5436 3.43344 16.7163C4.00253 16.157 4.58603 15.5837 5.08499 15.0847Z"
+                  stroke="#292D32" stroke-width="1.5" />
+              </svg>
+            </span>
+            UnMatched Bet
+          </h3>
+        </div>
+        <app-unmatchedbet />
+      </div>
+      <div class="my-bets is-hidden" [class.is-show]="matchBetCount == 0 && unMatchBetCount == 0">
+        <div class="empty-betlist">
+          <img src="assets/images/no-betlist.png" alt="" loading="lazy">
+          <div class="title">Your Betlist is empty</div>
+          <div class="title2">Click on odds to add a bet to the betlist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<pb-loading-bar *ngIf="loading" />
+<app-maintenance *ngIf="inMaintenance" />
+
+<div id="small-deposit-modal" class="modal modal-fixed-footer" #verifyIpAdd>
+  <h5>
+    <span class="card-title">
+      <img [src]="commonService.imgRelativePath('assets/images/ac-title-bg.png?v=1.7')" alt="" loading="lazy">
+      <span class="title">
+        Restricted
+      </span>
+    </span>
+  </h5>
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="contents">
+        <div class="verification-img">
+          <img src="assets/images/restricted-area.png" alt="" loading="lazy">
+        </div>
+        <b>Access denied</b><br>
+        You do not have access to {{websiteOrigin}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row submit-btn">
+        <a href="javascript:void(0)" class="green btn" (click)="logOut()">
+          <span class="animate-btn">Ok</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="change-password" class="modal modal-fixed-footer animated animatedFadeInUp fadeInUp" #UpdateUsernamePassword>
+  <a href="javascript:void(0)" (click)="UpdateUsernamePasswordIns.close()" class="modal-close close-icon"><i
+      class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="modal-content">
+    <div class="modal-body web-search">
+      <span class="title">
+        Update
+      </span>
+      <div class="change-password-content">
+        <form class="col s12" [formGroup]="UpdateUsernamePasswordForm" novalidate
+          (ngSubmit)="onUpdateUsernamePassword()">
+          <div class="row  p-0 mb-15">
+            <div class="col s12 m6" *ngIf="UpdateUsernamePasswordForm.get('UserName') as userNameCtrl">
+              <div class="input-field">
+                <input placeholder="Enter UserName" type="text" class="validate" formControlName="UserName"
+                  [ngClass]="{'invalid': userNameCtrl.invalid && userNameCtrl.dirty}">
+                <label class="active">UserName</label>
+                <div *ngIf="userNameCtrl.errors && (userNameCtrl.dirty || userNameCtrl.touched)">
+                  <span class="helper-text error txt-red" data-error="wrong" data-success="right"
+                    *ngIf="userNameCtrl.errors.required" style="top:6px;">UserName is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-0 mb-15">
+            <div class="col s12 m6" *ngIf="UpdateUsernamePasswordForm.get('Password') as newPwdCtrl">
+              <div class="input-field">
+                <input placeholder="Enter New Password" type="password" class="validate" (keyup)="compairNewConfirm()"
+                  formControlName="Password" [ngClass]="{'invalid': newPwdCtrl.invalid && newPwdCtrl.dirty}">
+                <label class="active">New Password</label>
+                <div *ngIf="newPwdCtrl.errors && (newPwdCtrl.dirty || newPwdCtrl.touched)">
+                  <span *ngIf="newPwdCtrl.errors.required" class="helper-text error" data-error="wrong" style="top:6px;"
+                    data-success="right">New Password is required.</span>
+                  <span *ngIf="newPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                    style="top:6px;" data-success="right">{{passwordPatterncheck[1]}}</span>
+                  <span *ngIf="newPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                    style="top:6px;" data-success="right">Example: {{passwordPatterncheck[2]}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 mobile-row">
+              <div class="input-field" *ngIf="UpdateUsernamePasswordForm.get('ConfirmPassword') as confirmPwdCtrl">
+                <input placeholder="Enter Confirm Password" type="password" class="validate"
+                  (keyup)="compairNewConfirm()" formControlName="ConfirmPassword"
+                  [ngClass]="{'invalid': confirmPwdCtrl.invalid && confirmPwdCtrl.dirty}">
+                <label class="active">Confirm Password</label>
+                <div *ngIf="confirmPwdCtrl.errors && (confirmPwdCtrl.dirty || confirmPwdCtrl.touched)">
+                  <span *ngIf="confirmPwdCtrl.errors.required" class="helper-text error" data-error="wrong"
+                    data-success="right" style="top:6px;">Confirm
+                    Password is required.</span>
+                  <span *ngIf="confirmPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                    style="top:6px;" data-success="right">{{passwordPatterncheck[1]}}</span>
+                  <span *ngIf="confirmPwdCtrl.errors.pattern" class="helper-text error left-align" data-error="wrong"
+                    style="top:6px;" data-success="right">Example: {{passwordPatterncheck[2]}}</span>
+                </div>
+                <span *ngIf="!isPasswordSame" class="helper-text error txt-red" style="top:6px;">
+                  Confirm password must be same as new password.</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal-footer">
+      <div class="submit-btn center-align">
+        <div class="submit-button" href="javascript:void(0)" (click)="onUpdateUsernamePassword()">
+          <i *ngIf="loading && UpdateUsernamePasswordForm.valid" class="fa fa-circle-notch fa-spin fa-sm"
+            style="font-size: 14px;margin-right: 2px;"></i>
+          <span class="submit-title">Update</span>
+        </div>
+      </div>
+    </div>
+  </div>

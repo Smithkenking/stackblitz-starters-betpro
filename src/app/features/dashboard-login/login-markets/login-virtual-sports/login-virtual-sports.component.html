@@ -1,0 +1,263 @@
+<div class="col-center  market-right">
+  <div class="row mb-0">
+    <div class="tabGroup">
+      <div class="market-main">
+        <!--  -->
+        <div class="virtual-league mb-10" *ngIf="sportTournamentList.length > 0 && router.url.indexOf('/event/virtual-sports') == 0">
+          <div class="slider-scroll">
+            <div class="scroll-slider">
+              <div class="item_main" *ngFor="let tournament of sportTournamentList;let i = index;trackBy: trackByFn">
+                <a href="javascript:void(0);" [class.active]="sportTournamentId == tournament.tid"
+                  (click)="onTournamentClick(tournament)">
+                  <img *ngIf="tournament.t1i" src="{{tournament.t1i}}" alt="" loading="lazy"> {{tournament.tn}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="slider-arrows">
+            <a href="javascript:void(0);" class="previous-arrow active">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="javascript:void(0);" class="next-arrow active">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        </div>
+        <!--  -->
+        <div class="main-events" *ngIf="openpage !== 4 &&  getMarket() | async">
+          <ng-container *ngIf="(openpage == 3) else elseblock">
+            <div class="left-title" style="line-height: 3.3;" *ngIf="matchInfo && matchInfo.length > 0">
+              <ng-container *ngFor="let market of matchInfo;let first=first">
+                <span class="team-name" *ngIf="first">
+                  {{market.en}}
+                </span>
+              </ng-container>
+            </div>
+           
+            <div class="live-content">
+              live
+            </div> 
+          </ng-container>
+          <ng-template #elseblock>
+            <div class="left-title" style="line-height: 3.3;" *ngIf="matchInfo && matchInfo.length > 0">
+              <ng-container *ngFor="let market of matchInfo;">
+                <span class="team-name" *ngIf="market.isLive">
+                  {{market.en}}
+                </span>
+              </ng-container>
+            </div>
+           
+            <div class="live-content">
+              live
+            </div> 
+          </ng-template>       
+      
+        </div>
+        <div class="main-events" *ngIf="openpage == 4 && matchInfo && matchInfo.length > 0 && (getMarket() | async)" >
+          <div class="left-title" style="line-height: 3.3;">
+              <span class="team-name">
+                {{matchInfo[selectedIndex].en}}
+              </span>
+          </div> 
+          </div>
+        <div id="live-tv" class="live-match mb-20 center" *ngIf="iframeUrl && getMarket() | async">
+          <div id="live-tv" class="live-match">
+            <div [innerHtml]="iframeUrl | safe: 'html'"></div>
+          </div>
+        </div>
+
+        <div class="select-bet" *ngIf="getMarket() | async else loading">
+         
+          <div class="" id="new-events">
+            <div class="select-events">
+              <div class="cat-scroll">
+                <ul class="tabs">
+                 
+                  <li class="tab" *ngFor="let market of matchInfo;let i = index;let first=first;trackBy: trackByFn" (click)="eventClick(market,i);">
+  
+                    <!-- <a href="javascript:void(0);" class="ripple" [class.active]="selectedIndex == i" >
+                    <span class="time" *ngIf="!market.isLive"> {{market.ed | date: 'h:mm'}} </span> 
+                    <span class="live" *ngIf="market.isLive"> live</span>
+                     {{market.en}} 
+                  </a> -->
+                  <ng-container *ngIf="(openpage == 3) else elseBlockk">
+                    <a href="javascript:void(0);" class="ripple active" *ngIf="first">
+                      <!-- <span class="countdown"
+                        *ngIf="!market.isLive && market.isShowTimer && (market.ed | countdown : true | async) !== null">{{market.ed |
+                        countdown : true | async}}</span> -->
+                      <span class="time" *ngIf="!market.isLive"> {{market.ed | date: 'h:mm'}} </span>
+                      <span class="live" *ngIf="market.isLive"> live</span>
+                      <!-- <span class="lock-icon" *ngIf="market.isLive">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                      <span class="lock-icon" *ngIf="!market.isLive && market.isUnlockbet">
+                        <i class="fas fa-lock-open"></i>
+                      </span> -->
+                    
+                      {{market.en}}
+                    </a>
+                  </ng-container>
+                  <ng-template #elseBlockk>
+                  <a href="javascript:void(0);" class="ripple" [class.active]="selectedIndex == i" >
+                    <span class="countdown" *ngIf="!market.isLive && market.isShowTimer && (market.ed | countdown : true | async) !== null">{{market.ed  | countdown : true | async}}</span>
+                    <span class="time" *ngIf="!market.isLive"> {{market.ed | date: 'h:mm'}} </span> 
+                    <span class="live" *ngIf="market.isLive"> live</span>
+                    <span class="lock-icon" *ngIf="market.isLive">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <span class="lock-icon" *ngIf="!market.isLive && market.isUnlockbet">
+                      <i class="fas fa-lock-open"></i>
+                    </span>
+                     {{market.en}} 
+                  </a>
+                  </ng-template>
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-contents" id="events-tabs">
+          <ng-container *ngFor="let market of matchInfo;let first = first;index as m;trackBy: trackByFn">
+            <div class="swichtab-panel is-hidden" [class.is-show]="openpage == 3 && first"  > 
+              <app-virtual-market [matchInfo]="market" />
+            </div>
+            <div class="swichtab-panel is-hidden" [class.is-show]="selectedIndex == m && openpage != 3"  > 
+              <app-virtual-market [matchInfo]="market"/>
+            </div>
+          </ng-container>
+          </div>
+        </div>
+        <ng-template #loading>
+          <div class="ph-bet-semiheader">
+          </div>
+          <div class="bet-list">
+            <div class="team-market">
+              <div class="team1 cteam">
+                <div class="team-name ">
+                  <p></p>
+                </div>
+                <div class="bet-value l-blue hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value m-blue hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value v-blue">
+                  <a href="javascript:void(0);" class="back-bet-btn">
+                  </a>
+                </div>
+                <div class="bet-value v-pink">
+                  <a href="javascript:void(0);" class="lay-bet-btn">
+                  </a>
+                </div>
+                <div class="bet-value m-pink hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value l-pink hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+              </div>
+              <div class="suspend">
+                <div class="suspend-cont"></div>
+              </div>
+            </div>
+            <div class="team-market">
+              <div class="team1 cteam">
+                <div class="team-name ">
+                  <p></p>
+                </div>
+                <div class="bet-value l-blue hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value m-blue hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value v-blue">
+                  <a href="javascript:void(0);" class="back-bet-btn">
+                  </a>
+                </div>
+                <div class="bet-value v-pink">
+                  <a href="javascript:void(0);" class="lay-bet-btn">
+                  </a>
+                </div>
+                <div class="bet-value m-pink hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+                <div class="bet-value l-pink hide-on-med-and-down">
+                  <a href="javascript:void(0)">
+                  </a>
+                </div>
+              </div>
+              <div class="suspend">
+                <div class="suspend-cont"></div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+
+
+      </div>
+    </div>
+    <div class="rightsidebar scrollbar news-margin">
+      <div class="promotion-tab">
+        <div class="tab-right">
+          <div class="d-flex">
+              <strong>Unmatched Bet</strong>
+          </div>
+          <div class="center-align no-bets">There are currently no unmatched Bets.
+          </div>
+      </div>
+      <div class="tab-right match-hidden">
+          <div class="d-flex">
+              <strong>Matched Bet</strong>
+          </div>
+          <div class="center-align no-bets">There are currently no matched Bets.
+          </div>
+      </div>
+        <div class="tab-right main " [class.back]="bet?.isBack" [class.lay]="!bet?.isBack">
+          <div class="d-flex">
+            <strong>Bet Slip</strong>
+          </div>
+          <div class="title" *ngIf="togglePanelView">
+            <a href="">Bet for</a>
+            <div class="betslip-title">
+              <a href="">Odds</a>
+              <a href="">Stake</a>
+              <a href="">Profit</a>
+            </div>
+          </div>
+          <div class="bet-input-container" *ngIf="togglePanelView" app-login-market-place-bet-views [bet]="bet"
+            (openPopup)="openLoginModel()">
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="betslip-modal">
+    <div id="market-bet-modal" class="modal market-bet" #betpanelModal>
+      <a href="javascript:void(0);" class="modal-close close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
+      <div class="modal-content">
+        <div class="modal-body main" [class.back]="bet?.isBack" [class.lay]="!bet?.isBack">
+          <div class="bet-input-container" *ngIf="togglePanelView" app-login-market-place-bet-views [bet]="bet"
+            (openPopup)="openLoginModel()">
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

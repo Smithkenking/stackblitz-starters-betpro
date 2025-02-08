@@ -1,0 +1,31 @@
+<main class="full-wrap full-wrap-margin">
+    <div class="row m-0">
+        <!-- Left Content -->
+        <div class="col-center">
+            <!-- Account Statement -->
+            <div class="card z-depth-0 ">
+                <div class="card-content">
+                    <form>
+                        <div class="payment-accept center-align countdown">
+                            <div id="app"></div>
+                            <div class="mt-20">
+                                <h6 class="title mt-0">Payment Verification</h6>
+                                <p class="m-0">Please wait! let us confirm your transaction you will be
+                                    notify when its done</p>
+                                <h2 class="mt-20 mb-20 payment-amount">PKR {{amount}}</h2>
+                                <div class="d-flex align-items-center justify-content-center mt-30 transaction-btn">
+                                    <button class="mr-10 button-animate" [routerLink]="['/home']"><span
+                                            class="animate-btn">Home</span></button>
+                                    <button class="button-animate" [routerLink]="['/transaction-history']"><span
+                                            class="animate-btn">Transactions</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <app-rightsidebar />
+            <app-footer />
+        </div>
+    </div>
+</main>
